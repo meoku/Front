@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
-import icNav from '../../assets/icNav.svg'
+import icNav from "../../assets/icNav.svg";
 const NotFoundPage = () => {
   return (
     <div
       css={css`
-        display:flex;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -15,9 +15,13 @@ const NotFoundPage = () => {
         }
       `}
     >
-      <img css={css`
-        width:100rem;
-      ` } src={icNav} alt="Vite logo" />
+      <img
+        css={css`
+          width: 100rem;
+        `}
+        src={icNav}
+        alt="Vite logo"
+      />
       존재하지 않는 페이지 입니다.
     </div>
   );
