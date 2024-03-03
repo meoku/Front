@@ -17,7 +17,10 @@
     "react-router-dom": "^6.22.2"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@emotion/babel-plugin": "^11.11.0",
+=======
+>>>>>>> 44a97641cdef9b01a1d34defa0e3f1090d0ad5ef
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
