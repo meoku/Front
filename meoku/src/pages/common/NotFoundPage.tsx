@@ -8,7 +8,8 @@ const NotFoundPage = () => {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font-size: 5rem; /* 변경: 텍스트 크기 조정 */
+        width: 100vw;
+        font-size: 1rem; /* 변경: 텍스트 크기 조정 */
         margin: 0 auto;
         &:hover {
           color: pink;
@@ -17,10 +18,10 @@ const NotFoundPage = () => {
     >
       <img
         css={css`
-          width: 100rem;
+          width: 20rem;
         `}
         src={icNav}
-        alt="Vite logo"
+        alt="image"
       />
       존재하지 않는 페이지 입니다.
     </div>
