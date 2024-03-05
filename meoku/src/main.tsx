@@ -1,16 +1,20 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFoundPage from "./pages/common/NotFoundPage.tsx";
+import Admin from "./pages/admin/Admin.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
   // {
   //   path: "/ex",
