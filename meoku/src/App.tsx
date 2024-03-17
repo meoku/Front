@@ -1,14 +1,8 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import { css } from "@emotion/react";
 function App() {
   return (
-    <div
-      css={css`
-        width: 100vw;
-        height: 100vh;
-      `}
-    >
+    <div>
       <Navbar />
       {/* <div>
         <a href="https://vitejs.dev" target="_blank">
