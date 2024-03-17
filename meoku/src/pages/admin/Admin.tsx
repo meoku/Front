@@ -10,6 +10,7 @@ const Admin = () => {
           display: flex;
           justify-content: center;
           align-items: center;
+          flex-wrap: wrap;
           width: 100vw;
           height: 80vh;
         `}
