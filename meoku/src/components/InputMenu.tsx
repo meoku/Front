@@ -42,7 +42,7 @@ const InputMenus = () => {
   }, []);
   const dragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     dragItem.current = position;
-    console.log("darg start");
+    console.log("darg start", e);
   };
 
   const dragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
@@ -66,6 +66,7 @@ const InputMenus = () => {
     dragOverItem.current = null;
     if (menu == "first") setItem1(newItems);
     else if (menu == "second") setItem2(newItems);
+    console.log(e);
   };
   const drop2 = (
     e: React.DragEvent<HTMLDivElement>,
@@ -79,6 +80,7 @@ const InputMenus = () => {
     dragItem.current = null;
     dragOverItem.current = null;
     if (menu == "3") return;
+    console.log(e);
   };
   const InputTextMenu = styled.input`
     width: 8rem;
