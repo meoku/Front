@@ -6,7 +6,7 @@ import minusIco from "../assets/minus.svg";
 import plusIco from "../assets/plus.svg";
 
 const InputMenus = () => {
-  const [item1, setItem1] = useState([
+  const [item1, setItem1] = useState<[string, boolean][]>([
     ["밥", false],
     ["국", false],
     ["반찬1", false],
@@ -14,7 +14,7 @@ const InputMenus = () => {
     ["반찬3", false],
     ["반찬4", false],
   ]);
-  const [item2, setItem2] = useState([
+  const [item2, setItem2] = useState<[string, boolean][]>([
     ["밥1", false],
     ["국2", false],
     ["반찬11", false],
@@ -25,7 +25,7 @@ const InputMenus = () => {
   const [item3, setItem3] = useState([["PLUS1"], ["PLUS2"]]);
   const [item4, setItem4] = useState([["SALAD"]]);
   const [item5, setItem5] = useState([["SIMPLE"]]);
-  const [item6, setItem6] = useState([
+  const [item6, setItem6] = useState<[string, boolean][]>([
     ["밥1", false],
     ["국2", false],
     ["반찬11", false],
@@ -35,32 +35,52 @@ const InputMenus = () => {
   ]);
   const [item7, setItem7] = useState([["PLUS1"], ["PLUS2"]]);
 
-  const dragItem = useRef();
-  const dragOverItem = useRef();
+  const dragItem = useRef<number | null>(null);
+  const dragOverItem = useRef<number | null>(null);
   useEffect(() => {
     axios.get("/user").then((res) => console.log(res.data));
   }, []);
-  const dragStart = (e, position: number) => {
+  const dragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     dragItem.current = position;
-    console.log("darg start");
+    console.log("darg start", e);
   };
 
-  const dragEnter = (e, position: number) => {
+  const dragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     console.log(e);
     console.log(dragItem);
     console.log(dragOverItem);
     dragOverItem.current = position;
     console.log("moving...");
   };
-  const drop = (e, item, menu) => {
+
+  const drop = (
+    e: React.DragEvent<HTMLDivElement>,
+    item: [string, boolean][],
+    menu: string
+  ) => {
     const newItems = [...item];
-    const dragItemValue = newItems[dragItem.current];
-    newItems.splice(dragItem.current, 1);
-    newItems.splice(dragOverItem.current, 0, dragItemValue);
+    const dragItemValue = newItems[dragItem.current!];
+    newItems.splice(dragItem.current!, 1);
+    newItems.splice(dragOverItem.current!, 0, dragItemValue);
     dragItem.current = null;
     dragOverItem.current = null;
     if (menu == "first") setItem1(newItems);
     else if (menu == "second") setItem2(newItems);
+    console.log(e);
+  };
+  const drop2 = (
+    e: React.DragEvent<HTMLDivElement>,
+    item: string[][],
+    menu: string
+  ) => {
+    const newItems = [...item];
+    const dragItemValue = newItems[dragItem.current!];
+    newItems.splice(dragItem.current!, 1);
+    newItems.splice(dragOverItem.current!, 0, dragItemValue);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    if (menu == "3") return;
+    console.log(e);
   };
   const InputTextMenu = styled.input`
     width: 8rem;
@@ -111,7 +131,7 @@ const InputMenus = () => {
               src={plusIco}
               onClick={() => {
                 const newArr = [...item1];
-                newArr.push([]);
+                newArr.push(["ex1", false]);
                 setItem1(newArr);
               }}
             />
@@ -179,7 +199,7 @@ const InputMenus = () => {
               src={plusIco}
               onClick={() => {
                 const newArr = [...item2];
-                newArr.push([]);
+                newArr.push(["ex1", false]);
                 setItem2(newArr);
               }}
             />
@@ -264,7 +284,7 @@ const InputMenus = () => {
                   cursor: pointer;
                 `}
                 onClick={() => {
-                  const newArr = [...item2];
+                  const newArr = [...item3];
                   newArr.splice(idx, 1);
                   setItem3(newArr);
                 }}
@@ -275,7 +295,7 @@ const InputMenus = () => {
                 draggable
                 onDragStart={(e) => dragStart(e, idx)}
                 onDragEnter={(e) => dragEnter(e, idx)}
-                onDragEnd={(e) => drop(e, item3, "3")}
+                onDragEnd={(e) => drop2(e, item3, "3")}
                 onDragOver={(e) => e.preventDefault()}
                 defaultValue={item[0]}
               ></InputTextMenu>
@@ -343,7 +363,7 @@ const InputMenus = () => {
                 draggable
                 onDragStart={(e) => dragStart(e, idx)}
                 onDragEnter={(e) => dragEnter(e, idx)}
-                onDragEnd={(e) => drop(e, item4, "4")}
+                onDragEnd={(e) => drop2(e, item4, "4")}
                 onDragOver={(e) => e.preventDefault()}
                 defaultValue={item[0]}
               ></InputTextMenu>
@@ -411,7 +431,7 @@ const InputMenus = () => {
                 draggable
                 onDragStart={(e) => dragStart(e, idx)}
                 onDragEnter={(e) => dragEnter(e, idx)}
-                onDragEnd={(e) => drop(e, item5, "5")}
+                onDragEnd={(e) => drop2(e, item5, "5")}
                 onDragOver={(e) => e.preventDefault()}
                 defaultValue={item[0]}
               ></InputTextMenu>
@@ -451,7 +471,7 @@ const InputMenus = () => {
               src={plusIco}
               onClick={() => {
                 const newArr = [...item6];
-                newArr.push([]);
+                newArr.push(["ex1", false]);
                 setItem6(newArr);
               }}
             />
