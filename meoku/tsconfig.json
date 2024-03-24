@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["vite/client", "@emotion/react/types/css-prop"],
+    "types": ["vite/client", "@emotion/react/types/css-prop", "node"],
     "jsxImportSource": "@emotion/react"
   },
   "include": ["src"],
