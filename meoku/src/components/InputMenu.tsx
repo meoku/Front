@@ -83,7 +83,7 @@ const InputMenus = () => {
     console.log(e);
   };
   const InputTextMenu = styled.input`
-    width: 8rem;
+    width: 6rem;
   `;
   const InputMenu = styled.div`
     display: flex;
@@ -104,7 +104,7 @@ const InputMenus = () => {
         css={css`
           /* display: flex;
           flex-direction: column; */
-          padding: 30px;
+          padding: 15px;
           border: 1px solid black;
           border-radius: 50px;
         `}
