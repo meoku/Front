@@ -1,4 +1,3 @@
-import { useState } from "react";
 import InputMenu from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
