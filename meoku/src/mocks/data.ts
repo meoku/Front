@@ -1,6 +1,6 @@
-import { DailyMenu } from "../type/type";
+import { dailyMenu } from "../type/type";
 
-const menuData: DailyMenu[] = [
+const menuData: dailyMenu[] = [
   {
     dailyMenuId: null,
     date: "2024-03-24T15:00:00.000+00:00",

@@ -1,4 +1,4 @@
-export interface MenuDetail {
+export interface menuDetail {
   detailedMenuId: number;
   dailyMenuId: number;
   dailyMenuDate: null;
@@ -27,7 +27,7 @@ export interface MenuDetail {
   menuDetailDTOList: null;
 }
 
-export interface DailyMenu {
+export interface dailyMenu {
   dailyMenuId: null;
   date: string;
   holidayFg: string;
@@ -36,5 +36,34 @@ export interface DailyMenu {
   createdBy: null;
   updatedDate: null;
   updatedBy: null;
-  detailedMenuDTOList: MenuDetail[];
+  detailedMenuDTOList: menuDetail[];
 }
+
+// export interface dailyMenuDetail {
+//   createdBy: string | null;
+//   createdDate: string | null;
+//   dailyMenuCategory: string | null;
+//   dailyMenuDate: string | null;
+//   dailyMenuId: number;
+//   detailedMenuId: number;
+//   detailedMenuImgUrl: string | null;
+//   detailedMenuName: string;
+//   mainMenuId: number;
+//   mainMenuName: string;
+//   mainMenuYn: string;
+//   menu1DetailId: number;
+//   menu1Name: string;
+//   menu2DetailId: number;
+//   menu2Name: string;
+//   menu3DetailId: number;
+//   menu3Name: string;
+//   menu4DetailId: number;
+//   menu4Name: string;
+//   menu5DetailId: number;
+//   menu5Name: string;
+//   menu6DetailId: number;
+//   menu6Name: string | null;
+//   menuDetailDTOList: string[] | null;
+//   updatedBy: string | null;
+//   updatedDate: string | null;
+// }

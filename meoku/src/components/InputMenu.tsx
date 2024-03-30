@@ -4,34 +4,38 @@ import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
 import minusIco from "../assets/minus.svg";
 import plusIco from "../assets/plus.svg";
-
-const InputMenus = ({ menuData, day }) => {
-  const [item1, setItem1] = useState<[string, boolean][]>([
-    ["밥", false],
-    ["국", false],
-    ["반찬1", false],
-    ["반찬2", false],
-    ["반찬3", false],
-    ["반찬4", false],
+import { menuDetail } from "../type/type";
+interface InputMenusProps {
+  menuData: menuDetail[];
+  day: string;
+}
+const InputMenus = ({ menuData, day }: InputMenusProps) => {
+  const [item1, setItem1] = useState<[string, string][]>([
+    ["밥", "N"],
+    ["국", "N"],
+    ["반찬1", "N"],
+    ["반찬2", "N"],
+    ["반찬3", "N"],
+    ["반찬4", "N"],
   ]);
-  const [item2, setItem2] = useState<[string, boolean][]>([
-    ["밥1", false],
-    ["국2", false],
-    ["반찬11", false],
-    ["반찬22", false],
-    ["반찬33", false],
-    ["반찬44", false],
+  const [item2, setItem2] = useState<[string, string][]>([
+    ["밥1", "N"],
+    ["국2", "N"],
+    ["반찬11", "N"],
+    ["반찬22", "N"],
+    ["반찬33", "N"],
+    ["반찬44", "N"],
   ]);
   const [item3, setItem3] = useState([["PLUS1"], ["PLUS2"]]);
   const [item4, setItem4] = useState([["SALAD"]]);
   //const [item5, setItem5] = useState([["SIMPLE"]]);
-  const [item6, setItem6] = useState<[string, boolean][]>([
-    ["밥1", false],
-    ["국2", false],
-    ["반찬11", false],
-    ["반찬22", false],
-    ["반찬33", false],
-    ["반찬44", false],
+  const [item6, setItem6] = useState<[string, string][]>([
+    ["밥1", "N"],
+    ["국2", "N"],
+    ["반찬11", "N"],
+    ["반찬22", "N"],
+    ["반찬33", "N"],
+    ["반찬44", "N"],
   ]);
   const [item7, setItem7] = useState([["PLUS1"], ["PLUS2"]]);
 
@@ -39,51 +43,43 @@ const InputMenus = ({ menuData, day }) => {
   const dragOverItem = useRef<number | null>(null);
   useEffect(() => {
     const data = menuData;
-    setItem1([
-      [data[0].mainMenuName, data[0].mainMenuYn],
-      [data[0].menu1Name, "N"],
-      [data[0].menu2Name, "N"],
-      [data[0].menu3Name, "N"],
-      [data[0].menu4Name, "N"],
-      [data[0].menu5Name, "N"],
-    ]);
-    setItem2([
-      [data[1].mainMenuName, data[1].mainMenuYn],
-      [data[1].menu1Name, "N"],
-      [data[1].menu2Name, "N"],
-      [data[1].menu3Name, "N"],
-      [data[1].menu4Name, "N"],
-      [data[1].menu5Name, "N"],
-    ]);
-    setItem3([
-      //[data[2].mainMenuName, data[2].mainMenuYn],
-      [data[2].menu1Name],
-      [data[2].menu2Name],
-      [data[2].menu3Name],
-      [data[2].menu4Name],
-      [data[2].menu5Name],
-    ]);
-    setItem4([
-      [data[3].mainMenuName, data[3].mainMenuYn],
-      [data[3].menu1Name, "N"],
-      [data[3].menu2Name, "N"],
-    ]);
-    setItem6([
-      [data[4].mainMenuName, data[4].mainMenuYn],
-      [data[4].menu1Name, "N"],
-      [data[4].menu2Name, "N"],
-      [data[4].menu3Name, "N"],
-      [data[4].menu4Name, "N"],
-      [data[4].menu5Name, "N"],
-    ]);
-    setItem7([
-      // [data[5].mainMenuName, data[5].mainMenuYn],
-      [data[5].menu1Name, "N"],
-      [data[5].menu2Name, "N"],
-      [data[5].menu3Name, "N"],
-      [data[5].menu4Name, "N"],
-      [data[5].menu5Name, "N"],
-    ]);
+    if (data !== null) {
+      setItem1([
+        [data[0].mainMenuName || "", data[0].mainMenuYn],
+        [data[0].menu1Name || "", "N"],
+        [data[0].menu2Name || "", "N"],
+        [data[0].menu3Name || "", "N"],
+        [data[0].menu4Name || "", "N"],
+        [data[0].menu5Name || "", "N"],
+      ]);
+      setItem2([
+        [data[1].mainMenuName || "", data[1].mainMenuYn],
+        [data[1].menu1Name || "", "N"],
+        [data[1].menu2Name || "", "N"],
+        [data[1].menu3Name || "", "N"],
+        [data[1].menu4Name || "", "N"],
+        [data[1].menu5Name || "", "N"],
+      ]);
+      setItem3([
+        //[data[2].mainMenuName, data[2].mainMenuYn],
+        [data[2].menu1Name || ""],
+        [data[2].menu2Name || ""],
+      ]);
+      setItem4([[data[3].mainMenuName || "", data[3].mainMenuYn]]);
+      setItem6([
+        [data[4].mainMenuName || "", data[4].mainMenuYn],
+        [data[4].menu1Name || "", "N"],
+        [data[4].menu2Name || "", "N"],
+        [data[4].menu3Name || "", "N"],
+        [data[4].menu4Name || "", "N"],
+        [data[4].menu5Name || "", "N"],
+      ]);
+      setItem7([
+        // [data[5].mainMenuName, data[5].mainMenuYn],
+        [data[5].menu1Name || "", "N"],
+        [data[5].menu2Name || "", "N"],
+      ]);
+    }
     // axios.get("/user").then((res) => console.log(res.data));
   }, [menuData]);
   const dragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
@@ -99,7 +95,7 @@ const InputMenus = ({ menuData, day }) => {
 
   const drop = (
     e: React.DragEvent<HTMLDivElement>,
-    item: [string, boolean][],
+    item: [string, string][],
     menu: string
   ) => {
     const newItems = [...item];
@@ -175,7 +171,7 @@ const InputMenus = ({ menuData, day }) => {
               src={plusIco}
               onClick={() => {
                 const newArr = [...item1];
-                newArr.push(["ex1", false]);
+                newArr.push(["ex1", "N"]);
                 setItem1(newArr);
               }}
             />
@@ -243,7 +239,7 @@ const InputMenus = ({ menuData, day }) => {
               src={plusIco}
               onClick={() => {
                 const newArr = [...item2];
-                newArr.push(["ex1", false]);
+                newArr.push(["ex1", "N"]);
                 setItem2(newArr);
               }}
             />
@@ -516,7 +512,7 @@ const InputMenus = ({ menuData, day }) => {
               src={plusIco}
               onClick={() => {
                 const newArr = [...item6];
-                newArr.push(["ex1", false]);
+                newArr.push(["ex1", "N"]);
                 setItem6(newArr);
               }}
             />

@@ -3,7 +3,7 @@ import InputMenus from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
 import axios from "axios";
-import { DailyMenu } from "../../type/type";
+import { dailyMenu } from "../../type/type";
 const Admin = () => {
   // const onchangeImageUpload = (e) => {
   //   const { files } = e.target;
@@ -14,8 +14,7 @@ const Admin = () => {
   //     setUploadImgUrl(reader.result);
   //   };
   // };
-  const [menuData, setMenuData] = useState<DailyMenu[]>([]);
-  // const [kk, setKK] = useState(0);
+  const [menuData, setMenuData] = useState<dailyMenu[]>([]);
   useEffect(() => {
     axios.get("/menuData").then((res) => {
       console.log(res.data);
