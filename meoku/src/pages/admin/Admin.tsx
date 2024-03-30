@@ -1,6 +1,9 @@
-import InputMenu from "../../components/InputMenu";
+import { useEffect, useState } from "react";
+import InputMenus from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
+import axios from "axios";
+import { DailyMenu } from "../../type/type";
 const Admin = () => {
   // const onchangeImageUpload = (e) => {
   //   const { files } = e.target;
@@ -11,6 +14,14 @@ const Admin = () => {
   //     setUploadImgUrl(reader.result);
   //   };
   // };
+  const [menuData, setMenuData] = useState<DailyMenu[]>([]);
+  // const [kk, setKK] = useState(0);
+  useEffect(() => {
+    axios.get("/menuData").then((res) => {
+      console.log(res.data);
+      setMenuData(res.data);
+    });
+  }, []);
   return (
     <div>
       <Navbar />
@@ -42,11 +53,21 @@ const Admin = () => {
           margin: 0 auto;
         `}
       >
-        <InputMenu />
-        <InputMenu />
-        <InputMenu />
-        <InputMenu />
-        <InputMenu />
+        {menuData[0] && (
+          <InputMenus menuData={menuData[0].detailedMenuDTOList} day={"월"} />
+        )}
+        {menuData[1] && (
+          <InputMenus menuData={menuData[1].detailedMenuDTOList} day={"화"} />
+        )}
+        {menuData[2] && (
+          <InputMenus menuData={menuData[2].detailedMenuDTOList} day={"수"} />
+        )}
+        {menuData[3] && (
+          <InputMenus menuData={menuData[3].detailedMenuDTOList} day={"목"} />
+        )}
+        {menuData[4] && (
+          <InputMenus menuData={menuData[4].detailedMenuDTOList} day={"금"} />
+        )}
       </div>
     </div>
   );

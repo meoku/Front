@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import minusIco from "../assets/minus.svg";
 import plusIco from "../assets/plus.svg";
 
-const InputMenus = () => {
+const InputMenus = ({ menuData, day }) => {
   const [item1, setItem1] = useState<[string, boolean][]>([
     ["밥", false],
     ["국", false],
@@ -24,7 +24,7 @@ const InputMenus = () => {
   ]);
   const [item3, setItem3] = useState([["PLUS1"], ["PLUS2"]]);
   const [item4, setItem4] = useState([["SALAD"]]);
-  const [item5, setItem5] = useState([["SIMPLE"]]);
+  //const [item5, setItem5] = useState([["SIMPLE"]]);
   const [item6, setItem6] = useState<[string, boolean][]>([
     ["밥1", false],
     ["국2", false],
@@ -38,11 +38,56 @@ const InputMenus = () => {
   const dragItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
   useEffect(() => {
-    axios.get("/user").then((res) => console.log(res.data));
-  }, []);
+    const data = menuData;
+    setItem1([
+      [data[0].mainMenuName, data[0].mainMenuYn],
+      [data[0].menu1Name, "N"],
+      [data[0].menu2Name, "N"],
+      [data[0].menu3Name, "N"],
+      [data[0].menu4Name, "N"],
+      [data[0].menu5Name, "N"],
+    ]);
+    setItem2([
+      [data[1].mainMenuName, data[1].mainMenuYn],
+      [data[1].menu1Name, "N"],
+      [data[1].menu2Name, "N"],
+      [data[1].menu3Name, "N"],
+      [data[1].menu4Name, "N"],
+      [data[1].menu5Name, "N"],
+    ]);
+    setItem3([
+      //[data[2].mainMenuName, data[2].mainMenuYn],
+      [data[2].menu1Name],
+      [data[2].menu2Name],
+      [data[2].menu3Name],
+      [data[2].menu4Name],
+      [data[2].menu5Name],
+    ]);
+    setItem4([
+      [data[3].mainMenuName, data[3].mainMenuYn],
+      [data[3].menu1Name, "N"],
+      [data[3].menu2Name, "N"],
+    ]);
+    setItem6([
+      [data[4].mainMenuName, data[4].mainMenuYn],
+      [data[4].menu1Name, "N"],
+      [data[4].menu2Name, "N"],
+      [data[4].menu3Name, "N"],
+      [data[4].menu4Name, "N"],
+      [data[4].menu5Name, "N"],
+    ]);
+    setItem7([
+      // [data[5].mainMenuName, data[5].mainMenuYn],
+      [data[5].menu1Name, "N"],
+      [data[5].menu2Name, "N"],
+      [data[5].menu3Name, "N"],
+      [data[5].menu4Name, "N"],
+      [data[5].menu5Name, "N"],
+    ]);
+    // axios.get("/user").then((res) => console.log(res.data));
+  }, [menuData]);
   const dragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     dragItem.current = position;
-    console.log("darg start", e);
   };
 
   const dragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
@@ -50,7 +95,6 @@ const InputMenus = () => {
     console.log(dragItem);
     console.log(dragOverItem);
     dragOverItem.current = position;
-    console.log("moving...");
   };
 
   const drop = (
@@ -99,7 +143,7 @@ const InputMenus = () => {
         margin: auto 0;
       `}
     >
-      <div>월</div>
+      <div>{day}</div>
       <div
         css={css`
           /* display: flex;
@@ -166,12 +210,12 @@ const InputMenus = () => {
               <p
                 onClick={() => {
                   const newArr = [...item1];
-                  item[1] = item[1] == true ? false : true;
+                  item[1] = item[1] == "Y" ? "N" : "Y";
                   newArr[idx] = item;
                   setItem1(newArr);
                 }}
               >
-                {item[1] == true ? "yes" : "no"}
+                {item[1] == "Y" ? "yes" : "no"}
               </p>
             </div>
           ))}
@@ -234,12 +278,12 @@ const InputMenus = () => {
               <p
                 onClick={() => {
                   const newArr = [...item2];
-                  item[1] = item[1] == true ? false : true;
+                  item[1] = item[1] == "Y" ? "N" : "Y";
                   newArr[idx] = item;
                   setItem2(newArr);
                 }}
               >
-                {item[1] == true ? "yes" : "no"}
+                {item[1] == "Y" ? "yes" : "no"}
               </p>
             </div>
           ))}
@@ -380,6 +424,7 @@ const InputMenus = () => {
             </div>
           ))}
         </InputMenu>
+        {/*
         <InputMenu>
           <div
             css={css`
@@ -445,9 +490,9 @@ const InputMenus = () => {
               >
                 {item[1] == true ? "yes" : "no"}
               </p> */}
-            </div>
-          ))}
-        </InputMenu>
+        {/* </div>
+          ))} */}
+        {/* </InputMenu>/ */}
         <InputMenu>
           <div
             css={css`
@@ -506,12 +551,12 @@ const InputMenus = () => {
               <p
                 onClick={() => {
                   const newArr = [...item6];
-                  item[1] = item[1] == true ? false : true;
+                  item[1] = item[1] == "Y" ? "N" : "Y";
                   newArr[idx] = item;
                   setItem6(newArr);
                 }}
               >
-                {item[1] == true ? "yes" : "no"}
+                {item[1] == "Y" ? "yes" : "no"}
               </p>
             </div>
           ))}

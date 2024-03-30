@@ -1,5 +1,5 @@
 import { http, HttpResponse, passthrough } from "msw";
-
+import menuData from "./data.js";
 export const handlers = [
   // This handler will be called first but since
   // it doesn't return anything from its resolver,
@@ -12,8 +12,8 @@ export const handlers = [
   // a JSON response from its resolver. MSW will stop looking
   // for handlers and will consider this one to be relevant
   // to the intercepted request.
-  http.get("/user", () => {
-    return HttpResponse.json({ name: "John" });
+  http.get("/menuData", () => {
+    return HttpResponse.json(menuData);
   }),
 
   // Although this handler also matches the request,
