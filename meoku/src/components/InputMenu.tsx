@@ -8,8 +8,9 @@ import { menuDetail } from "../type/type";
 interface InputMenusProps {
   menuData: menuDetail[];
   day: string;
+  handleMenuData: (data: menuDetail[], day: string) => void;
 }
-const InputMenus = ({ menuData, day }: InputMenusProps) => {
+const InputMenus = ({ menuData, day, handleMenuData }: InputMenusProps) => {
   const [item1, setItem1] = useState<[string, string][]>([
     ["밥", "N"],
     ["국", "N"],
@@ -82,6 +83,12 @@ const InputMenus = ({ menuData, day }: InputMenusProps) => {
     }
     // axios.get("/user").then((res) => console.log(res.data));
   }, [menuData]);
+  useEffect(() => {
+    //handleMenuData([[]...item1,...item2,...item3])
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    handleMenuData([item1, item2, item3, item4, item6, item7], day);
+  }, [item1, item2, item3, item4, item6, item7]);
   const dragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     dragItem.current = position;
   };

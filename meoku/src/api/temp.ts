@@ -1,14 +1,21 @@
-// import { axiosInstance } from "./axios";
+import { dailyMenu } from "../type/type";
+import { axiosInstance } from "./axios";
+import { imageAxiosInstance } from "./axios";
 
-// export const getUserProfile = async (userId: string) => {
-//   try {
-//     const response = await axiosInstance.get(`/users/${userId}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching user profile:", error);
-//     throw error;
-//   }
-// };
+export const postMenuData = async (
+  data: dailyMenu[],
+  imageFile: File | null
+) => {
+  try {
+    if (imageFile) {
+      await uploadImage(imageFile);
+    }
+    await axiosInstance.post("/api/v1/admin/WeekMenuUpload", data);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    throw error;
+  }
+};
 
 // export const updateUserProfile = async (userId: string, profileData: any) => {
 //   try {
@@ -20,19 +27,20 @@
 //   }
 // };
 
-// import { imageAxiosInstance } from "./imageAxiosInstance";
+const uploadImage = async (imageFile: File) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", imageFile);
 
-// const uploadImage = async (imageFile) => {
-//   try {
-//     const formData = new FormData();
-//     formData.append("image", imageFile);
-
-//     const response = await imageAxiosInstance.post("/upload", formData);
-//     console.log(response.data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+    const response = await imageAxiosInstance.post(
+      "/api/v1/admin/MenuImageUploadAndReturnMenuData",
+      formData
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // // 사용 예시
 // const imageFile = // 업로드할 이미지 파일
