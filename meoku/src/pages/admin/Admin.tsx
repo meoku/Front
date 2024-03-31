@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import InputMenus from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
-import axios from "axios";
+// import axios from "axios";
 import { dailyMenu, menuDetail } from "../../type/type";
 import { postMenuData } from "../../api/temp";
+import menuDataTemp from "./../../mocks/data";
 const Admin = () => {
   // const onchangeImageUpload = (e) => {
   //   const { files } = e.target;
@@ -61,10 +62,12 @@ const Admin = () => {
     }
   };
   useEffect(() => {
-    axios.get("/menuData").then((res) => {
-      console.log(res.data);
-      setMenuData(res.data);
-    });
+    // axios.get("/menuData").then((res) => {
+    //   console.log(res.data);
+    //   setMenuData(res.data);
+    // });
+
+    setMenuData(menuDataTemp);
   }, []);
   return (
     <div>
