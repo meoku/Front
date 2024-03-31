@@ -91,6 +91,7 @@ const InputMenus = ({ menuData, day, handleMenuData }: InputMenusProps) => {
   }, [item1, item2, item3, item4, item6, item7]);
   const dragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
     dragItem.current = position;
+    console.log(e);
   };
 
   const dragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
