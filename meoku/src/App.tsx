@@ -1,9 +1,28 @@
+import { css } from "@emotion/react";
 import "./App.css";
+import Day from "./components/Day";
+import LunchBtn from "./components/LunchBtn";
+import LunchTime from "./components/LunchTime";
 import Navbar from "./components/Navbar";
+import Weather from "./components/Weather";
 function App() {
   return (
     <div>
       <Navbar />
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+          margin-top: 1.25rem;
+          height: 96px;
+          flex-wrap: nowrap;
+        `}
+      >
+        <Weather />
+        <Day />
+        <LunchTime />
+        <LunchBtn />
+      </div>
       {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
