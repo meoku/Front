@@ -14,6 +14,7 @@ const LunchTime = () => {
     } else {
       arr = [["2층"], ["4·5·6층"], ["1·3층"]];
     }
+    console.log(arr);
   }
   function getWeeksSince1970(date: Date) {
     const timeDifferenceInMilliseconds =
@@ -72,7 +73,7 @@ const LunchTime = () => {
               color: var(--color_06);
             `}
           >
-            {arr[0][0]}
+            {arr[0]}
           </TextR14>
         </div>
         <div
@@ -88,7 +89,7 @@ const LunchTime = () => {
               color: var(--color_06);
             `}
           >
-            {arr[0][1]}
+            {arr[1]}
           </TextR14>
         </div>
         <div
@@ -103,7 +104,7 @@ const LunchTime = () => {
               color: var(--color_06);
             `}
           >
-            {arr[0][2]}
+            {arr[2]}
           </TextR14>
         </div>
       </div>
