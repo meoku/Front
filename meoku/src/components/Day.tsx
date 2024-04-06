@@ -1,6 +1,7 @@
 import leftarrow from "../assets/leftarrow.svg";
 import rightarrow from "../assets/rightarrow.svg";
 import { css } from "@emotion/react";
+import { TextB20 } from "./common/Text";
 const Day = () => {
   return (
     <div
@@ -38,7 +39,7 @@ const Day = () => {
             css={css`
               font-size: 32px;
               font-weight: bold;
-              color: #ff4004;
+              color: var(--color_01);
               text-align: center;
             `}
           >
@@ -50,15 +51,13 @@ const Day = () => {
               margin: 0 auto;
             `}
           >
-            <p
+            <TextB20
               css={css`
-                font-size: 20px;
-                font-weight: bold;
-                text-align: center;
+                color: var(--color_05);
               `}
             >
               점심
-            </p>
+            </TextB20>
           </div>
         </div>
       </div>

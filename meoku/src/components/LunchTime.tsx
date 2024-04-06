@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { TextB16, TextR14 } from "./common/Text";
 
 const LunchTime = () => {
   let arr = [["1, 3층"], ["2층"], ["4, 5, 6층"]];
@@ -42,7 +43,13 @@ const LunchTime = () => {
           white-space: nowrap;
         `}
       >
-        점심
+        <TextB16
+          css={css`
+            color: var(--color_05);
+          `}
+        >
+          점심
+        </TextB16>
       </div>
       <div
         css={css`
@@ -59,7 +66,13 @@ const LunchTime = () => {
             margin-bottom: 6px;
           `}
         >
-          {arr[0]}
+          <TextR14
+            css={css`
+              color: var(--color_06);
+            `}
+          >
+            {arr[0][0]}
+          </TextR14>
         </div>
         <div
           css={css`
@@ -69,7 +82,13 @@ const LunchTime = () => {
             margin-bottom: 6px;
           `}
         >
-          {arr[1]}
+          <TextR14
+            css={css`
+              color: var(--color_06);
+            `}
+          >
+            {arr[0][1]}
+          </TextR14>
         </div>
         <div
           css={css`
@@ -78,7 +97,13 @@ const LunchTime = () => {
             text-align: center;
           `}
         >
-          {arr[2]}
+          <TextR14
+            css={css`
+              color: var(--color_06);
+            `}
+          >
+            {arr[0][2]}
+          </TextR14>
         </div>
       </div>
 
@@ -97,7 +122,14 @@ const LunchTime = () => {
             margin-bottom: 6px;
           `}
         >
-          11:30 ~ 12:30
+          {" "}
+          <TextR14
+            css={css`
+              color: var(--color_06);
+            `}
+          >
+            11:30 ~ 12:30
+          </TextR14>
         </div>
         <div
           css={css`
@@ -107,7 +139,13 @@ const LunchTime = () => {
             margin-bottom: 6px;
           `}
         >
-          12:00 ~ 13:00
+          <TextR14
+            css={css`
+              color: var(--color_06);
+            `}
+          >
+            12:00 ~ 13:00
+          </TextR14>
         </div>
         <div
           css={css`
@@ -116,7 +154,13 @@ const LunchTime = () => {
             text-align: center;
           `}
         >
-          12:30 ~ 13:30
+          <TextR14
+            css={css`
+              color: var(--color_06);
+            `}
+          >
+            12:30 ~ 13:30
+          </TextR14>
         </div>
       </div>
     </div>
