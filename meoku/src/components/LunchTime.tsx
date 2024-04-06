@@ -73,7 +73,7 @@ const LunchTime = () => {
               color: var(--color_06);
             `}
           >
-            {arr[0]}
+            {String(arr[0])}
           </TextR14>
         </div>
         <div
@@ -89,7 +89,7 @@ const LunchTime = () => {
               color: var(--color_06);
             `}
           >
-            {arr[1]}
+            {String(arr[1])}
           </TextR14>
         </div>
         <div
@@ -104,7 +104,7 @@ const LunchTime = () => {
               color: var(--color_06);
             `}
           >
-            {arr[2]}
+            {String(arr[2])}
           </TextR14>
         </div>
       </div>
