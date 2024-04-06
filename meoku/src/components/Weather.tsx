@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import snowImage from "../assets/weather/ImageSnow.svg";
+import { TextB24, TextR14 } from "./common/Text";
 const Weather = () => {
   return (
     <div
@@ -59,21 +60,14 @@ const Weather = () => {
           margin-left: 18px;
         `}
       >
-        <p
-          css={css`
-            font-size: 24px;
-            font-weight: bold;
-          `}
-        >
-          눈
-        </p>
+        {<TextB24>눈</TextB24>}
       </div>
       <div
         css={css`
           display: flex;
           flex-direction: column;
           margin-top: 15px;
-          margin-left: 105px;
+          margin-left: 85px;
         `}
       >
         <p
@@ -98,10 +92,13 @@ const Weather = () => {
           css={css`
             margin-top: 32px;
             font-size: 12px;
+            color: #585858;
           `}
         >
           <ul>
-            <li>• 자외선 보통</li>
+            <li>
+              <TextR14>• 자외선 보통</TextR14>
+            </li>
           </ul>
         </p>
       </div>
