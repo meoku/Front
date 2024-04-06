@@ -14,7 +14,6 @@ const LunchTime = () => {
     } else {
       arr = [["2층"], ["4·5·6층"], ["1·3층"]];
     }
-    console.log(arr);
   }
   function getWeeksSince1970(date: Date) {
     const timeDifferenceInMilliseconds =
