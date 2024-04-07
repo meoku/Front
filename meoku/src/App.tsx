@@ -216,6 +216,7 @@ function App() {
           justify-content: center;
           align-items: center;
           margin-top: 86px;
+          background-color: var(--background_color_01);
         `}
       >
         <DailyMenu dayWeek={dayArr[0][0]} day={dayArr[0][1]} />
