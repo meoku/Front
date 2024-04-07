@@ -7,7 +7,8 @@ import Navbar from "./components/Navbar";
 import Weather from "./components/Weather";
 import DailyMenu from "./components/DailyMenu";
 import bottomarrow from "./assets/bottonarrow.svg";
-// import DinnerTime from "./components/DinnerTime";
+import DinnerTime from "./components/DinnerTime";
+import DailyDinnerMenu from "./components/DailyDinnerMenu";
 
 function App() {
   const date = new Date();
@@ -205,7 +206,7 @@ function App() {
         `}
       >
         <Weather />
-        <Day />
+        <Day time={"점심"} />
         <LunchTime />
         <LunchBtn />
       </div>
@@ -226,7 +227,9 @@ function App() {
       <div
         css={css`
           display: flex;
+          flex-direction: column;
           justify-content: center;
+          align-items: center;
           background-color: var(--background_color_01);
         `}
       >
@@ -238,20 +241,36 @@ function App() {
             margin-top: 20px;
           `}
         />
+        <div
+          css={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.25rem;
+            margin-left: 252px;
+            height: 96px;
+            flex-wrap: nowrap;
+            background-color: var(--background_color_01);
+          `}
+        >
+          <Day time={"저녁"} />
+          <DinnerTime />
+        </div>
+        <div
+          css={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 36px;
+          `}
+        >
+          <DailyDinnerMenu dayWeek={dayArr[0][0]} day={dayArr[0][1]} />
+          <DailyDinnerMenu dayWeek={dayArr[1][0]} day={dayArr[1][1]} />
+          <DailyDinnerMenu dayWeek={dayArr[2][0]} day={dayArr[2][1]} />
+          <DailyDinnerMenu dayWeek={dayArr[3][0]} day={dayArr[3][1]} />
+          <DailyDinnerMenu dayWeek={dayArr[4][0]} day={dayArr[4][1]} />
+        </div>
       </div>
-      {/* <div
-        css={css`
-          display: flex;
-          justify-content: center;
-          margin-top: 1.25rem;
-          height: 96px;
-          flex-wrap: nowrap;
-          background-color: var(--background_color_01);
-        `}
-      >
-        <Day />
-        <DinnerTime />
-      </div> */}
     </div>
   );
 }
