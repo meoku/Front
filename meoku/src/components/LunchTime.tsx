@@ -5,7 +5,7 @@ const LunchTime = () => {
   let arr = [["1, 3층"], ["2층"], ["4, 5, 6층"]];
   const currentDate = new Date(); // 현재 날짜
   const weeksSinceEpoch = getWeeksSince1970(currentDate);
-  getFloorDate(weeksSinceEpoch + 10);
+  getFloorDate(weeksSinceEpoch);
   function getFloorDate(week: number) {
     if (week % 3 == 0) {
       arr = [["4·5·6층"], ["1·3층"], ["2층"]];
