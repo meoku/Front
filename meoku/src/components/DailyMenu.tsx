@@ -8,6 +8,7 @@ const DailyMenu = ({ dayWeek, day }: mainDailyMenuTime) => {
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
         margin: 0px 9px;
+        background-color: var(--color_02);
       `}
     >
       <div
@@ -15,7 +16,6 @@ const DailyMenu = ({ dayWeek, day }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-
           width: 214px;
           height: 44px;
         `}

@@ -5,12 +5,12 @@ const LunchTime = () => {
   let arr = [["1, 3층"], ["2층"], ["4, 5, 6층"]];
   const currentDate = new Date(); // 현재 날짜
   const weeksSinceEpoch = getWeeksSince1970(currentDate);
-  getFloorDate(weeksSinceEpoch);
+  getFloorDate(weeksSinceEpoch + 10);
   function getFloorDate(week: number) {
     if (week % 3 == 0) {
-      arr = [["1·3층"], ["2층"], ["4·5·6층"]];
-    } else if (week % 3 == 1) {
       arr = [["4·5·6층"], ["1·3층"], ["2층"]];
+    } else if (week % 3 == 1) {
+      arr = [["1·3층"], ["2층"], ["4·5·6층"]];
     } else {
       arr = [["2층"], ["4·5·6층"], ["1·3층"]];
     }
