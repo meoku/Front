@@ -9,10 +9,42 @@ import DailyMenu from "./components/DailyMenu";
 import bottomarrow from "./assets/bottonarrow.svg";
 import DinnerTime from "./components/DinnerTime";
 import DailyDinnerMenu from "./components/DailyDinnerMenu";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { firstMenu } from "./type/type";
+
+interface RequestData {
+  isMonthOrWeek: string;
+  date: string;
+}
+
+const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
+  const response = await axios.post(
+    "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/weekdaysmenu",
+    {
+      isMonthOrWeek,
+      date,
+    }
+  );
+  return response.data;
+};
 
 function App() {
   const date = new Date();
   const dayWeek = date.getDay();
+  const requestData: RequestData = {
+    isMonthOrWeek: "week",
+    date: "2024-05-27",
+  };
+  const { data: menuData } = useQuery({
+    queryKey: ["data", requestData],
+    queryFn: () => fetchData(requestData),
+  });
+  console.log(menuData);
+  // console.log(menuData[1]);
+  // console.log(menuData[2]);
+  // console.log(menuData[3]);
+
   let dayArr: [string | undefined, number][] = [];
   const getDayWeek = (day: number) => {
     if (day === 0) {
@@ -219,11 +251,17 @@ function App() {
           background-color: var(--background_color_01);
         `}
       >
-        <DailyMenu dayWeek={dayArr[0][0]} day={dayArr[0][1]} />
-        <DailyMenu dayWeek={dayArr[1][0]} day={dayArr[1][1]} />
-        <DailyMenu dayWeek={dayArr[2][0]} day={dayArr[2][1]} />
-        <DailyMenu dayWeek={dayArr[3][0]} day={dayArr[3][1]} />
-        <DailyMenu dayWeek={dayArr[4][0]} day={dayArr[4][1]} />
+        {menuData &&
+          menuData.map((menu: firstMenu, index: number) => {
+            return (
+              <DailyMenu
+                key={index}
+                dayWeek={dayArr[index][0]}
+                day={dayArr[index][1]}
+                menuData={menu}
+              />
+            );
+          })}
       </div>
       <div
         css={css`
@@ -265,11 +303,17 @@ function App() {
             margin-top: 36px;
           `}
         >
-          <DailyDinnerMenu dayWeek={dayArr[0][0]} day={dayArr[0][1]} />
-          <DailyDinnerMenu dayWeek={dayArr[1][0]} day={dayArr[1][1]} />
-          <DailyDinnerMenu dayWeek={dayArr[2][0]} day={dayArr[2][1]} />
-          <DailyDinnerMenu dayWeek={dayArr[3][0]} day={dayArr[3][1]} />
-          <DailyDinnerMenu dayWeek={dayArr[4][0]} day={dayArr[4][1]} />
+          {menuData &&
+            menuData.map((menu: firstMenu, index: number) => {
+              return (
+                <DailyDinnerMenu
+                  key={index}
+                  dayWeek={dayArr[index][0]}
+                  day={dayArr[index][1]}
+                  menuData={menu}
+                />
+              );
+            })}
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ const Day = ({ time }: { time: string }) => {
               text-align: center;
             `}
           >
-            12월 5주
+            5월 5주
           </p>
           <div
             css={css`
