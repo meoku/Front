@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { TextB16, TextB20, TextR16 } from "./common/Text";
 import { mainDailyMenuTime } from "../type/type";
-const DailyDinnerMenu = ({ dayWeek, day }: mainDailyMenuTime) => {
+const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
   return (
     <div
       css={css`
@@ -46,48 +46,54 @@ const DailyDinnerMenu = ({ dayWeek, day }: mainDailyMenuTime) => {
             margin-top: 16px;
           `}
         >
-          <TextB20>한식</TextB20>
+          <TextB20>{menuData.detailedMenuDTOList[4].detailedMenuName}</TextB20>
           <TextR16
             css={css`
               margin-top: 8px;
+              text-align: center;
             `}
           >
-            일이삼사오육칠팔
+            {menuData.detailedMenuDTOList[4].mainMenuName}
           </TextR16>
           <TextR16
             css={css`
               margin-top: 6px;
+              text-align: center;
             `}
           >
-            일이삼사오육칠팔
+            {menuData.detailedMenuDTOList[4].menu2Name}
           </TextR16>
           <TextR16
             css={css`
               margin-top: 6px;
+              text-align: center;
             `}
           >
-            일이삼사오육칠팔
+            {menuData.detailedMenuDTOList[4].menu3Name}
           </TextR16>
           <TextR16
             css={css`
               margin-top: 6px;
+              text-align: center;
             `}
           >
-            일이삼사
+            {menuData.detailedMenuDTOList[4].menu4Name}
           </TextR16>
           <TextR16
             css={css`
               margin-top: 6px;
+              text-align: center;
             `}
           >
-            일이삼사오육칠팔구십일이
+            {menuData.detailedMenuDTOList[4].menu5Name}
           </TextR16>
           <TextR16
             css={css`
               margin-top: 6px;
+              text-align: center;
             `}
           >
-            일이삼사오육칠팔
+            {menuData.detailedMenuDTOList[4].menu1Name}
           </TextR16>
           <hr
             css={css`
@@ -104,17 +110,18 @@ const DailyDinnerMenu = ({ dayWeek, day }: mainDailyMenuTime) => {
             align-items: center;
             width: 166px;
             height: 60px;
-            margin-top: 10px;
+            margin-top: 20px;
             margin-bottom: 32;
           `}
         >
-          <TextB20>PLUS</TextB20>
+          <TextB20>{menuData.detailedMenuDTOList[5].detailedMenuName}</TextB20>
           <TextR16
             css={css`
               margin-top: 8px;
+              text-align: center;
             `}
           >
-            일이삼사오육칠팔
+            {menuData.detailedMenuDTOList[5].menu1Name}
           </TextR16>
           <TextR16
             css={css`
@@ -122,7 +129,7 @@ const DailyDinnerMenu = ({ dayWeek, day }: mainDailyMenuTime) => {
               margin-bottom: 30px;
             `}
           >
-            일이삼사오육칠팔
+            {menuData.detailedMenuDTOList[5].menu2Name}
           </TextR16>
         </div>
       </div>

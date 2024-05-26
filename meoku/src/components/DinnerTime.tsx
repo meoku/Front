@@ -24,7 +24,7 @@ const DinnerTime = () => {
       >
         전층
       </TextR14>
-      <TextR14>19:00 ~ 20:00</TextR14>
+      <TextR14>18:00 ~ 19:00</TextR14>
     </div>
   );
 };
