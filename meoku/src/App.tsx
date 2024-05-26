@@ -246,7 +246,7 @@ function App() {
         css={css`
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: flex-start;
           margin-top: 86px;
           background-color: var(--background_color_01);
         `}
@@ -299,7 +299,7 @@ function App() {
           css={css`
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             margin-top: 36px;
           `}
         >
