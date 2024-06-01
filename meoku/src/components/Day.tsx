@@ -3,6 +3,15 @@ import rightarrow from "../assets/rightarrow.svg";
 import { css } from "@emotion/react";
 import { TextB20 } from "./common/Text";
 const Day = ({ time }: { time: string }) => {
+  const getWeekOfMonth = (date: Date) => {
+    const month = date.getMonth() + 1;
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const firstDayOfWeek = firstDay.getDay();
+    const adjustedDate = date.getDate() + firstDayOfWeek - 1;
+    const weekOfMonth = Math.ceil(adjustedDate / 7);
+
+    return `${month}월 ${weekOfMonth}주`;
+  };
   return (
     <div
       css={css`
@@ -43,7 +52,7 @@ const Day = ({ time }: { time: string }) => {
               text-align: center;
             `}
           >
-            5월 5주
+            {getWeekOfMonth(new Date())}
           </p>
           <div
             css={css`

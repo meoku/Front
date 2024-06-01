@@ -124,6 +124,10 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             css={css`
               margin-top: 6px;
               text-align: center;
+              /* letter-spacing: ${menuData.detailedMenuDTOList[1].mainMenuName
+                .length > 4
+                ? "-3px"
+                : "0px"}; */
             `}
           >
             {menuData.detailedMenuDTOList[1].menu1Name}
