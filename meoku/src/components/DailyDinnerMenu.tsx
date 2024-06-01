@@ -41,7 +41,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 166px;
+            width: 242px;
             height: 200px;
             margin-top: 16px;
           `}
@@ -54,6 +54,14 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             `}
           >
             {menuData.detailedMenuDTOList[4].mainMenuName}
+          </TextR16>
+          <TextR16
+            css={css`
+              margin-top: 6px;
+              text-align: center;
+            `}
+          >
+            {menuData.detailedMenuDTOList[4].menu1Name}
           </TextR16>
           <TextR16
             css={css`
@@ -87,14 +95,6 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           >
             {menuData.detailedMenuDTOList[4].menu5Name}
           </TextR16>
-          <TextR16
-            css={css`
-              margin-top: 6px;
-              text-align: center;
-            `}
-          >
-            {menuData.detailedMenuDTOList[4].menu1Name}
-          </TextR16>
           <hr
             css={css`
               margin-top: 20px;
@@ -108,7 +108,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 166px;
+            width: 242px;
             height: 60px;
             margin-top: 20px;
             margin-bottom: 32;
