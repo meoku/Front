@@ -40,7 +40,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 166px;
+            width: 242px;
             height: 200px;
             margin-top: 16px;
           `}
@@ -107,7 +107,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 166px;
+            width: 242px;
             /* height: 170px; */
           `}
         >
@@ -124,6 +124,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             css={css`
               margin-top: 6px;
               text-align: center;
+              /* letter-spacing: -3px; */
             `}
           >
             {menuData.detailedMenuDTOList[1].menu1Name}
@@ -165,7 +166,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 166px;
+            width: 242px;
             height: 150px;
             margin-top: 10px;
           `}
