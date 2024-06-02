@@ -32,16 +32,17 @@ const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
 function App() {
   const date = new Date();
   const dayWeek = date.getDay();
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+  // const formatDate = (date: Date) => {
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, "0");
+  //   const day = String(date.getDate()).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
-  };
+  //   return `${year}-${month}-${day}`;
+  // };
   const requestData: RequestData = {
     isMonthOrWeek: "week",
-    date: formatDate(new Date()),
+    // date: formatDate(new Date()),
+    date: "2024-05-31",
   };
   const { data: menuData } = useQuery({
     queryKey: ["data", requestData],

@@ -5,11 +5,12 @@ import { TextB20 } from "./common/Text";
 const Day = ({ time }: { time: string }) => {
   const getWeekOfMonth = (date: Date) => {
     const month = date.getMonth() + 1;
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const firstDayOfWeek = firstDay.getDay();
-    const adjustedDate = date.getDate() + firstDayOfWeek - 1;
-    const weekOfMonth = Math.ceil(adjustedDate / 7);
-
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const firstDayOfWeek = firstDayOfMonth.getDay();
+    const adjustedFirstDayOfWeek = firstDayOfWeek === 0 ? 7 : firstDayOfWeek;
+    const weekOfMonth = Math.ceil(
+      (date.getDate() + (7 - adjustedFirstDayOfWeek)) / 7
+    );
     return `${month}월 ${weekOfMonth}주`;
   };
   return (
