@@ -4,7 +4,7 @@ export const TextB32 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -23,7 +23,7 @@ export const TextR32 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -41,7 +41,7 @@ export const TextB24 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -61,7 +61,7 @@ export const TextR24 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -80,7 +80,7 @@ export const TextB20 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -100,7 +100,7 @@ export const TextR20 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -118,7 +118,7 @@ export const TextB16 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -138,7 +138,7 @@ export const TextR16 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -156,7 +156,7 @@ export const TextB14 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (
@@ -176,7 +176,7 @@ export const TextR14 = ({
   children,
   className,
 }: {
-  children: string;
+  children: string | JSX.Element;
   className?: string;
 }) => {
   return (

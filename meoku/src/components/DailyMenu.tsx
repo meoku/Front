@@ -2,6 +2,13 @@ import { css } from "@emotion/react";
 import { TextB16, TextB20, TextR16 } from "./common/Text";
 import { mainDailyMenuTime } from "../type/type";
 const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
+  const isNA = (value: string): string | JSX.Element => {
+    if (value === "N/A") {
+      return <br />;
+    } else {
+      return value;
+    }
+  };
   return (
     <div
       css={css`
@@ -52,7 +59,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[0].mainMenuName}
+            {isNA(menuData.detailedMenuDTOList[0].mainMenuName)}
           </TextR16>
           <TextR16
             css={css`
@@ -60,7 +67,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[0].menu1Name}
+            {isNA(menuData.detailedMenuDTOList[0].menu1Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -68,7 +75,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[0].menu2Name}
+            {isNA(menuData.detailedMenuDTOList[0].menu2Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -76,7 +83,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[0].menu3Name}
+            {isNA(menuData.detailedMenuDTOList[0].menu3Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -84,7 +91,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[0].menu4Name}
+            {isNA(menuData.detailedMenuDTOList[0].menu4Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -92,7 +99,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[0].menu5Name}
+            {isNA(menuData.detailedMenuDTOList[0].menu5Name)}
           </TextR16>
           <hr
             css={css`
@@ -118,7 +125,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[1].mainMenuName}
+            {isNA(menuData.detailedMenuDTOList[1].mainMenuName)}
           </TextR16>
           <TextR16
             css={css`
@@ -127,7 +134,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               /* letter-spacing: -3px; */
             `}
           >
-            {menuData.detailedMenuDTOList[1].menu1Name}
+            {isNA(menuData.detailedMenuDTOList[1].menu1Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -135,7 +142,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[1].menu2Name}
+            {isNA(menuData.detailedMenuDTOList[1].menu2Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -143,7 +150,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[1].menu3Name}
+            {isNA(menuData.detailedMenuDTOList[1].menu3Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -151,7 +158,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[1].menu4Name}
+            {isNA(menuData.detailedMenuDTOList[1].menu4Name)}
           </TextR16>
           <hr
             css={css`
@@ -178,7 +185,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[2].menu1Name}
+            {isNA(menuData.detailedMenuDTOList[2].menu1Name)}
           </TextR16>
           <TextR16
             css={css`
@@ -186,7 +193,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[2].menu2Name}
+            {isNA(menuData.detailedMenuDTOList[2].menu2Name)}
           </TextR16>
           <TextB20
             css={css`
@@ -194,7 +201,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {menuData.detailedMenuDTOList[3].detailedMenuName}
+            {isNA(menuData.detailedMenuDTOList[3].detailedMenuName)}
           </TextB20>
           <TextR16
             css={css`
@@ -202,7 +209,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               margin-bottom: 30px;
             `}
           >
-            {menuData.detailedMenuDTOList[3].mainMenuName}
+            {isNA(menuData.detailedMenuDTOList[3].mainMenuName)}
           </TextR16>
         </div>
       </div>
