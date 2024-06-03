@@ -16,6 +16,13 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
         border-radius: 18px;
         margin: 0px 9px;
         background-color: var(--color_02);
+        ${day == new Date().getDate()
+          ? css`
+              background-color: var(--color_01);
+            `
+          : css`
+              background-color: var(--color_02);
+            `}
       `}
     >
       <div
@@ -27,7 +34,15 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           height: 44px;
         `}
       >
-        <TextB16>{`${dayWeek}(${day})`}</TextB16>
+        <TextB16
+          css={css`
+            ${day == new Date().getDate()
+              ? css`
+                  color: #ffffff;
+                `
+              : css``}
+          `}
+        >{`${dayWeek}(${day})`}</TextB16>
       </div>
       <div
         css={css`
