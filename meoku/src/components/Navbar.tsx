@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import icNav from "../assets/icNav.svg";
 import { TextR20 } from "./common/Text";
 import { Link } from "react-router-dom";
+
 const Navbar = () => {
   // const Text = styled.h2`
   //   font-size: 16px;
