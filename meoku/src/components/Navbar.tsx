@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import icNav from "../assets/icNav.svg";
 import { TextR20 } from "./common/Text";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   // const Text = styled.h2`
   //   font-size: 16px;
@@ -25,20 +26,22 @@ const Navbar = () => {
       `}
     >
       <div css={css``}>
-        <img
-          css={css`
-            /* display: flex;
+        <Link to="/">
+          <img
+            css={css`
+              /* display: flex;
             justify-content: center;
             align-items: center; */
-            /* margin: 0 auto; */
-            margin-left: -30px;
-            width: 252px;
-            height: 60px;
-            white-space: nowrap;
-          `}
-          src={icNav}
-          alt="image"
-        />
+              /* margin: 0 auto; */
+              margin-left: -30px;
+              width: 252px;
+              height: 60px;
+              white-space: nowrap;
+            `}
+            src={icNav}
+            alt="image"
+          />
+        </Link>
       </div>
       <div
         css={css`
