@@ -260,7 +260,7 @@ function App() {
         `}
       >
         {menuData &&
-          menuData.map((menu: firstMenu, index: number) => {
+          menuData.slice(0, 5).map((menu: firstMenu, index: number) => {
             return (
               <DailyMenu
                 key={index}
@@ -312,7 +312,7 @@ function App() {
           `}
         >
           {menuData &&
-            menuData.map((menu: firstMenu, index: number) => {
+            menuData.slice(0, 5).map((menu: firstMenu, index: number) => {
               return (
                 <DailyDinnerMenu
                   key={index}
