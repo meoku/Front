@@ -9,7 +9,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       return value;
     }
   };
-  return (
+  return menuData.holidayFg == "N" ? (
     <div
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -211,6 +211,53 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           >
             {isNA(menuData.detailedMenuDTOList[3].mainMenuName)}
           </TextR16>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div
+      css={css`
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        border-radius: 18px;
+        margin: 0px 9px 30px 9px;
+        background-color: var(--color_02);
+      `}
+    >
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          width: 214px;
+          height: 44px;
+        `}
+      >
+        <TextB16>{`${dayWeek}(${day})`}</TextB16>
+      </div>
+      <div
+        css={css`
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 214px;
+          border-radius: 0 0 18px 18px;
+          /* height: 576px; */
+          background-color: var(--background_color_02);
+        `}
+      >
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 242px;
+            height: 538px;
+          `}
+        >
+          <TextB20>공휴일</TextB20>
         </div>
       </div>
     </div>
