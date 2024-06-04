@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import "./App.css";
 import Day from "./components/Day";
 import LunchBtn from "./components/LunchBtn";
@@ -12,11 +12,21 @@ import DailyDinnerMenu from "./components/DailyDinnerMenu";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { firstMenu } from "./type/type";
+import TodayDailyMenu from "./components/TodayDailyMenu";
+import TodayDailyDinnerMenu from "./components/TodayDailyDinnerMenu";
 
 interface RequestData {
   isMonthOrWeek: string;
   date: string;
 }
+const moveUpDown = keyframes`
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+`;
 
 const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
   const response = await axios.post(
@@ -254,14 +264,22 @@ function App() {
         css={css`
           display: flex;
           justify-content: center;
-          align-items: flex-start;
-          margin-top: 86px;
+          align-items: center;
+          margin-top: 26px;
+          margin-left: 20px;
           background-color: var(--background_color_01);
         `}
       >
         {menuData &&
-          menuData.slice(0, 5).map((menu: firstMenu, index: number) => {
-            return (
+          menuData.map((menu: firstMenu, index: number) => {
+            return dayArr[index][1] == new Date().getDate() ? (
+              <TodayDailyMenu
+                key={index}
+                dayWeek={dayArr[index][0]}
+                day={dayArr[index][1]}
+                menuData={menu}
+              />
+            ) : (
               <DailyMenu
                 key={index}
                 dayWeek={dayArr[index][0]}
@@ -286,6 +304,7 @@ function App() {
             width: 74px;
             height: 74px;
             margin-top: 20px;
+            animation: ${moveUpDown} 1s ease-in-out infinite;
           `}
         />
         <div
@@ -294,7 +313,7 @@ function App() {
             justify-content: center;
             align-items: center;
             margin-top: 1.25rem;
-            margin-left: 252px;
+            margin-left: 280px;
             height: 96px;
             flex-wrap: nowrap;
             background-color: var(--background_color_01);
@@ -307,13 +326,21 @@ function App() {
           css={css`
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             margin-top: 36px;
+            margin-left: 20px;
           `}
         >
           {menuData &&
-            menuData.slice(0, 5).map((menu: firstMenu, index: number) => {
-              return (
+            menuData.map((menu: firstMenu, index: number) => {
+              return dayArr[index][1] == new Date().getDate() + 1 ? (
+                <TodayDailyDinnerMenu
+                  key={index}
+                  dayWeek={dayArr[index][0]}
+                  day={dayArr[index][1]}
+                  menuData={menu}
+                />
+              ) : (
                 <DailyDinnerMenu
                   key={index}
                   dayWeek={dayArr[index][0]}
