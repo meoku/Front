@@ -58,7 +58,7 @@ const Day = ({ time }: { time: string }) => {
           <div
             css={css`
               flex-wrap: nowrap;
-              margin: 0 auto;
+              margin: 6px auto;
             `}
           >
             <TextB20
