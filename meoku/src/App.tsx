@@ -333,7 +333,7 @@ function App() {
         >
           {menuData &&
             menuData.map((menu: firstMenu, index: number) => {
-              return dayArr[index][1] == new Date().getDate() + 1 ? (
+              return dayArr[index][1] == new Date().getDate() ? (
                 <TodayDailyDinnerMenu
                   key={index}
                   dayWeek={dayArr[index][0]}
