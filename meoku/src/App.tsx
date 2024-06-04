@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import "./App.css";
 import Day from "./components/Day";
 import LunchBtn from "./components/LunchBtn";
@@ -19,6 +19,14 @@ interface RequestData {
   isMonthOrWeek: string;
   date: string;
 }
+const moveUpDown = keyframes`
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+`;
 
 const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
   const response = await axios.post(
@@ -296,6 +304,7 @@ function App() {
             width: 74px;
             height: 74px;
             margin-top: 20px;
+            animation: ${moveUpDown} 1s ease-in-out infinite;
           `}
         />
         <div
