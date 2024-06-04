@@ -49,7 +49,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             justify-content: center;
             align-items: center;
             width: 242px;
-            height: 176px;
+            height: 186px;
             margin-top: 20px;
           `}
         >
@@ -117,7 +117,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             align-items: center;
             width: 242px;
             margin-top: 10px;
-            /* height: 170px; */
+            height: 176px;
           `}
         >
           <TextB20>{menuData.detailedMenuDTOList[1].detailedMenuName}</TextB20>
@@ -176,8 +176,8 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             justify-content: center;
             align-items: center;
             width: 242px;
-            height: 150px;
-            margin-top: 16px;
+            height: 174px;
+            margin-top: 10px;
           `}
         >
           <TextB20>{menuData.detailedMenuDTOList[2].detailedMenuName}</TextB20>
@@ -222,6 +222,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
         /* margin: 0px 9px 30px 9px; */
+        margin: 0px 9px;
         background-color: var(--color_02);
       `}
     >
@@ -255,7 +256,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             justify-content: center;
             align-items: center;
             width: 242px;
-            height: 538px;
+            height: 576px;
           `}
         >
           <TextB20>공휴일</TextB20>
