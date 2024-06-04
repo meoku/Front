@@ -12,6 +12,7 @@ import DailyDinnerMenu from "./components/DailyDinnerMenu";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { firstMenu } from "./type/type";
+import TodayDailyMenu from "./components/TodayDailyMenu";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -254,14 +255,21 @@ function App() {
         css={css`
           display: flex;
           justify-content: center;
-          align-items: flex-start;
-          margin-top: 86px;
+          align-items: center;
+          margin-top: 26px;
           background-color: var(--background_color_01);
         `}
       >
         {menuData &&
           menuData.map((menu: firstMenu, index: number) => {
-            return (
+            return dayArr[index][1] == new Date().getDate() + 1 ? (
+              <TodayDailyMenu
+                key={index}
+                dayWeek={dayArr[index][0]}
+                day={dayArr[index][1]}
+                menuData={menu}
+              />
+            ) : (
               <DailyMenu
                 key={index}
                 dayWeek={dayArr[index][0]}

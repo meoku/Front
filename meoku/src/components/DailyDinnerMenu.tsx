@@ -30,7 +30,6 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-
           width: 214px;
           height: 44px;
         `}
@@ -65,13 +64,12 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             align-items: center;
             width: 242px;
             height: 200px;
-            margin-top: 16px;
           `}
         >
           <TextB20>{menuData.detailedMenuDTOList[4].detailedMenuName}</TextB20>
           <TextR16
             css={css`
-              margin-top: 8px;
+              margin-top: 12px;
               text-align: center;
             `}
           >
@@ -119,7 +117,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           </TextR16>
           <hr
             css={css`
-              margin-top: 20px;
+              margin-top: 16px;
               width: 80%;
             `}
           />
@@ -132,8 +130,8 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             align-items: center;
             width: 242px;
             height: 60px;
-            margin-top: 20px;
-            margin-bottom: 32;
+            margin-top: 10px;
+            margin-bottom: 10px;
           `}
         >
           <TextB20>{menuData.detailedMenuDTOList[5].detailedMenuName}</TextB20>
@@ -170,7 +168,6 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-
           width: 214px;
           height: 44px;
         `}
@@ -196,7 +193,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             justify-content: center;
             align-items: center;
             width: 242px;
-            height: 296px;
+            height: 280px;
           `}
         >
           <TextB20>공휴일</TextB20>

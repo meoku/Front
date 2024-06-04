@@ -23,7 +23,7 @@ const LunchBtn = () => {
         css={css`
           width: 52px;
           height: 68px;
-          margin-right: 1.625rem;
+          /* margin-right: 1.625rem; */
         `}
       />
     </div>
