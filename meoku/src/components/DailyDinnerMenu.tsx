@@ -4,7 +4,7 @@ import { mainDailyMenuTime } from "../type/type";
 const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
   const isNA = (value: string): string | JSX.Element => {
     if (value === "N/A") {
-      return <br />;
+      return "";
     } else {
       return value;
     }
