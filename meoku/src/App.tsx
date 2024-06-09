@@ -18,7 +18,12 @@ import { BrowserView, MobileView } from "react-device-detect";
 import styled from "@emotion/styled";
 import icNav from "/icNav.svg";
 import icHamburger from "/icHamburger.svg";
+import leftarrow from "/leftarrow.svg";
+import rightarrow from "/rightarrow.svg";
+import icMonth from "/icMonth.svg";
+import icShare from "/icShare.svg";
 import { Link } from "react-router-dom";
+import { TextB20 } from "./components/common/Text";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -63,10 +68,16 @@ function App() {
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
-  console.log(menuData);
-  // console.log(menuData[1]);
-  // console.log(menuData[2]);
-  // console.log(menuData[3]);
+  const getWeekOfMonth = (date: Date) => {
+    const month = date.getMonth() + 1;
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const firstDayOfWeek = firstDayOfMonth.getDay();
+    const adjustedFirstDayOfWeek = firstDayOfWeek === 0 ? 7 : firstDayOfWeek;
+    const weekOfMonth = Math.ceil(
+      (date.getDate() + (7 - adjustedFirstDayOfWeek)) / 7
+    );
+    return `${month}월 ${weekOfMonth}주`;
+  };
 
   let dayArr: [string | undefined, number][] = [];
   const getDayWeek = (day: number) => {
@@ -259,8 +270,30 @@ function App() {
   `;
   const MobileHeader = styled.div`
     display: flex;
+    justify-content: space-around;
     align-items: center;
     width: 100vw;
+    margin-top: 12px;
+  `;
+  const MobileWeather = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    height: 44px;
+    background-color: var(--color_02);
+    border-radius: 5px;
+  `;
+  const MobileDay = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+  const MobileSideBtn = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   `;
   return (
     <div>
@@ -409,7 +442,29 @@ function App() {
             alt="image"
           />
         </MobileMain>
-        <MobileHeader></MobileHeader>
+        <MobileHeader>
+          <MobileWeather>
+            <div>
+              <div>서울특별시</div>
+              <div>10’(sun)</div>
+            </div>
+          </MobileWeather>
+          <MobileDay>
+            <img src={leftarrow} alt="arrowImg" />
+            <TextB20
+              css={css`
+                color: var(--color_01);
+              `}
+            >
+              {getWeekOfMonth(new Date())}
+            </TextB20>
+            <img src={rightarrow} alt="arrowImg" />
+          </MobileDay>
+          <MobileSideBtn>
+            <img src={icMonth} alt="arrowImg" />
+            <img src={icShare} alt="arrowImg" />
+          </MobileSideBtn>
+        </MobileHeader>
       </MobileView>
     </div>
   );
