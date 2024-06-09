@@ -3,8 +3,8 @@
    License: none (public domain)
 */
 #root {
-  min-width: 1340px;
-  width: 100%;
+  /* min-width: 1340px; */
+  width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   background-color: #f8f8f8;

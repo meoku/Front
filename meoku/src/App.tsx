@@ -15,6 +15,10 @@ import { firstMenu } from "./type/type";
 import TodayDailyMenu from "./components/TodayDailyMenu";
 import TodayDailyDinnerMenu from "./components/TodayDailyDinnerMenu";
 import { BrowserView, MobileView } from "react-device-detect";
+import styled from "@emotion/styled";
+import icNav from "/icNav.svg";
+import icHamburger from "/icHamburger.svg";
+import { Link } from "react-router-dom";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -244,106 +248,60 @@ function App() {
       ],
     ];
   }
+  const MobileMain = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    height: 44px;
+  `;
   return (
     <div>
       <BrowserView>
-        <Navbar />
         <div
           css={css`
-            display: flex;
-            justify-content: center;
-            margin-top: 1.25rem;
-            height: 96px;
-            flex-wrap: nowrap;
+            min-width: 1340px;
           `}
         >
-          <Weather />
-          <Day time={"점심"} />
-          <LunchTime />
-          <LunchBtn />
-        </div>
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 26px;
-            margin-left: 20px;
-            background-color: var(--background_color_01);
-          `}
-        >
-          {menuData &&
-            menuData.map((menu: firstMenu, index: number) => {
-              return dayArr[index][1] == new Date().getDate() ? (
-                <TodayDailyMenu
-                  key={index}
-                  dayWeek={dayArr[index][0]}
-                  day={dayArr[index][1]}
-                  menuData={menu}
-                />
-              ) : (
-                <DailyMenu
-                  key={index}
-                  dayWeek={dayArr[index][0]}
-                  day={dayArr[index][1]}
-                  menuData={menu}
-                />
-              );
-            })}
-        </div>
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--background_color_01);
-          `}
-        >
-          <img
-            src={bottomarrow}
-            css={css`
-              width: 74px;
-              height: 74px;
-              margin-top: 20px;
-              animation: ${moveUpDown} 1s ease-in-out infinite;
-            `}
-          />
+          <Navbar />
           <div
             css={css`
               display: flex;
               justify-content: center;
-              align-items: center;
               margin-top: 1.25rem;
-              margin-left: 280px;
               height: 96px;
               flex-wrap: nowrap;
-              background-color: var(--background_color_01);
             `}
           >
-            <Day time={"저녁"} />
-            <DinnerTime />
+            <Weather />
+            <Day time={"점심"} />
+            <LunchTime />
+            <LunchBtn />
           </div>
           <div
             css={css`
               display: flex;
               justify-content: center;
               align-items: center;
-              margin-top: 36px;
+              margin-top: 26px;
               margin-left: 20px;
+              background-color: var(--background_color_01);
             `}
           >
             {menuData &&
               menuData.map((menu: firstMenu, index: number) => {
                 return dayArr[index][1] == new Date().getDate() ? (
-                  <TodayDailyDinnerMenu
+                  <TodayDailyMenu
                     key={index}
                     dayWeek={dayArr[index][0]}
                     day={dayArr[index][1]}
                     menuData={menu}
                   />
                 ) : (
-                  <DailyDinnerMenu
+                  <DailyMenu
                     key={index}
                     dayWeek={dayArr[index][0]}
                     day={dayArr[index][1]}
@@ -352,10 +310,98 @@ function App() {
                 );
               })}
           </div>
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              background-color: var(--background_color_01);
+            `}
+          >
+            <img
+              src={bottomarrow}
+              css={css`
+                width: 74px;
+                height: 74px;
+                margin-top: 20px;
+                animation: ${moveUpDown} 1s ease-in-out infinite;
+              `}
+            />
+            <div
+              css={css`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 1.25rem;
+                margin-left: 280px;
+                height: 96px;
+                flex-wrap: nowrap;
+                background-color: var(--background_color_01);
+              `}
+            >
+              <Day time={"저녁"} />
+              <DinnerTime />
+            </div>
+            <div
+              css={css`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 36px;
+                margin-left: 20px;
+              `}
+            >
+              {menuData &&
+                menuData.map((menu: firstMenu, index: number) => {
+                  return dayArr[index][1] == new Date().getDate() ? (
+                    <TodayDailyDinnerMenu
+                      key={index}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      menuData={menu}
+                    />
+                  ) : (
+                    <DailyDinnerMenu
+                      key={index}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      menuData={menu}
+                    />
+                  );
+                })}
+            </div>
+          </div>
         </div>
       </BrowserView>
       <MobileView>
-        <h1>hah</h1>
+        <MobileMain>
+          <Link to="/">
+            <img
+              css={css`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 148px;
+                height: 32px;
+                white-space: nowrap;
+              `}
+              src={icNav}
+              alt="image"
+            />
+          </Link>
+          <img
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              white-space: nowrap;
+              margin-left: 45%;
+            `}
+            src={icHamburger}
+            alt="image"
+          />
+        </MobileMain>
       </MobileView>
     </div>
   );
