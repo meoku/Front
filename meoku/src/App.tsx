@@ -250,13 +250,17 @@ function App() {
   }
   const MobileMain = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100vw;
-    box-sizing: border-box;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
     height: 44px;
+  `;
+  const MobileHeader = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100vw;
   `;
   return (
     <div>
@@ -385,6 +389,8 @@ function App() {
                 width: 148px;
                 height: 32px;
                 white-space: nowrap;
+                position: relative;
+                left: 10px;
               `}
               src={icNav}
               alt="image"
@@ -396,12 +402,14 @@ function App() {
               justify-content: center;
               align-items: center;
               white-space: nowrap;
-              margin-left: 45%;
+              position: relative;
+              right: 10px;
             `}
             src={icHamburger}
             alt="image"
           />
         </MobileMain>
+        <MobileHeader></MobileHeader>
       </MobileView>
     </div>
   );
