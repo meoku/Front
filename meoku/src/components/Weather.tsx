@@ -73,6 +73,7 @@ const Weather = () => {
           justify-content: center;
           text-align: right;
           /* margin-top: 32px; */
+          white-space: nowrap;
           margin-left: 18px;
         `}
       >
@@ -82,8 +83,9 @@ const Weather = () => {
         css={css`
           display: flex;
           flex-direction: column;
+          width: 100%;
           margin-top: 15px;
-          margin-left: 85px;
+          margin-right: 34px;
         `}
       >
         <p
@@ -106,6 +108,9 @@ const Weather = () => {
         </p>
         <p
           css={css`
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
             margin-top: 32px;
             font-size: 12px;
             color: #585858;
