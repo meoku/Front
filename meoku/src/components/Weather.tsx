@@ -1,7 +1,21 @@
 import { css } from "@emotion/react";
 import snowImage from "../assets/weather/ImageSnow.svg";
 import { TextB24, TextR14 } from "./common/Text";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
 const Weather = () => {
+  const getWeatherDate = async () => {
+    const res = await axios.get(
+      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
+    );
+    return res;
+  };
+  const { data: weatherData } = useQuery({
+    queryKey: ["data"],
+    queryFn: () => getWeatherDate(),
+  });
+  //console.log(weatherData);
   return (
     <div
       css={css`
@@ -28,17 +42,17 @@ const Weather = () => {
         css={css`
           display: flex;
           flex-direction: column;
+          justify-content: center;
           text-align: right;
-          margin-top: 7px;
           margin-left: 10px;
         `}
       >
         <p
           css={css`
-            font-size: 53.6px;
+            font-size: 33.6px;
           `}
         >
-          -10˚
+          {weatherData?.data?.responseBody?.temperature}˚
         </p>
 
         <p
@@ -49,19 +63,20 @@ const Weather = () => {
             white-space: nowrap;
           `}
         >
-          5 / -11
+          {/* 5 / -11 */}
         </p>
       </div>
       <div
         css={css`
           display: flex;
           flex-direction: column;
+          justify-content: center;
           text-align: right;
-          margin-top: 32px;
+          /* margin-top: 32px; */
           margin-left: 18px;
         `}
       >
-        {<TextB24>눈</TextB24>}
+        {<TextB24>맑음</TextB24>}
       </div>
       <div
         css={css`
