@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFoundPage from "./pages/common/NotFoundPage.tsx";
 import Admin from "./pages/admin/Admin.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const router = createBrowserRouter([
   {

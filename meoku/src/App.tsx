@@ -24,6 +24,8 @@ import icMonth from "/icMonth.svg";
 import icShare from "/icShare.svg";
 import { Link } from "react-router-dom";
 import { TextB20 } from "./components/common/Text";
+import Slider from "react-slick";
+import MobileDailyMenu from "./components/mobile/MobileDailyMenu";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -295,6 +297,14 @@ function App() {
     justify-content: space-around;
     align-items: center;
   `;
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    initialSlide: 3,
+    slidesToScroll: 1,
+  };
   return (
     <div>
       <BrowserView>
@@ -465,6 +475,44 @@ function App() {
             <img src={icShare} alt="arrowImg" />
           </MobileSideBtn>
         </MobileHeader>
+        <div>
+          <Slider {...settings}>
+            {menuData &&
+              menuData.map((menu: firstMenu, index: number) => {
+                return dayArr[index][1] == new Date().getDate() ? (
+                  <div>
+                    <TodayDailyMenu
+                      key={index}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      menuData={menu}
+                    />
+                    <TodayDailyDinnerMenu
+                      key={index}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      menuData={menu}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <MobileDailyMenu
+                      key={index}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      menuData={menu}
+                    />
+                    <DailyDinnerMenu
+                      key={index}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      menuData={menu}
+                    />
+                  </div>
+                );
+              })}
+          </Slider>
+        </div>
       </MobileView>
     </div>
   );
