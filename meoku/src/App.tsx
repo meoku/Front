@@ -26,6 +26,10 @@ import { Link } from "react-router-dom";
 import { TextB20 } from "./components/common/Text";
 import Slider from "react-slick";
 import MobileDailyMenu from "./components/mobile/MobileDailyMenu";
+import MobileTodayDailyMenu from "./components/mobile/MobileTodayDailyyMenu";
+import MobileTodayDailyDinnerMenu from "./components/mobile/MobileTodayDailyDinnerMenu";
+import MobileDailyDinnerMenu from "./components/mobile/MobileDailyDinnerMenu";
+import { useEffect, useState } from "react";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -52,8 +56,19 @@ const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
 };
 
 function App() {
+  const [selectedDay, setSelectedDay] = useState(0);
   const date = new Date();
   const dayWeek = date.getDay();
+  useEffect(() => {
+    const day = new Date().getDay();
+    if (day == 0) setSelectedDay(0);
+    else if (day === 1) setSelectedDay(1);
+    else if (day === 2) setSelectedDay(2);
+    else if (day === 3) setSelectedDay(3);
+    else if (day === 4) setSelectedDay(4);
+    else if (day === 5) setSelectedDay(5);
+    else if (day === 6) setSelectedDay(6);
+  }, []);
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -305,6 +320,46 @@ function App() {
     initialSlide: 3,
     slidesToScroll: 1,
   };
+  const MobileDays = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+  const MobileDayBtn = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: var(--color_02);
+    border-radius: 10px;
+    margin: 6px 6px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  `;
+  const MobileDayBtnSelected = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: var(--color_04);
+    color: var(--background_color_02);
+    border-radius: 10px;
+    margin: 6px 6px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  `;
+  const MobileDayBtnSelectedToday = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: var(--color_01);
+    color: var(--background_color_02);
+    border-radius: 10px;
+    margin: 6px 6px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  `;
   return (
     <div>
       <BrowserView>
@@ -476,19 +531,86 @@ function App() {
           </MobileSideBtn>
         </MobileHeader>
         <div>
+          <MobileDays>
+            {selectedDay == 1 ? (
+              date.getDay() === selectedDay ? (
+                <MobileDayBtnSelectedToday onClick={() => setSelectedDay(1)}>
+                  월
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected onClick={() => setSelectedDay(1)}>
+                  월
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn onClick={() => setSelectedDay(1)}>월</MobileDayBtn>
+            )}
+            {selectedDay == 2 ? (
+              date.getDay() === selectedDay ? (
+                <MobileDayBtnSelectedToday onClick={() => setSelectedDay(2)}>
+                  화
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected onClick={() => setSelectedDay(2)}>
+                  화
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn onClick={() => setSelectedDay(2)}>화</MobileDayBtn>
+            )}
+            {selectedDay == 3 ? (
+              date.getDay() === selectedDay ? (
+                <MobileDayBtnSelectedToday onClick={() => setSelectedDay(3)}>
+                  수
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected onClick={() => setSelectedDay(3)}>
+                  수
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn onClick={() => setSelectedDay(3)}>수</MobileDayBtn>
+            )}
+            {selectedDay == 4 ? (
+              date.getDay() === selectedDay ? (
+                <MobileDayBtnSelectedToday onClick={() => setSelectedDay(4)}>
+                  목
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected onClick={() => setSelectedDay(4)}>
+                  목
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn onClick={() => setSelectedDay(4)}>목</MobileDayBtn>
+            )}
+            {selectedDay == 5 ? (
+              date.getDay() === selectedDay ? (
+                <MobileDayBtnSelectedToday onClick={() => setSelectedDay(5)}>
+                  금
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected onClick={() => setSelectedDay(5)}>
+                  금
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn onClick={() => setSelectedDay(5)}>금</MobileDayBtn>
+            )}
+          </MobileDays>
           <Slider {...settings}>
             {menuData &&
               menuData.map((menu: firstMenu, index: number) => {
                 return dayArr[index][1] == new Date().getDate() ? (
                   <div>
-                    <TodayDailyMenu
-                      key={index}
+                    <MobileTodayDailyMenu
+                      key={index + "mobileToday"}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
                     />
-                    <TodayDailyDinnerMenu
-                      key={index}
+                    <MobileTodayDailyDinnerMenu
+                      key={index + "mobileTodayDinner"}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
@@ -497,13 +619,13 @@ function App() {
                 ) : (
                   <div>
                     <MobileDailyMenu
-                      key={index}
+                      key={index + "mobile"}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
                     />
-                    <DailyDinnerMenu
-                      key={index}
+                    <MobileDailyDinnerMenu
+                      key={index + "mobileDinner"}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
