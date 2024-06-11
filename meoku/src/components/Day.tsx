@@ -1,5 +1,5 @@
-import leftarrow from "../assets/leftarrow.svg";
-import rightarrow from "../assets/rightarrow.svg";
+import leftarrow from "/leftarrow.svg";
+import rightarrow from "/rightarrow.svg";
 import { css } from "@emotion/react";
 import { TextB20 } from "./common/Text";
 const Day = ({ time }: { time: string }) => {

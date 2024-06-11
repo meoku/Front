@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import snowImage from "../assets/weather/ImageSnow.svg";
+import snowImage from "/weather/ImageSnow.svg";
 import { TextB24, TextR14 } from "./common/Text";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
