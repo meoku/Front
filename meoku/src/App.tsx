@@ -71,6 +71,15 @@ function App() {
     else if (day === 5) setSelectedDay(5);
     else if (day === 6) setSelectedDay(6);
   }, []);
+  useEffect(() => {
+    console.log(selectedDay);
+    console.log("hahahaha");
+    if (selectedDay <= 0) {
+      setSelectedDay(5);
+    } else if (selectedDay > 5) {
+      setSelectedDay(1);
+    }
+  }, [selectedDay]);
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -332,6 +341,19 @@ function App() {
     slidesToShow: 1,
     initialSlide: selectedDay - 1,
     slidesToScroll: 1,
+    beforeChange: (left: number, right: number) => {
+      console.log(left, right);
+      if (left > right) {
+        console.log("!!!!!!!!!!!!!!!!!");
+        if (right == 0) setSelectedDay(1);
+        else setSelectedDay(selectedDay - 1);
+      }
+      if (left < right) {
+        console.log("@@@@@@@@@@@@@@@");
+        if (right == 4) setSelectedDay(5);
+        else setSelectedDay(selectedDay + 1);
+      }
+    },
   };
   const MobileDays = styled.div`
     display: flex;
