@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 // import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import minusIco from "../assets/minus.svg";
-import plusIco from "../assets/plus.svg";
+import minusIco from "/minus.svg";
+import plusIco from "/plus.svg";
 import { menuDetail } from "../type/type";
 interface InputMenusProps {
   menuData: menuDetail[];

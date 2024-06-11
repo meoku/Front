@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import monthBtn from "../assets/monthBtn.svg";
-import shareBtn from "../assets/shareBtn.svg";
+import monthBtn from "/monthBtn.svg";
+import shareBtn from "/shareBtn.svg";
 const LunchBtn = () => {
   return (
     <div
