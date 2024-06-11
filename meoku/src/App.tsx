@@ -30,6 +30,7 @@ import MobileTodayDailyMenu from "./components/mobile/MobileTodayDailyyMenu";
 import MobileTodayDailyDinnerMenu from "./components/mobile/MobileTodayDailyDinnerMenu";
 import MobileDailyDinnerMenu from "./components/mobile/MobileDailyDinnerMenu";
 import { useEffect, useState } from "react";
+import sunnyImage from "/weather/ImageSunny.svg";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -85,6 +86,17 @@ function App() {
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
+  const getWeatherDate = async () => {
+    const res = await axios.get(
+      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
+    );
+    return res;
+  };
+  const { data: weatherData } = useQuery({
+    queryKey: ["data"],
+    queryFn: () => getWeatherDate(),
+  });
+
   const getWeekOfMonth = (date: Date) => {
     const month = date.getMonth() + 1;
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -511,7 +523,16 @@ function App() {
           <MobileWeather>
             <div>
               <div>서울특별시</div>
-              <div>10’(sun)</div>
+              <div
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                `}
+              >
+                {`${weatherData?.data?.responseBody?.temperature}’`}
+                <img src={sunnyImage} alt="sun" />
+              </div>
             </div>
           </MobileWeather>
           <MobileDay>
@@ -604,13 +625,13 @@ function App() {
                 return dayArr[index][1] == new Date().getDate() ? (
                   <div>
                     <MobileTodayDailyMenu
-                      key={index + "mobileToday"}
+                      key={index}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
                     />
                     <MobileTodayDailyDinnerMenu
-                      key={index + "mobileTodayDinner"}
+                      key={index}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
@@ -619,13 +640,13 @@ function App() {
                 ) : (
                   <div>
                     <MobileDailyMenu
-                      key={index + "mobile"}
+                      key={index}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
                     />
                     <MobileDailyDinnerMenu
-                      key={index + "mobileDinner"}
+                      key={index}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
                       menuData={menu}
