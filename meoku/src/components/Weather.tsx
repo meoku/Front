@@ -52,7 +52,11 @@ const Weather = () => {
             font-size: 33.6px;
           `}
         >
-          {weatherData?.data?.responseBody?.temperature}˚
+          {`${
+            weatherData?.data?.responseBody?.temperature
+              ? weatherData?.data?.responseBody?.temperature + "˚"
+              : ""
+          }`}
         </p>
 
         <p
