@@ -72,8 +72,6 @@ function App() {
     else if (day === 6) setSelectedDay(6);
   }, []);
   useEffect(() => {
-    console.log(selectedDay);
-    console.log("hahahaha");
     if (selectedDay <= 0) {
       setSelectedDay(5);
     } else if (selectedDay > 5) {
@@ -342,14 +340,11 @@ function App() {
     initialSlide: selectedDay - 1,
     slidesToScroll: 1,
     beforeChange: (left: number, right: number) => {
-      console.log(left, right);
       if (left > right) {
-        console.log("!!!!!!!!!!!!!!!!!");
         if (right == 0) setSelectedDay(1);
         else setSelectedDay(selectedDay - 1);
       }
       if (left < right) {
-        console.log("@@@@@@@@@@@@@@@");
         if (right == 4) setSelectedDay(5);
         else setSelectedDay(selectedDay + 1);
       }
@@ -580,7 +575,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    setSelectedDay(1);
+                    // setSelectedDay(1);
                     sliderRef?.current?.slickGoTo(0);
                   }}
                 >
@@ -589,7 +584,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    setSelectedDay(1);
+                    // setSelectedDay(1);
                     sliderRef?.current?.slickGoTo(0);
                   }}
                 >
@@ -599,7 +594,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  setSelectedDay(1);
+                  // setSelectedDay(1);
                   sliderRef?.current?.slickGoTo(0);
                 }}
               >
@@ -610,7 +605,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    setSelectedDay(2);
+                    // setSelectedDay(2);
                     sliderRef?.current?.slickGoTo(1);
                   }}
                 >
@@ -619,7 +614,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    setSelectedDay(2);
+                    // setSelectedDay(2);
                     sliderRef?.current?.slickGoTo(1);
                   }}
                 >
@@ -629,7 +624,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  setSelectedDay(2);
+                  // setSelectedDay(2);
                   sliderRef?.current?.slickGoTo(1);
                 }}
               >
@@ -640,7 +635,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    setSelectedDay(3);
+                    // setSelectedDay(3);
                     sliderRef?.current?.slickGoTo(2);
                   }}
                 >
@@ -649,7 +644,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    setSelectedDay(3);
+                    // setSelectedDay(3);
                     sliderRef?.current?.slickGoTo(2);
                   }}
                 >
@@ -659,7 +654,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  setSelectedDay(3);
+                  // setSelectedDay(3);
                   sliderRef?.current?.slickGoTo(2);
                 }}
               >
@@ -670,7 +665,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    setSelectedDay(4);
+                    // setSelectedDay(4);
                     sliderRef?.current?.slickGoTo(3);
                   }}
                 >
@@ -679,7 +674,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    setSelectedDay(4);
+                    // setSelectedDay(4);
                     sliderRef?.current?.slickGoTo(3);
                   }}
                 >
@@ -689,7 +684,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  setSelectedDay(4);
+                  // setSelectedDay(4);
                   sliderRef?.current?.slickGoTo(3);
                 }}
               >
@@ -700,7 +695,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    setSelectedDay(5);
+                    // setSelectedDay(5);
                     sliderRef?.current?.slickGoTo(4);
                   }}
                 >
@@ -709,7 +704,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    setSelectedDay(5);
+                    // setSelectedDay(5);
                     sliderRef?.current?.slickGoTo(4);
                   }}
                 >
@@ -719,7 +714,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  setSelectedDay(5);
+                  // setSelectedDay(5);
                   sliderRef?.current?.slickGoTo(4);
                 }}
               >
