@@ -548,7 +548,11 @@ function App() {
                   align-items: center;
                 `}
               >
-                {`${weatherData?.data?.responseBody?.temperature}’`}
+                {`${
+                  weatherData?.data?.responseBody?.temperature
+                    ? weatherData?.data?.responseBody?.temperature + "’"
+                    : ""
+                }`}
                 <img src={sunnyImage} alt="sun" />
               </div>
             </div>
