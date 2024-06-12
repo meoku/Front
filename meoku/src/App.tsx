@@ -420,7 +420,7 @@ function App() {
               justify-content: center;
               align-items: center;
               margin-top: 26px;
-              margin-left: 20px;
+              /* margin-left: 20px; */
               background-color: var(--background_color_01);
             `}
           >
@@ -482,7 +482,7 @@ function App() {
                 justify-content: center;
                 align-items: center;
                 margin-top: 36px;
-                margin-left: 20px;
+                /* margin-left: 20px; */
               `}
             >
               {menuData &&

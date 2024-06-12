@@ -14,7 +14,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
-        margin: 0px 9px 30px 9px;
+        margin: 0px 10px 30px 10px;
         background-color: var(--color_02);
       `}
     >
@@ -23,7 +23,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 214px;
+          width: 220px;
           height: 44px;
         `}
       >
@@ -35,7 +35,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 214px;
+          width: 220px;
           border-radius: 0 0 18px 18px;
           /* height: 576px; */
           background-color: var(--background_color_02);
@@ -144,7 +144,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
-        margin: 0px 9px 30px 9px;
+        margin: 0px 10px 30px 10px;
         background-color: var(--color_02);
       `}
     >
@@ -153,7 +153,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 214px;
+          width: 220px;
           height: 44px;
         `}
       >
@@ -165,7 +165,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 214px;
+          width: 220px;
           border-radius: 0 0 18px 18px;
           /* height: 576px; */
           background-color: var(--background_color_02);
