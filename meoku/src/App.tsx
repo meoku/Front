@@ -331,6 +331,7 @@ function App() {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 90px;
   `;
   const settings = {
     dots: true,
