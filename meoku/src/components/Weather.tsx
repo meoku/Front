@@ -15,7 +15,6 @@ const Weather = () => {
     queryKey: ["data"],
     queryFn: () => getWeatherDate(),
   });
-  //console.log(weatherData);
   return (
     <div
       css={css`
@@ -99,7 +98,7 @@ const Weather = () => {
             font-size: 12px;
           `}
         >
-          내위치:
+          위치:
         </p>
         <p
           css={css`
