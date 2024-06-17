@@ -15,6 +15,7 @@ const Weather = () => {
     queryKey: ["data"],
     queryFn: () => getWeatherDate(),
   });
+  console.log(weatherData);
   return (
     <div
       css={css`
@@ -52,8 +53,8 @@ const Weather = () => {
           `}
         >
           {`${
-            weatherData?.data?.responseBody?.temperature
-              ? weatherData?.data?.responseBody?.temperature + "˚"
+            weatherData?.data?.responseBody?.oneHourTemperature
+              ? weatherData?.data?.responseBody?.oneHourTemperature + "˚"
               : ""
           }`}
         </p>

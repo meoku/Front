@@ -550,8 +550,8 @@ function App() {
                 `}
               >
                 {`${
-                  weatherData?.data?.responseBody?.temperature
-                    ? weatherData?.data?.responseBody?.temperature + "’"
+                  weatherData?.data?.responseBody?.oneHourTemperature
+                    ? weatherData?.data?.responseBody?.oneHourTemperature + "’"
                     : ""
                 }`}
                 <img src={sunnyImage} alt="sun" />
