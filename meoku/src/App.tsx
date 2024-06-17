@@ -72,7 +72,6 @@ function App() {
     else if (day === 6) setSelectedDay(6);
   }, []);
   useEffect(() => {
-    console.log(selectedDay);
     if (selectedDay <= 0) {
       setSelectedDay(5);
     } else if (selectedDay > 5) {
