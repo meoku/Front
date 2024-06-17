@@ -53,8 +53,8 @@ const Weather = () => {
           `}
         >
           {`${
-            weatherData?.data?.responseBody?.oneHourTemperature
-              ? weatherData?.data?.responseBody?.oneHourTemperature + "˚"
+            weatherData?.data?.responseBody?.temperature
+              ? weatherData?.data?.responseBody?.temperature + "˚"
               : ""
           }`}
         </p>
