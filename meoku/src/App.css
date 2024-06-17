@@ -5,7 +5,7 @@
 #root {
   /* min-width: 1340px; */
   width: 100vw;
-  height: 125vh;
+  min-height: 100vh;
   box-sizing: border-box;
   background-color: #f8f8f8;
   color: black;
