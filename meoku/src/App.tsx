@@ -72,7 +72,6 @@ function App() {
     else if (day === 6) setSelectedDay(6);
   }, []);
   useEffect(() => {
-    console.log(selectedDay);
     if (selectedDay <= 0) {
       setSelectedDay(5);
     } else if (selectedDay > 5) {
@@ -555,8 +554,8 @@ function App() {
                 `}
               >
                 {`${
-                  weatherData?.data?.responseBody?.oneHourTemperature
-                    ? weatherData?.data?.responseBody?.oneHourTemperature + "’"
+                  weatherData?.data?.responseBody?.temperature
+                    ? weatherData?.data?.responseBody?.temperature + "’"
                     : ""
                 }`}
                 <img src={sunnyImage} alt="sun" />
