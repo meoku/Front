@@ -72,6 +72,7 @@ function App() {
     else if (day === 6) setSelectedDay(6);
   }, []);
   useEffect(() => {
+    console.log(selectedDay);
     if (selectedDay <= 0) {
       setSelectedDay(5);
     } else if (selectedDay > 5) {
@@ -343,10 +344,14 @@ function App() {
     beforeChange: (left: number, right: number) => {
       if (left > right) {
         if (right == 0) setSelectedDay(1);
+        else if (right == 1) setSelectedDay(2);
+        else if (right == 2) setSelectedDay(3);
         else setSelectedDay(selectedDay - 1);
       }
       if (left < right) {
         if (right == 4) setSelectedDay(5);
+        else if (right == 3) setSelectedDay(4);
+        else if (right == 2) setSelectedDay(3);
         else setSelectedDay(selectedDay + 1);
       }
     },
