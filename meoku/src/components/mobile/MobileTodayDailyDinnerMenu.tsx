@@ -56,7 +56,7 @@ const MobileDailyDinnerMenu = ({
       return value;
     }
   };
-  return menuData.holidayFg == "N" ? (
+  return menuData?.holidayFg == "N" ? (
     <div
       css={css`
         margin-top: 20px;
