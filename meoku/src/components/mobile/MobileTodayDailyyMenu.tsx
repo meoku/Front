@@ -56,240 +56,244 @@ const MobileTodayDailyMenu = ({
       return value;
     }
   };
-  return menuData.holidayFg == "N" ? (
-    <>
-      <MobileMainDiv>
-        <MobileMenuHeader>
-          <TextB16
-            css={css`
-              position: relative;
-              left: 1.2rem;
-            `}
-          >
-            {`${dayWeek}(${day})`}
-          </TextB16>
-          <TextB16
-            css={css`
-              position: relative;
-              right: 1.2rem;
-            `}
-          >
-            점심
-          </TextB16>
-        </MobileMenuHeader>
-      </MobileMainDiv>
-      <MobileMainDiv>
-        <MobileMainMenuDiv>
-          <MobileMenuTitle>
-            <TextB16>
-              {menuData.detailedMenuDTOList[0].detailedMenuName}
+  return menuData ? (
+    menuData.holidayFg == "N" ? (
+      <>
+        <MobileMainDiv>
+          <MobileMenuHeader>
+            <TextB16
+              css={css`
+                position: relative;
+                left: 1.2rem;
+              `}
+            >
+              {`${dayWeek}(${day})`}
             </TextB16>
-          </MobileMenuTitle>
-          <MobileMenuContent>
-            <TextR16
+            <TextB16
               css={css`
-                margin-top: 1.5rem;
+                position: relative;
+                right: 1.2rem;
               `}
             >
-              {isNA(menuData.detailedMenuDTOList[0].mainMenuName)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[0].menu1Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[0].menu2Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[0].menu3Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[0].menu4Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[0].menu5Name)}
-            </TextR16>
-          </MobileMenuContent>
-        </MobileMainMenuDiv>
-      </MobileMainDiv>
-      <MobileMainDiv>
-        <MobileMainMenuDiv>
-          <MobileMenuTitle>
-            <TextB16>
-              {menuData.detailedMenuDTOList[1].detailedMenuName}
+              점심
             </TextB16>
-          </MobileMenuTitle>
-          <MobileMenuContent>
-            <TextR16
+          </MobileMenuHeader>
+        </MobileMainDiv>
+        <MobileMainDiv>
+          <MobileMainMenuDiv>
+            <MobileMenuTitle>
+              <TextB16>
+                {menuData.detailedMenuDTOList[0].detailedMenuName}
+              </TextB16>
+            </MobileMenuTitle>
+            <MobileMenuContent>
+              <TextR16
+                css={css`
+                  margin-top: 1.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[0].mainMenuName)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[0].menu1Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[0].menu2Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[0].menu3Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[0].menu4Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                  margin-bottom: 1rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[0].menu5Name)}
+              </TextR16>
+            </MobileMenuContent>
+          </MobileMainMenuDiv>
+        </MobileMainDiv>
+        <MobileMainDiv>
+          <MobileMainMenuDiv>
+            <MobileMenuTitle>
+              <TextB16>
+                {menuData.detailedMenuDTOList[1].detailedMenuName}
+              </TextB16>
+            </MobileMenuTitle>
+            <MobileMenuContent>
+              <TextR16
+                css={css`
+                  margin-top: 1.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[1].mainMenuName)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[1].menu1Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[1].menu2Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[1].menu3Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[1].menu4Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                  margin-bottom: 1rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[1].menu5Name)}
+              </TextR16>
+            </MobileMenuContent>
+          </MobileMainMenuDiv>
+        </MobileMainDiv>
+        <MobileMainDiv>
+          <MobileMainMenuDiv>
+            <MobileMenuTitle>
+              <TextB16>
+                {menuData.detailedMenuDTOList[2].detailedMenuName}
+              </TextB16>
+            </MobileMenuTitle>
+            <MobileMenuContent>
+              <TextR16
+                css={css`
+                  margin-top: 1rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[2].mainMenuName)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[2].menu1Name)}
+              </TextR16>
+              <TextR16
+                css={css`
+                  margin-top: 0.5rem;
+                  margin-bottom: 1rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[2].menu2Name)}
+              </TextR16>
+            </MobileMenuContent>
+          </MobileMainMenuDiv>
+        </MobileMainDiv>
+        <MobileMainDiv>
+          <MobileMainMenuDiv>
+            <MobileMenuTitle>
+              <TextB16>
+                {menuData.detailedMenuDTOList[3].detailedMenuName}
+              </TextB16>
+            </MobileMenuTitle>
+            <MobileMenuContent
               css={css`
-                margin-top: 1.5rem;
+                height: 4rem;
               `}
             >
-              {isNA(menuData.detailedMenuDTOList[1].mainMenuName)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[1].menu1Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[1].menu2Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[1].menu3Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[1].menu4Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[1].menu5Name)}
-            </TextR16>
-          </MobileMenuContent>
-        </MobileMainMenuDiv>
-      </MobileMainDiv>
-      <MobileMainDiv>
-        <MobileMainMenuDiv>
-          <MobileMenuTitle>
-            <TextB16>
-              {menuData.detailedMenuDTOList[2].detailedMenuName}
-            </TextB16>
-          </MobileMenuTitle>
-          <MobileMenuContent>
-            <TextR16
-              css={css`
-                margin-top: 1rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[2].mainMenuName)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[2].menu1Name)}
-            </TextR16>
-            <TextR16
-              css={css`
-                margin-top: 0.5rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[2].menu2Name)}
-            </TextR16>
-          </MobileMenuContent>
-        </MobileMainMenuDiv>
-      </MobileMainDiv>
-      <MobileMainDiv>
-        <MobileMainMenuDiv>
-          <MobileMenuTitle>
-            <TextB16>
-              {menuData.detailedMenuDTOList[3].detailedMenuName}
-            </TextB16>
-          </MobileMenuTitle>
-          <MobileMenuContent
-            css={css`
-              height: 4rem;
-            `}
-          >
-            <TextR16
-              css={css`
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-              `}
-            >
-              {isNA(menuData.detailedMenuDTOList[3].mainMenuName)}
-            </TextR16>
-          </MobileMenuContent>
-        </MobileMainMenuDiv>
-      </MobileMainDiv>
-    </>
-  ) : (
-    <div
-      css={css`
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        border-radius: 18px;
-        /* margin: 0px 9px 30px 9px; */
-        margin: 0px 9px;
-        background-color: var(--color_02);
-      `}
-    >
+              <TextR16
+                css={css`
+                  margin-top: 1rem;
+                  margin-bottom: 1rem;
+                `}
+              >
+                {isNA(menuData.detailedMenuDTOList[3].mainMenuName)}
+              </TextR16>
+            </MobileMenuContent>
+          </MobileMainMenuDiv>
+        </MobileMainDiv>
+      </>
+    ) : (
       <div
         css={css`
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 214px;
-          height: 44px;
+          box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+          border-radius: 18px;
+          /* margin: 0px 9px 30px 9px; */
+          margin: 0px 9px;
+          background-color: var(--color_02);
         `}
       >
-        <TextB16>{`${dayWeek}(${day})`}</TextB16>
-      </div>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 214px;
-          border-radius: 0 0 18px 18px;
-          /* height: 576px; */
-          background-color: var(--background_color_02);
-        `}
-      >
+        <div
+          css={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 214px;
+            height: 44px;
+          `}
+        >
+          <TextB16>{`${dayWeek}(${day})`}</TextB16>
+        </div>
         <div
           css={css`
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 242px;
-            height: 576px;
+            width: 214px;
+            border-radius: 0 0 18px 18px;
+            /* height: 576px; */
+            background-color: var(--background_color_02);
           `}
         >
-          <TextB20>공휴일</TextB20>
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              width: 242px;
+              height: 576px;
+            `}
+          >
+            <TextB20>공휴일</TextB20>
+          </div>
         </div>
       </div>
-    </div>
+    )
+  ) : (
+    <>haha</>
   );
 };
 

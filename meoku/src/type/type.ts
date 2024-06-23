@@ -39,7 +39,7 @@ export interface dailyMenu {
   detailedMenuDTOList: menuDetail[];
 }
 //메인에서 컴포넌트로 데이터 넘길 때
-export interface firstMenu {
+export type firstMenu = {
   createdDate: null | Date;
   createdBy: null | string;
   dailyMenuId: null | string;
@@ -49,7 +49,7 @@ export interface firstMenu {
   restaurantOpenFg: string;
   updatedDate: null | Date;
   updatedBy: null | string;
-}
+};
 export interface menuDTO {
   createdBy: null;
   createdDate: null;
@@ -80,5 +80,5 @@ export interface menuDTO {
 export interface mainDailyMenuTime {
   dayWeek: string | undefined;
   day: number;
-  menuData: firstMenu;
+  menuData?: firstMenu;
 }

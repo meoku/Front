@@ -97,6 +97,7 @@ function App() {
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
+  const noMenuData = [[], [], [], [], []];
   const getWeatherDate = async () => {
     const res = await axios.get(
       "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
@@ -363,13 +364,13 @@ function App() {
         if (right == 0) setSelectedDay(1);
         else if (right == 1) setSelectedDay(2);
         else if (right == 2) setSelectedDay(3);
-        else setSelectedDay(selectedDay - 1);
+        // else setSelectedDay(selectedDay - 1);
       }
       if (left < right) {
         if (right == 4) setSelectedDay(5);
         else if (right == 3) setSelectedDay(4);
         else if (right == 2) setSelectedDay(3);
-        else setSelectedDay(selectedDay + 1);
+        // else setSelectedDay(selectedDay + 1);
       }
     },
   };
@@ -446,7 +447,7 @@ function App() {
               background-color: var(--background_color_01);
             `}
           >
-            {menuData &&
+            {menuData && menuData.length > 0 ? (
               menuData.map((menu: firstMenu, index: number) => {
                 return dayArr[index][1] == date.getDate() ? (
                   <TodayDailyMenu
@@ -463,7 +464,32 @@ function App() {
                     menuData={menu}
                   />
                 );
-              })}
+              })
+            ) : (
+              <div
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-top: 26px;
+                  /* margin-left: 20px; */
+                  background-color: var(--background_color_01);
+                `}
+              >
+                {noMenuData.map((_, index: number) => {
+                  return (
+                    <div>
+                      <DailyMenu
+                        key={index + "mobile2"}
+                        dayWeek={dayArr[index][0]}
+                        day={dayArr[index][1]}
+                        // menuData={menu}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <div
             css={css`
@@ -507,7 +533,7 @@ function App() {
                 /* margin-left: 20px; */
               `}
             >
-              {menuData &&
+              {menuData && menuData.length > 0 ? (
                 menuData.map((menu: firstMenu, index: number) => {
                   return dayArr[index][1] == date.getDate() ? (
                     <TodayDailyDinnerMenu
@@ -524,7 +550,29 @@ function App() {
                       menuData={menu}
                     />
                   );
-                })}
+                })
+              ) : (
+                <div
+                  css={css`
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  `}
+                >
+                  {noMenuData.map((_, index: number) => {
+                    return (
+                      <div>
+                        <DailyDinnerMenu
+                          key={index + "mobile2"}
+                          dayWeek={dayArr[index][0]}
+                          day={dayArr[index][1]}
+                          // menuData={menu}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -765,9 +813,9 @@ function App() {
               </MobileDayBtn>
             )}
           </MobileDays>
-          <Slider {...settings} ref={sliderRef}>
-            {menuData &&
-              menuData.map((menu: firstMenu, index: number) => {
+          {menuData && menuData.length > 0 ? (
+            <Slider {...settings} ref={sliderRef}>
+              {menuData.map((menu: firstMenu, index: number) => {
                 return dayArr[index][1] == date.getDate() ? (
                   <div>
                     <MobileTodayDailyMenu
@@ -800,7 +848,25 @@ function App() {
                   </div>
                 );
               })}
-          </Slider>
+            </Slider>
+          ) : (
+            <div>
+              {noMenuData.map((_, index: number) => {
+                return selectedDay - 1 == index ? (
+                  <div>
+                    <MobileDailyMenu
+                      key={index + "mobile2"}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      // menuData={menu}
+                    />
+                  </div>
+                ) : (
+                  <div></div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </MobileView>
     </div>
