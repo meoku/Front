@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
-import snowImage from "/weather/ImageSnow.svg";
+// import snowImage from "/weather/ImageSnow.svg";
+import icMain from "/icMain.svg";
 import { TextB24, TextR14 } from "./common/Text";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -29,12 +30,14 @@ const Weather = () => {
     >
       <div>
         <img
-          src={snowImage}
+          // src={snowImage}
+          src={icMain}
           css={css`
             width: 75px;
             height: 75px;
             margin-top: 13px;
             margin-left: 28px;
+            /* visibility: hidden; */
           `}
         />
       </div>
@@ -61,13 +64,15 @@ const Weather = () => {
 
         <p
           css={css`
-            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
             font-size: 15px;
             font-weight: bold;
             white-space: nowrap;
           `}
         >
-          {/* 5 / -11 */}
+          {`${weatherData?.data?.responseBody?.dailyMaximumTemperature} / ${weatherData?.data?.responseBody?.dailyMinimumTemperature}`}
         </p>
       </div>
       <div
