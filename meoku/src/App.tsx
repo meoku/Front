@@ -31,6 +31,8 @@ import MobileTodayDailyDinnerMenu from "./components/mobile/MobileTodayDailyDinn
 import MobileDailyDinnerMenu from "./components/mobile/MobileDailyDinnerMenu";
 import { useEffect, useRef, useState } from "react";
 import sunnyImage from "/weather/ImageSunny.svg";
+import { useRecoilState } from "recoil";
+import timeState from "./store/atoms/time";
 
 interface RequestData {
   isMonthOrWeek: string;
@@ -57,12 +59,13 @@ const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
 };
 
 function App() {
-  const [selectedDay, setSelectedDay] = useState(new Date().getDay());
-  const date = new Date();
+  const [date, setDate] = useRecoilState(timeState);
+  const [selectedDay, setSelectedDay] = useState(date.getDay());
+  // const date = new Date();
   const dayWeek = date.getDay();
   const sliderRef = useRef<Slider | null>(null);
   useEffect(() => {
-    const day = new Date().getDay();
+    const day = date.getDay();
     if (day == 0) setSelectedDay(0);
     else if (day === 1) setSelectedDay(1);
     else if (day === 2) setSelectedDay(2);
@@ -87,13 +90,14 @@ function App() {
   };
   const requestData: RequestData = {
     isMonthOrWeek: "week",
-    date: formatDate(new Date()),
+    date: formatDate(date),
     // date: "2024-05-31",
   };
   const { data: menuData } = useQuery({
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
+  const noMenuData = [[], [], [], [], []];
   const getWeatherDate = async () => {
     const res = await axios.get(
       "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
@@ -105,17 +109,29 @@ function App() {
     queryFn: () => getWeatherDate(),
   });
 
-  const getWeekOfMonth = (date: Date) => {
-    const month = date.getMonth() + 1;
-    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const firstDayOfWeek = firstDayOfMonth.getDay();
-    const adjustedFirstDayOfWeek = firstDayOfWeek === 0 ? 7 : firstDayOfWeek;
-    const weekOfMonth = Math.ceil(
-      (date.getDate() + (7 - adjustedFirstDayOfWeek)) / 7
-    );
-    return `${month}월 ${weekOfMonth}주`;
-  };
+  const getWeekOfMonth = (date: Date): string => {
+    const WEEK_KOR = ["1", "2", "3", "4", "5"];
+    const THURSDAY_NUM = 4;
 
+    const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    const firstDayOfWeek = firstDate.getDay();
+
+    let firstThursday = 1 + THURSDAY_NUM - firstDayOfWeek; // 첫째주 목요일
+    if (firstThursday <= 0) {
+      firstThursday = firstThursday + 7; // 한주는 7일
+    }
+    const untilDateOfFirstWeek = firstThursday - 7 + 3; // 월요일기준으로 계산 (월요일부터 한주의 시작)
+    const weekNum = Math.ceil((date.getDate() - untilDateOfFirstWeek) / 7) - 1;
+
+    if (weekNum < 0) {
+      // 첫째주 이하일 경우 전월 마지막주 계산
+      const lastDateOfMonth = new Date(date.getFullYear(), date.getMonth(), 0);
+      const result = getWeekOfMonth(lastDateOfMonth);
+      return result;
+    }
+
+    return `${date.getMonth() + 1 + "월"} ${WEEK_KOR[weekNum]}주`;
+  };
   let dayArr: [string | undefined, number][] = [];
   const getDayWeek = (day: number) => {
     if (day === 0) {
@@ -138,161 +154,161 @@ function App() {
     dayArr = [
       [
         getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(new Date().getDate() - 6)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 6)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(new Date().getDate() - 5)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(new Date().getDate() - 4)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(new Date().getDate() - 3)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 5),
-        new Date(new Date().setDate(new Date().getDate() - 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
       ],
     ];
   } else if (dayWeek === 1) {
     dayArr = [
       [
         getDayWeek(date.getDay()),
-        new Date(new Date().setDate(new Date().getDate())).getDate(),
+        new Date(new Date().setDate(date.getDate())).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(new Date().getDate() + 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(new Date().getDate() + 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(new Date().getDate() + 3)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(new Date().getDate() + 4)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 4)).getDate(),
       ],
     ];
   } else if (dayWeek === 2) {
     dayArr = [
       [
         getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(new Date().getDate() - 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay()),
-        new Date(new Date().setDate(new Date().getDate())).getDate(),
+        new Date(new Date().setDate(date.getDate())).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(new Date().getDate() + 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(new Date().getDate() + 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(new Date().getDate() + 3)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
       ],
     ];
   } else if (dayWeek == 3) {
     dayArr = [
       [
         getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(new Date().getDate() - 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(new Date().getDate() - 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay()),
-        new Date(new Date().setDate(new Date().getDate())).getDate(),
+        new Date(new Date().setDate(date.getDate())).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(new Date().getDate() + 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(new Date().getDate() + 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
       ],
     ];
   } else if (dayWeek == 4) {
     dayArr = [
       [
         getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(new Date().getDate() - 3)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(new Date().getDate() - 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(new Date().getDate() - 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay()),
-        new Date(new Date().setDate(new Date().getDate())).getDate(),
+        new Date(new Date().setDate(date.getDate())).getDate(),
       ],
       [
         getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(new Date().getDate() + 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
       ],
     ];
   } else if (dayWeek == 5) {
     dayArr = [
       [
         getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(new Date().getDate() - 4)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(new Date().getDate() - 3)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(new Date().getDate() - 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(new Date().getDate() - 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
       ],
       [
         getDayWeek(date.getDay()),
-        new Date(new Date().setDate(new Date().getDate())).getDate(),
+        new Date(new Date().setDate(date.getDate())).getDate(),
       ],
     ];
   } else if (dayWeek == 6) {
     dayArr = [
       [
         getDayWeek(date.getDay() - 5),
-        new Date(new Date().setDate(new Date().getDate() - 5)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(new Date().getDate() - 4)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(new Date().getDate() - 3)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(new Date().getDate() - 2)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
       ],
       [
         getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(new Date().getDate() - 1)).getDate(),
+        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
       ],
     ];
   }
@@ -341,17 +357,20 @@ function App() {
     initialSlide: selectedDay - 1,
     slidesToScroll: 1,
     beforeChange: (left: number, right: number) => {
+      if (left < 0 || right < 0) {
+        return;
+      }
       if (left > right) {
         if (right == 0) setSelectedDay(1);
         else if (right == 1) setSelectedDay(2);
         else if (right == 2) setSelectedDay(3);
-        else setSelectedDay(selectedDay - 1);
+        // else setSelectedDay(selectedDay - 1);
       }
       if (left < right) {
         if (right == 4) setSelectedDay(5);
         else if (right == 3) setSelectedDay(4);
         else if (right == 2) setSelectedDay(3);
-        else setSelectedDay(selectedDay + 1);
+        // else setSelectedDay(selectedDay + 1);
       }
     },
   };
@@ -428,9 +447,9 @@ function App() {
               background-color: var(--background_color_01);
             `}
           >
-            {menuData &&
+            {menuData && menuData.length > 0 ? (
               menuData.map((menu: firstMenu, index: number) => {
-                return dayArr[index][1] == new Date().getDate() ? (
+                return dayArr[index][1] == date.getDate() ? (
                   <TodayDailyMenu
                     key={index}
                     dayWeek={dayArr[index][0]}
@@ -445,7 +464,32 @@ function App() {
                     menuData={menu}
                   />
                 );
-              })}
+              })
+            ) : (
+              <div
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-top: 26px;
+                  /* margin-left: 20px; */
+                  background-color: var(--background_color_01);
+                `}
+              >
+                {noMenuData.map((_, index: number) => {
+                  return (
+                    <div>
+                      <DailyMenu
+                        key={index + "mobile2"}
+                        dayWeek={dayArr[index][0]}
+                        day={dayArr[index][1]}
+                        // menuData={menu}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <div
             css={css`
@@ -489,9 +533,9 @@ function App() {
                 /* margin-left: 20px; */
               `}
             >
-              {menuData &&
+              {menuData && menuData.length > 0 ? (
                 menuData.map((menu: firstMenu, index: number) => {
-                  return dayArr[index][1] == new Date().getDate() ? (
+                  return dayArr[index][1] == date.getDate() ? (
                     <TodayDailyDinnerMenu
                       key={index}
                       dayWeek={dayArr[index][0]}
@@ -506,7 +550,29 @@ function App() {
                       menuData={menu}
                     />
                   );
-                })}
+                })
+              ) : (
+                <div
+                  css={css`
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  `}
+                >
+                  {noMenuData.map((_, index: number) => {
+                    return (
+                      <div>
+                        <DailyDinnerMenu
+                          key={index + "mobile2"}
+                          dayWeek={dayArr[index][0]}
+                          day={dayArr[index][1]}
+                          // menuData={menu}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -563,15 +629,31 @@ function App() {
             </div>
           </MobileWeather>
           <MobileDay>
-            <img src={leftarrow} alt="arrowImg" />
+            <img
+              src={leftarrow}
+              alt="arrowImg"
+              onClick={() => {
+                setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000));
+                setSelectedDay(5);
+                sliderRef?.current?.slickGoTo(4);
+              }}
+            />
             <TextB20
               css={css`
                 color: var(--color_01);
               `}
             >
-              {getWeekOfMonth(new Date())}
+              {getWeekOfMonth(date)}
             </TextB20>
-            <img src={rightarrow} alt="arrowImg" />
+            <img
+              src={rightarrow}
+              alt="arrowImg"
+              onClick={() => {
+                setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000));
+                setSelectedDay(1);
+                sliderRef?.current?.slickGoTo(0);
+              }}
+            />
           </MobileDay>
           <MobileSideBtn>
             <img src={icMonth} alt="arrowImg" />
@@ -584,7 +666,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    // setSelectedDay(1);
+                    setSelectedDay(1);
                     sliderRef?.current?.slickGoTo(0);
                   }}
                 >
@@ -593,7 +675,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    // setSelectedDay(1);
+                    setSelectedDay(1);
                     sliderRef?.current?.slickGoTo(0);
                   }}
                 >
@@ -603,7 +685,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  // setSelectedDay(1);
+                  setSelectedDay(1);
                   sliderRef?.current?.slickGoTo(0);
                 }}
               >
@@ -614,7 +696,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    // setSelectedDay(2);
+                    setSelectedDay(2);
                     sliderRef?.current?.slickGoTo(1);
                   }}
                 >
@@ -623,7 +705,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    // setSelectedDay(2);
+                    setSelectedDay(2);
                     sliderRef?.current?.slickGoTo(1);
                   }}
                 >
@@ -633,7 +715,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  // setSelectedDay(2);
+                  setSelectedDay(2);
                   sliderRef?.current?.slickGoTo(1);
                 }}
               >
@@ -644,7 +726,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    // setSelectedDay(3);
+                    setSelectedDay(3);
                     sliderRef?.current?.slickGoTo(2);
                   }}
                 >
@@ -653,7 +735,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    // setSelectedDay(3);
+                    setSelectedDay(3);
                     sliderRef?.current?.slickGoTo(2);
                   }}
                 >
@@ -663,7 +745,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  // setSelectedDay(3);
+                  setSelectedDay(3);
                   sliderRef?.current?.slickGoTo(2);
                 }}
               >
@@ -674,7 +756,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    // setSelectedDay(4);
+                    setSelectedDay(4);
                     sliderRef?.current?.slickGoTo(3);
                   }}
                 >
@@ -683,7 +765,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    // setSelectedDay(4);
+                    setSelectedDay(4);
                     sliderRef?.current?.slickGoTo(3);
                   }}
                 >
@@ -693,7 +775,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  // setSelectedDay(4);
+                  setSelectedDay(4);
                   sliderRef?.current?.slickGoTo(3);
                 }}
               >
@@ -704,7 +786,7 @@ function App() {
               date.getDay() === selectedDay ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
-                    // setSelectedDay(5);
+                    setSelectedDay(5);
                     sliderRef?.current?.slickGoTo(4);
                   }}
                 >
@@ -713,7 +795,7 @@ function App() {
               ) : (
                 <MobileDayBtnSelected
                   onClick={() => {
-                    // setSelectedDay(5);
+                    setSelectedDay(5);
                     sliderRef?.current?.slickGoTo(4);
                   }}
                 >
@@ -723,7 +805,7 @@ function App() {
             ) : (
               <MobileDayBtn
                 onClick={() => {
-                  // setSelectedDay(5);
+                  setSelectedDay(5);
                   sliderRef?.current?.slickGoTo(4);
                 }}
               >
@@ -731,10 +813,10 @@ function App() {
               </MobileDayBtn>
             )}
           </MobileDays>
-          <Slider {...settings} ref={sliderRef}>
-            {menuData &&
-              menuData.map((menu: firstMenu, index: number) => {
-                return dayArr[index][1] == new Date().getDate() ? (
+          {menuData && menuData.length > 0 ? (
+            <Slider {...settings} ref={sliderRef}>
+              {menuData.map((menu: firstMenu, index: number) => {
+                return dayArr[index][1] == date.getDate() ? (
                   <div>
                     <MobileTodayDailyMenu
                       key={index + "mobileToday"}
@@ -766,7 +848,25 @@ function App() {
                   </div>
                 );
               })}
-          </Slider>
+            </Slider>
+          ) : (
+            <div>
+              {noMenuData.map((_, index: number) => {
+                return selectedDay - 1 == index ? (
+                  <div>
+                    <MobileDailyMenu
+                      key={index + "mobile2"}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                      // menuData={menu}
+                    />
+                  </div>
+                ) : (
+                  <div></div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </MobileView>
     </div>

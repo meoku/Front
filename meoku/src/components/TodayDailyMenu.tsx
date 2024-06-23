@@ -9,7 +9,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       return value;
     }
   };
-  return menuData.holidayFg == "N" ? (
+  return menuData?.holidayFg == "N" ? (
     <div
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
