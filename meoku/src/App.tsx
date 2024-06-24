@@ -364,12 +364,14 @@ function App() {
         if (right == 0) setSelectedDay(1);
         else if (right == 1) setSelectedDay(2);
         else if (right == 2) setSelectedDay(3);
+        else if (right == 3) setSelectedDay(4);
         // else setSelectedDay(selectedDay - 1);
       }
       if (left < right) {
         if (right == 4) setSelectedDay(5);
         else if (right == 3) setSelectedDay(4);
         else if (right == 2) setSelectedDay(3);
+        else if (right == 1) setSelectedDay(2);
         // else setSelectedDay(selectedDay + 1);
       }
     },
@@ -850,22 +852,43 @@ function App() {
               })}
             </Slider>
           ) : (
-            <div>
+            // <div>
+            //   {noMenuData.map((_, index: number) => {
+            //     return selectedDay - 1 == index ? (
+            //       <div>
+            //         <MobileDailyMenu
+            //           key={index + "mobile2"}
+            //           dayWeek={dayArr[index][0]}
+            //           day={dayArr[index][1]}
+            //           // menuData={menu}
+            //         />
+            //       </div>
+            //     ) : (
+            //       <div></div>
+            //     );
+            //   })}
+            // </div>
+            <Slider {...settings} ref={sliderRef}>
               {noMenuData.map((_, index: number) => {
-                return selectedDay - 1 == index ? (
+                return dayArr[index][1] == date.getDate() ? (
                   <div>
                     <MobileDailyMenu
-                      key={index + "mobile2"}
+                      key={index + "mobileToday"}
                       dayWeek={dayArr[index][0]}
                       day={dayArr[index][1]}
-                      // menuData={menu}
                     />
                   </div>
                 ) : (
-                  <div></div>
+                  <div>
+                    <MobileDailyMenu
+                      key={index + "mobile"}
+                      dayWeek={dayArr[index][0]}
+                      day={dayArr[index][1]}
+                    />
+                  </div>
                 );
               })}
-            </div>
+            </Slider>
           )}
         </div>
       </MobileView>
