@@ -6,6 +6,15 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 const Weather = () => {
+  const skyMap = new Map();
+  const rainMap = new Map();
+  skyMap.set("1", "맑음");
+  skyMap.set("3", "구름");
+  skyMap.set("4", "흐림");
+  rainMap.set("1", "비");
+  rainMap.set("2", "비/눈");
+  rainMap.set("3", "눈");
+  rainMap.set("4", "소나기");
   const getWeatherDate = async () => {
     const res = await axios.get(
       "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
@@ -86,7 +95,13 @@ const Weather = () => {
           margin-left: 18px;
         `}
       >
-        {<TextB24>맑음</TextB24>}
+        {
+          <TextB24>{`${
+            weatherData?.data?.responseBody?.precipitationType == "0"
+              ? skyMap.get(weatherData?.data?.responseBody?.skyCondition)
+              : rainMap.get(weatherData?.data?.responseBody?.precipitationType)
+          }`}</TextB24>
+        }
       </div>
       <div
         css={css`
