@@ -364,12 +364,14 @@ function App() {
         if (right == 0) setSelectedDay(1);
         else if (right == 1) setSelectedDay(2);
         else if (right == 2) setSelectedDay(3);
+        else if (right == 3) setSelectedDay(4);
         // else setSelectedDay(selectedDay - 1);
       }
       if (left < right) {
         if (right == 4) setSelectedDay(5);
         else if (right == 3) setSelectedDay(4);
         else if (right == 2) setSelectedDay(3);
+        else if (right == 1) setSelectedDay(2);
         // else setSelectedDay(selectedDay + 1);
       }
     },
