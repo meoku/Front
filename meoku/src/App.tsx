@@ -640,13 +640,23 @@ function App() {
                 sliderRef?.current?.slickGoTo(4);
               }}
             />
-            <TextB20
-              css={css`
-                color: var(--color_01);
-              `}
+            <div
+              onClick={() => {
+                if (date.getDate() == new Date().getDate()) return;
+                setDate(new Date());
+                setSelectedDay(new Date().getDay());
+                sliderRef?.current?.slickGoTo(new Date().getDay() - 1);
+              }}
             >
-              {getWeekOfMonth(date)}
-            </TextB20>
+              <TextB20
+                css={css`
+                  color: var(--color_01);
+                  cursor: pointer;
+                `}
+              >
+                {getWeekOfMonth(date)}
+              </TextB20>
+            </div>
             <img
               src={rightarrow}
               alt="arrowImg"
