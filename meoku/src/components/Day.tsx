@@ -71,7 +71,12 @@ const Day = ({ time }: { time: string }) => {
               font-weight: bold;
               color: var(--color_01);
               text-align: center;
+              cursor: pointer;
             `}
+            onClick={() => {
+              if (date.getDate() == new Date().getDate()) return;
+              setDate(new Date());
+            }}
           >
             {getWeekOfMonth(date)}
           </p>
