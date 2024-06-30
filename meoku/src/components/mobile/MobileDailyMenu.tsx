@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 const MobileMainDiv = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 `;
 const MobileMenuHeader = styled.div`
   display: flex;
@@ -286,7 +287,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               height: 576px;
             `}
           >
-            <TextB20>{menuData ? "공휴일" : "준비중입니다."}</TextB20>
+            <TextB20>{menuData ? "공휴일" : "준비중입니다"}</TextB20>
           </div>
         </div>
       </div>
