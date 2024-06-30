@@ -451,7 +451,7 @@ function App() {
           >
             {menuData && menuData.length > 0 ? (
               menuData.map((menu: firstMenu, index: number) => {
-                return dayArr[index][1] == date.getDate() ? (
+                return dayArr[index][1] == new Date().getDate() ? (
                   <TodayDailyMenu
                     key={index}
                     dayWeek={dayArr[index][0]}
@@ -537,7 +537,7 @@ function App() {
             >
               {menuData && menuData.length > 0 ? (
                 menuData.map((menu: firstMenu, index: number) => {
-                  return dayArr[index][1] == date.getDate() ? (
+                  return dayArr[index][1] == new Date().getDate() ? (
                     <TodayDailyDinnerMenu
                       key={index}
                       dayWeek={dayArr[index][0]}
@@ -675,7 +675,8 @@ function App() {
         <div>
           <MobileDays>
             {selectedDay == 1 ? (
-              date.getDay() === selectedDay ? (
+              date.getDay() === selectedDay &&
+              dayArr[0][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(1);
@@ -705,7 +706,8 @@ function App() {
               </MobileDayBtn>
             )}
             {selectedDay == 2 ? (
-              date.getDay() === selectedDay ? (
+              date.getDay() === selectedDay &&
+              dayArr[0][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(2);
@@ -735,7 +737,8 @@ function App() {
               </MobileDayBtn>
             )}
             {selectedDay == 3 ? (
-              date.getDay() === selectedDay ? (
+              date.getDay() === selectedDay &&
+              dayArr[0][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(3);
@@ -765,7 +768,8 @@ function App() {
               </MobileDayBtn>
             )}
             {selectedDay == 4 ? (
-              date.getDay() === selectedDay ? (
+              date.getDay() === selectedDay &&
+              dayArr[0][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(4);
@@ -795,7 +799,8 @@ function App() {
               </MobileDayBtn>
             )}
             {selectedDay == 5 ? (
-              date.getDay() === selectedDay ? (
+              date.getDay() === selectedDay &&
+              dayArr[0][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(5);
@@ -828,7 +833,7 @@ function App() {
           {menuData && menuData.length > 0 ? (
             <Slider {...settings} ref={sliderRef}>
               {menuData.map((menu: firstMenu, index: number) => {
-                return dayArr[index][1] == date.getDate() ? (
+                return dayArr[index][1] == new Date().getDate() ? (
                   <div>
                     <MobileTodayDailyMenu
                       key={index + "mobileToday"}
