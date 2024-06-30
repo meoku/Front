@@ -23,7 +23,11 @@
   --background_color_02: #ffffff;
 }
 html,
-body,
+body {
+  overflow-x: hidden;
+}
+/* html,
+body, */
 div,
 span,
 applet,
