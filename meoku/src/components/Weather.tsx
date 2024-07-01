@@ -1,10 +1,37 @@
 import { css } from "@emotion/react";
 // import snowImage from "/weather/ImageSnow.svg";
-import icMain from "/icMain.svg";
+import icCloudy from "/weather/cloudy12.png";
+import icSun from "/weather/sun11.png";
+import icDark from "/weather/dark13.png";
+import icRain from "/weather/raining21.png";
+import icSnow from "/weather/snowflake23.png";
+import icSnowRain from "/weather/snow22.png";
+import icHeavyRain from "/weather/heavy-rain24.png";
 import { TextB24, TextR14 } from "./common/Text";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
+const getWeatherImg = (isRain: boolean, value: string) => {
+  if (isRain) {
+    if (value == "1") {
+      return icRain;
+    } else if (value == "2") {
+      return icSnowRain;
+    } else if (value == "3") {
+      return icSnow;
+    } else if (value == "4") {
+      return icHeavyRain;
+    }
+  } else {
+    if (value == "1") {
+      return icSun;
+    } else if (value == "3") {
+      return icCloudy;
+    } else if (value == "4") {
+      return icDark;
+    }
+  }
+};
 const Weather = () => {
   const skyMap = new Map();
   const rainMap = new Map();
@@ -25,7 +52,6 @@ const Weather = () => {
     queryKey: ["data"],
     queryFn: () => getWeatherDate(),
   });
-  console.log(weatherData);
   return (
     <div
       css={css`
@@ -40,7 +66,17 @@ const Weather = () => {
       <div>
         <img
           // src={snowImage}
-          src={icMain}
+          src={`${
+            weatherData?.data?.responseBody?.precipitationType == "0"
+              ? getWeatherImg(
+                  false,
+                  weatherData?.data?.responseBody?.skyCondition
+                )
+              : getWeatherImg(
+                  true,
+                  weatherData?.data?.responseBody?.precipitationType
+                )
+          }`}
           css={css`
             width: 75px;
             height: 75px;
