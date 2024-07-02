@@ -707,7 +707,7 @@ function App() {
             )}
             {selectedDay == 2 ? (
               date.getDay() === selectedDay &&
-              dayArr[0][1] == new Date().getDate() ? (
+              dayArr[1][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(2);
@@ -738,7 +738,7 @@ function App() {
             )}
             {selectedDay == 3 ? (
               date.getDay() === selectedDay &&
-              dayArr[0][1] == new Date().getDate() ? (
+              dayArr[2][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(3);
@@ -769,7 +769,7 @@ function App() {
             )}
             {selectedDay == 4 ? (
               date.getDay() === selectedDay &&
-              dayArr[0][1] == new Date().getDate() ? (
+              dayArr[3][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(4);
@@ -800,7 +800,7 @@ function App() {
             )}
             {selectedDay == 5 ? (
               date.getDay() === selectedDay &&
-              dayArr[0][1] == new Date().getDate() ? (
+              dayArr[4][1] == new Date().getDate() ? (
                 <MobileDayBtnSelectedToday
                   onClick={() => {
                     setSelectedDay(5);
