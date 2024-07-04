@@ -45,19 +45,19 @@ const Admin = () => {
   const handleMenuData = (data: menuDetail[], day: string) => {
     const arr = menuData;
     if (day == "월") {
-      arr[0].detailedMenuDTOList = data;
+      arr[0].detailedMenuList = data;
       setMenuData(arr);
     } else if (day == "화") {
-      arr[1].detailedMenuDTOList = data;
+      arr[1].detailedMenuList = data;
       setMenuData(arr);
     } else if (day == "수") {
-      arr[2].detailedMenuDTOList = data;
+      arr[2].detailedMenuList = data;
       setMenuData(arr);
     } else if (day == "목") {
-      arr[3].detailedMenuDTOList = data;
+      arr[3].detailedMenuList = data;
       setMenuData(arr);
     } else if (day == "금") {
-      arr[4].detailedMenuDTOList = data;
+      arr[4].detailedMenuList = data;
       setMenuData(arr);
     }
   };
@@ -124,35 +124,35 @@ const Admin = () => {
       >
         {menuData[0] && (
           <InputMenus
-            menuData={menuData[0].detailedMenuDTOList}
+            menuData={menuData[0].detailedMenuList}
             day={"월"}
             handleMenuData={handleMenuData}
           />
         )}
         {menuData[1] && (
           <InputMenus
-            menuData={menuData[1].detailedMenuDTOList}
+            menuData={menuData[1].detailedMenuList}
             day={"화"}
             handleMenuData={handleMenuData}
           />
         )}
         {menuData[2] && (
           <InputMenus
-            menuData={menuData[2].detailedMenuDTOList}
+            menuData={menuData[2].detailedMenuList}
             day={"수"}
             handleMenuData={handleMenuData}
           />
         )}
         {menuData[3] && (
           <InputMenus
-            menuData={menuData[3].detailedMenuDTOList}
+            menuData={menuData[3].detailedMenuList}
             day={"목"}
             handleMenuData={handleMenuData}
           />
         )}
         {menuData[4] && (
           <InputMenus
-            menuData={menuData[4].detailedMenuDTOList}
+            menuData={menuData[4].detailedMenuList}
             day={"금"}
             handleMenuData={handleMenuData}
           />

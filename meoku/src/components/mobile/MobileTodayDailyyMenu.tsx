@@ -83,7 +83,7 @@ const MobileTodayDailyMenu = ({
           <MobileMainMenuDiv>
             <MobileMenuTitle>
               <TextB16>
-                {menuData.detailedMenuDTOList[0].detailedMenuName}
+                {menuData.detailedMenuList[0].detailedMenuName}
               </TextB16>
             </MobileMenuTitle>
             <MobileMenuContent>
@@ -92,35 +92,35 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[0].mainMenuName)}
+                {isNA(menuData.detailedMenuList[0].mainMenuName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[0].menu1Name)}
+                {isNA(menuData.detailedMenuList[0].menu1Name)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[0].menu2Name)}
+                {isNA(menuData.detailedMenuList[0].menu2Name)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[0].menu3Name)}
+                {isNA(menuData.detailedMenuList[0].menu3Name)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[0].menu4Name)}
+                {isNA(menuData.detailedMenuList[0].menu4Name)}
               </TextR16>
               <TextR16
                 css={css`
@@ -128,7 +128,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[0].menu5Name)}
+                {isNA(menuData.detailedMenuList[0].menu5Name)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -137,7 +137,7 @@ const MobileTodayDailyMenu = ({
           <MobileMainMenuDiv>
             <MobileMenuTitle>
               <TextB16>
-                {menuData.detailedMenuDTOList[1].detailedMenuName}
+                {menuData.detailedMenuList[1].detailedMenuName}
               </TextB16>
             </MobileMenuTitle>
             <MobileMenuContent>
@@ -146,35 +146,35 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[1].mainMenuName)}
+                {isNA(menuData.detailedMenuList[1].mainMenuName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[1].menu1Name)}
+                {isNA(menuData.detailedMenuList[1].menu1Name)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[1].menu2Name)}
+                {isNA(menuData.detailedMenuList[1].menu2Name)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[1].menu3Name)}
+                {isNA(menuData.detailedMenuList[1].menu3Name)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[1].menu4Name)}
+                {isNA(menuData.detailedMenuList[1].menu4Name)}
               </TextR16>
               <TextR16
                 css={css`
@@ -182,7 +182,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[1].menu5Name)}
+                {isNA(menuData.detailedMenuList[1].menu5Name)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -191,7 +191,7 @@ const MobileTodayDailyMenu = ({
           <MobileMainMenuDiv>
             <MobileMenuTitle>
               <TextB16>
-                {menuData.detailedMenuDTOList[2].detailedMenuName}
+                {menuData.detailedMenuList[2].detailedMenuName}
               </TextB16>
             </MobileMenuTitle>
             <MobileMenuContent>
@@ -200,14 +200,14 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[2].mainMenuName)}
+                {isNA(menuData.detailedMenuList[2].mainMenuName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[2].menu1Name)}
+                {isNA(menuData.detailedMenuList[2].menu1Name)}
               </TextR16>
               <TextR16
                 css={css`
@@ -215,7 +215,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[2].menu2Name)}
+                {isNA(menuData.detailedMenuList[2].menu2Name)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -224,7 +224,7 @@ const MobileTodayDailyMenu = ({
           <MobileMainMenuDiv>
             <MobileMenuTitle>
               <TextB16>
-                {menuData.detailedMenuDTOList[3].detailedMenuName}
+                {menuData.detailedMenuList[3].detailedMenuName}
               </TextB16>
             </MobileMenuTitle>
             <MobileMenuContent
@@ -238,7 +238,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuDTOList[3].mainMenuName)}
+                {isNA(menuData.detailedMenuList[3].mainMenuName)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>

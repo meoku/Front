@@ -10,7 +10,7 @@ const menuData: dailyMenu[] = [
     createdBy: null,
     updatedDate: null,
     updatedBy: null,
-    detailedMenuDTOList: [
+    detailedMenuList: [
       {
         detailedMenuId: 0,
         dailyMenuId: 0,
@@ -190,7 +190,7 @@ const menuData: dailyMenu[] = [
     createdBy: null,
     updatedDate: null,
     updatedBy: null,
-    detailedMenuDTOList: [
+    detailedMenuList: [
       {
         detailedMenuId: 0,
         dailyMenuId: 0,
@@ -370,7 +370,7 @@ const menuData: dailyMenu[] = [
     createdBy: null,
     updatedDate: null,
     updatedBy: null,
-    detailedMenuDTOList: [
+    detailedMenuList: [
       {
         detailedMenuId: 0,
         dailyMenuId: 0,
@@ -550,7 +550,7 @@ const menuData: dailyMenu[] = [
     createdBy: null,
     updatedDate: null,
     updatedBy: null,
-    detailedMenuDTOList: [
+    detailedMenuList: [
       {
         detailedMenuId: 0,
         dailyMenuId: 0,
@@ -730,7 +730,7 @@ const menuData: dailyMenu[] = [
     createdBy: null,
     updatedDate: null,
     updatedBy: null,
-    detailedMenuDTOList: [
+    detailedMenuList: [
       {
         detailedMenuId: 0,
         dailyMenuId: 0,
