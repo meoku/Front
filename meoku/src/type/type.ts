@@ -44,7 +44,7 @@ export type firstMenu = {
   createdBy: null | string;
   dailyMenuId: null | string;
   date: string | Date;
-  detailedMenuDTOList: menuDTO[];
+  detailedMenuList: menuDTO[];
   holidayFg: string;
   restaurantOpenFg: string;
   updatedDate: null | Date;
