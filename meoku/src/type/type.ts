@@ -36,7 +36,7 @@ export interface dailyMenu {
   createdBy: null;
   updatedDate: null;
   updatedBy: null;
-  detailedMenuDTOList: menuDetail[];
+  detailedMenuList: menuDetail[];
 }
 //메인에서 컴포넌트로 데이터 넘길 때
 export type firstMenu = {
