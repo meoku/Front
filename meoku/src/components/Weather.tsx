@@ -52,6 +52,21 @@ const Weather = () => {
     queryKey: ["data"],
     queryFn: () => getWeatherDate(),
   });
+  const getUvIndex = () => {
+    const value = weatherData?.data?.responseBody?.uvIndex;
+    if (value < 3) {
+      return "낮음";
+    } else if (value < 6) {
+      return "보통";
+    } else if (value < 8) {
+      return "높음";
+    } else if (value < 10) {
+      return "매우 높음";
+    } else {
+      return "위험";
+    }
+  };
+  console.log(weatherData);
   return (
     <div
       css={css`
@@ -171,14 +186,15 @@ const Weather = () => {
             display: flex;
             justify-content: flex-end;
             width: 100%;
-            margin-top: 32px;
+            margin-top: 20px;
             font-size: 12px;
             color: #585858;
           `}
         >
           <ul>
             <li>
-              <TextR14>• 자외선 보통</TextR14>
+              <TextR14>{`• 자외선 ${getUvIndex()}`}</TextR14>
+              <TextR14>{`• 체감온도 ${weatherData?.data?.responseBody?.percivedTemperature}`}</TextR14>
             </li>
           </ul>
         </p>
