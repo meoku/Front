@@ -7,27 +7,35 @@ import timeState from "../store/atoms/time";
 const Day = ({ time }: { time: string }) => {
   const [date, setDate] = useRecoilState(timeState);
   const getWeekOfMonth = (date: Date): string => {
-    const WEEK_KOR = ["1", "2", "3", "4", "5"];
-    const THURSDAY_NUM = 4; // 첫째주의 기준은 목요일(4)이다. (https://info.singident.com/60)
-
     const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
     const firstDayOfWeek = firstDate.getDay();
 
-    let firstThursday = 1 + THURSDAY_NUM - firstDayOfWeek; // 첫째주 목요일
-    if (firstThursday <= 0) {
-      firstThursday = firstThursday + 7; // 한주는 7일
+    const nowDay = date.getDay() === 0 ? 7 : date.getDay();
+    const startWeekOfDay = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() - nowDay + 1
+    );
+    const endWeekOfDay = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() - nowDay + 5
+    );
+    let weekIndex = ((startWeekOfDay.getDate() / 7) >> 0) + 1;
+    console.log(startWeekOfDay.getDate(), weekIndex);
+    if (firstDayOfWeek !== 1) {
+      weekIndex += 1;
     }
-    const untilDateOfFirstWeek = firstThursday - 7 + 3; // 월요일기준으로 계산 (월요일부터 한주의 시작)
-    const weekNum = Math.ceil((date.getDate() - untilDateOfFirstWeek) / 7) - 1;
-
-    if (weekNum < 0) {
-      // 첫째주 이하일 경우 전월 마지막주 계산
-      const lastDateOfMonth = new Date(date.getFullYear(), date.getMonth(), 0);
-      const result = getWeekOfMonth(lastDateOfMonth);
-      return result;
+    if (firstDate.getDay() !== 1) {
+      weekIndex -= 1;
     }
-
-    return `${date.getMonth() + 1 + "월"} ${WEEK_KOR[weekNum]}주`;
+    if (startWeekOfDay.getMonth() != endWeekOfDay.getMonth()) {
+      weekIndex = 5;
+    }
+    if (startWeekOfDay.getDate() % 7 === 0) {
+      weekIndex -= 1;
+    }
+    return `${startWeekOfDay.getMonth() + 1}월 ${weekIndex}주`;
   };
   return (
     <div
