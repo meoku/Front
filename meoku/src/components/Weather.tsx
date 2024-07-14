@@ -66,7 +66,6 @@ const Weather = () => {
       return "위험";
     }
   };
-  console.log(weatherData);
   return (
     <div
       css={css`
