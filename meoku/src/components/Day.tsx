@@ -22,7 +22,7 @@ const Day = ({ time }: { time: string }) => {
       date.getDate() - nowDay + 5
     );
     let weekIndex = ((startWeekOfDay.getDate() / 7) >> 0) + 1;
-    console.log(startWeekOfDay.getDate(), weekIndex);
+
     if (firstDayOfWeek !== 1) {
       weekIndex += 1;
     }
