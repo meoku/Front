@@ -82,9 +82,7 @@ const MobileTodayDailyMenu = ({
         <MobileMainDiv>
           <MobileMainMenuDiv>
             <MobileMenuTitle>
-              <TextB16>
-                {menuData.detailedMenuList[0].detailedMenuName}
-              </TextB16>
+              <TextB16>{menuData.menuDetailsList[0].menuDetailsName}</TextB16>
             </MobileMenuTitle>
             <MobileMenuContent>
               <TextR16
@@ -92,35 +90,45 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[0].mainMenuName)}
+                {isNA(
+                  menuData.menuDetailsList[0].subBridgeList[0].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[0].menu1Name)}
+                {isNA(
+                  menuData.menuDetailsList[0].subBridgeList[1].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[0].menu2Name)}
+                {isNA(
+                  menuData.menuDetailsList[0].subBridgeList[2].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[0].menu3Name)}
+                {isNA(
+                  menuData.menuDetailsList[0].subBridgeList[3].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[0].menu4Name)}
+                {isNA(
+                  menuData.menuDetailsList[0].subBridgeList[4].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
@@ -128,7 +136,9 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[0].menu5Name)}
+                {isNA(
+                  menuData.menuDetailsList[0].subBridgeList[5].menuItemName
+                )}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -136,9 +146,7 @@ const MobileTodayDailyMenu = ({
         <MobileMainDiv>
           <MobileMainMenuDiv>
             <MobileMenuTitle>
-              <TextB16>
-                {menuData.detailedMenuList[1].detailedMenuName}
-              </TextB16>
+              <TextB16>{menuData.menuDetailsList[1].menuDetailsName}</TextB16>
             </MobileMenuTitle>
             <MobileMenuContent>
               <TextR16
@@ -146,35 +154,45 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[1].mainMenuName)}
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[0].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[1].menu1Name)}
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[1].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[1].menu2Name)}
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[2].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[1].menu3Name)}
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[3].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[1].menu4Name)}
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[4].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
@@ -182,7 +200,9 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[1].menu5Name)}
+                {isNA(
+                  menuData.menuDetailsList[1]?.subBridgeList[5]?.menuItemName
+                )}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -190,9 +210,7 @@ const MobileTodayDailyMenu = ({
         <MobileMainDiv>
           <MobileMainMenuDiv>
             <MobileMenuTitle>
-              <TextB16>
-                {menuData.detailedMenuList[2].detailedMenuName}
-              </TextB16>
+              <TextB16>{menuData.menuDetailsList[2].menuDetailsName}</TextB16>
             </MobileMenuTitle>
             <MobileMenuContent>
               <TextR16
@@ -200,14 +218,18 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[2].mainMenuName)}
+                {isNA(
+                  menuData.menuDetailsList[2].subBridgeList[0].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[2].menu1Name)}
+                {isNA(
+                  menuData.menuDetailsList[2].subBridgeList[1].menuItemName
+                )}
               </TextR16>
               <TextR16
                 css={css`
@@ -215,7 +237,9 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[2].menu2Name)}
+                {isNA(
+                  menuData.menuDetailsList[2]?.subBridgeList[2]?.menuItemName
+                )}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -223,9 +247,7 @@ const MobileTodayDailyMenu = ({
         <MobileMainDiv>
           <MobileMainMenuDiv>
             <MobileMenuTitle>
-              <TextB16>
-                {menuData.detailedMenuList[3].detailedMenuName}
-              </TextB16>
+              <TextB16>{menuData.menuDetailsList[3].menuDetailsName}</TextB16>
             </MobileMenuTitle>
             <MobileMenuContent
               css={css`
@@ -238,7 +260,9 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(menuData.detailedMenuList[3].mainMenuName)}
+                {isNA(
+                  menuData.menuDetailsList[2].subBridgeList[0].menuItemName
+                )}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>

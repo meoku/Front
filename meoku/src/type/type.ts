@@ -44,7 +44,7 @@ export type firstMenu = {
   createdBy: null | string;
   dailyMenuId: null | string;
   date: string | Date;
-  detailedMenuList: menuDTO[];
+  menuDetailsList: menuDTO[];
   holidayFg: string;
   restaurantOpenFg: string;
   updatedDate: null | Date;
@@ -59,6 +59,7 @@ export interface menuDTO {
   detailedMenuId: number;
   detailedMenuImgUrl: null;
   detailedMenuName: string;
+  menuDetailsName: string;
   mainMenuId: number;
   mainMenuName: string;
   mainMenuYn: string;
@@ -76,9 +77,16 @@ export interface menuDTO {
   menu6Name: string;
   updatedBy: null;
   updatedDate: null;
+  subBridgeList: menu[];
 }
 export interface mainDailyMenuTime {
   dayWeek: string | undefined;
   day: number;
   menuData?: firstMenu;
+}
+
+export interface menu {
+  bridgeId: number;
+  mainMenuYn: string;
+  menuItemName: string;
 }

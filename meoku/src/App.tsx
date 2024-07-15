@@ -35,7 +35,6 @@ import { useRecoilState } from "recoil";
 import timeState from "./store/atoms/time";
 
 interface RequestData {
-  isMonthOrWeek: string;
   date: string;
 }
 const moveUpDown = keyframes`
@@ -47,11 +46,11 @@ const moveUpDown = keyframes`
   }
 `;
 
-const fetchData = async ({ isMonthOrWeek, date }: RequestData) => {
+const fetchData = async ({ date }: RequestData) => {
   const response = await axios.post(
-    "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/weekdaysmenu",
+    // "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/weekdaysmenu",
+    "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/weekdaysmenu",
     {
-      isMonthOrWeek,
       date,
     }
   );
@@ -89,7 +88,6 @@ function App() {
     return `${year}-${month}-${day}`;
   };
   const requestData: RequestData = {
-    isMonthOrWeek: "week",
     date: formatDate(date),
     // date: "2024-05-31",
   };
@@ -97,6 +95,7 @@ function App() {
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
+
   const noMenuData = [[], [], [], [], []];
   const getWeatherDate = async () => {
     const res = await axios.get(
