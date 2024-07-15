@@ -55,7 +55,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             height: 200px;
           `}
         >
-          <TextB20>{menuData.detailedMenuList[4].detailedMenuName}</TextB20>
+          <TextB20>{menuData.menuDetailsList[4].menuDetailsName}</TextB20>
           <TextB16
             css={css`
               margin-top: 12px;
@@ -63,7 +63,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               color: var(--color_01);
             `}
           >
-            {isNA(menuData.detailedMenuList[4].mainMenuName)}
+            {isNA(menuData.menuDetailsList[4].subBridgeList[0].menuItemName)}
           </TextB16>
           <TextR16
             css={css`
@@ -71,7 +71,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[4].menu1Name)}
+            {isNA(menuData.menuDetailsList[4].subBridgeList[1].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -79,7 +79,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[4].menu2Name)}
+            {isNA(menuData.menuDetailsList[4].subBridgeList[2].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -87,7 +87,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[4].menu3Name)}
+            {isNA(menuData.menuDetailsList[4].subBridgeList[3].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -95,16 +95,16 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[4].menu4Name)}
+            {isNA(menuData.menuDetailsList[4].subBridgeList[4].menuItemName)}
           </TextR16>
-          <TextR16
+          {/* <TextR16
             css={css`
               margin-top: 6px;
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[4].menu5Name)}
-          </TextR16>
+            {isNA(menuData.menuDetailsList[4].subBridgeList[5].menuItemName)}
+          </TextR16> */}
           <hr
             css={css`
               margin-top: 16px;
@@ -124,14 +124,14 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             margin-bottom: 10px;
           `}
         >
-          <TextB20>{menuData.detailedMenuList[5].detailedMenuName}</TextB20>
+          <TextB20>{menuData.menuDetailsList[5].menuDetailsName}</TextB20>
           <TextR16
             css={css`
               margin-top: 8px;
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[5].menu1Name)}
+            {isNA(menuData.menuDetailsList[5].subBridgeList[0].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -139,7 +139,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               margin-bottom: 30px;
             `}
           >
-            {isNA(menuData.detailedMenuList[5].menu2Name)}
+            {isNA(menuData.menuDetailsList[5].subBridgeList[1].menuItemName)}
           </TextR16>
         </div>
       </div>
