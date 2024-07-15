@@ -53,14 +53,14 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             margin-top: 20px;
           `}
         >
-          <TextB20>{menuData.detailedMenuList[0].detailedMenuName}</TextB20>
+          <TextB20>{menuData.menuDetailsList[0].menuDetailsName}</TextB20>
           <TextR16
             css={css`
               margin-top: 12px;
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[0].mainMenuName)}
+            {isNA(menuData.menuDetailsList[0].subBridgeList[0].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -68,7 +68,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[0].menu1Name)}
+            {isNA(menuData.menuDetailsList[0].subBridgeList[1].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -76,7 +76,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[0].menu2Name)}
+            {isNA(menuData.menuDetailsList[0].subBridgeList[2].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -84,7 +84,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[0].menu3Name)}
+            {isNA(menuData.menuDetailsList[0].subBridgeList[3].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -92,7 +92,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[0].menu4Name)}
+            {isNA(menuData.menuDetailsList[0].subBridgeList[4].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -100,7 +100,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[0].menu5Name)}
+            {isNA(menuData.menuDetailsList[0].subBridgeList[5].menuItemName)}
           </TextR16>
           <hr
             css={css`
@@ -120,14 +120,14 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             height: 176px;
           `}
         >
-          <TextB20>{menuData.detailedMenuList[1].detailedMenuName}</TextB20>
+          <TextB20>{menuData.menuDetailsList[1].menuDetailsName}</TextB20>
           <TextR16
             css={css`
               margin-top: 12px;
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[1].mainMenuName)}
+            {isNA(menuData.menuDetailsList[1].subBridgeList[0].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -136,7 +136,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               /* letter-spacing: -3px; */
             `}
           >
-            {isNA(menuData.detailedMenuList[1].menu1Name)}
+            {isNA(menuData.menuDetailsList[1].subBridgeList[1].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -144,7 +144,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[1].menu2Name)}
+            {isNA(menuData.menuDetailsList[1].subBridgeList[2].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -152,7 +152,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[1].menu3Name)}
+            {isNA(menuData.menuDetailsList[1].subBridgeList[3].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -160,7 +160,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[1].menu4Name)}
+            {isNA(menuData.menuDetailsList[1].subBridgeList[4].menuItemName)}
           </TextR16>
           <hr
             css={css`
@@ -180,14 +180,14 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             margin-top: 10px;
           `}
         >
-          <TextB20>{menuData.detailedMenuList[2].detailedMenuName}</TextB20>
+          <TextB20>{menuData.menuDetailsList[2].menuDetailsName}</TextB20>
           <TextR16
             css={css`
               margin-top: 12px;
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[2].menu1Name)}
+            {isNA(menuData.menuDetailsList[2].subBridgeList[0].menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -195,7 +195,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[2].menu2Name)}
+            {isNA(menuData.menuDetailsList[2].subBridgeList[1].menuItemName)}
           </TextR16>
           <TextB20
             css={css`
@@ -203,7 +203,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.detailedMenuList[3].detailedMenuName)}
+            {isNA(menuData.menuDetailsList[3].menuDetailsName)}
           </TextB20>
           <TextR16
             css={css`
@@ -211,7 +211,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               margin-bottom: 30px;
             `}
           >
-            {isNA(menuData.detailedMenuList[3].mainMenuName)}
+            {isNA(menuData.menuDetailsList[3].subBridgeList[0].menuItemName)}
           </TextR16>
         </div>
       </div>
