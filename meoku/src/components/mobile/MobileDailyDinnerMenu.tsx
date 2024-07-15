@@ -144,7 +144,7 @@ const MobileDailyDinnerMenu = ({
           <MobileMenuContent>
             <TextR16
               css={css`
-                margin-top: 1rem;
+                margin-top: 1.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[5].subBridgeList[0].menuItemName)}
