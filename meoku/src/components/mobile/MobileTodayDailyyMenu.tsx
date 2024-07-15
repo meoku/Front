@@ -215,7 +215,7 @@ const MobileTodayDailyMenu = ({
             <MobileMenuContent>
               <TextR16
                 css={css`
-                  margin-top: 1rem;
+                  margin-top: 1.5rem;
                 `}
               >
                 {isNA(

@@ -188,7 +188,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           <MobileMenuContent>
             <TextR16
               css={css`
-                margin-top: 1rem;
+                margin-top: 1.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[2].subBridgeList[0].menuItemName)}
