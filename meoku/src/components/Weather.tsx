@@ -55,13 +55,13 @@ const Weather = () => {
   const getUvIndex = () => {
     const value = weatherData?.data?.responseBody?.uvIndex;
     if (value < 3) {
-      return "낮음";
+      return "좋음";
     } else if (value < 6) {
       return "보통";
     } else if (value < 8) {
-      return "높음";
+      return "나쁨";
     } else if (value < 10) {
-      return "매우 높음";
+      return "매우 나쁨";
     } else {
       return "위험";
     }
