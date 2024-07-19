@@ -261,7 +261,7 @@ const MobileTodayDailyMenu = ({
                 `}
               >
                 {isNA(
-                  menuData.menuDetailsList[2].subBridgeList[0].menuItemName
+                  menuData.menuDetailsList[3].subBridgeList[0].menuItemName
                 )}
               </TextR16>
             </MobileMenuContent>
