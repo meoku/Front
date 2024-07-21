@@ -54,6 +54,11 @@ const fetchData = async ({ date }: RequestData) => {
       date,
     }
   );
+  for (let i = 0; i < 5; i++) {
+    if (response.data[i].menuDetailsList.length == 5) {
+      response.data[i].menuDetailsList.splice(1, 0, []);
+    }
+  }
   return response.data;
 };
 
@@ -95,7 +100,6 @@ function App() {
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
-
   const noMenuData = [[], [], [], [], []];
   const getWeatherDate = async () => {
     const res = await axios.get(
