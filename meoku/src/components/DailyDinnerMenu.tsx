@@ -74,7 +74,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.menuDetailsList[4].subBridgeList[2].menuItemName)}
+            {isNA(menuData.menuDetailsList[4]?.subBridgeList[2]?.menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -82,7 +82,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.menuDetailsList[4].subBridgeList[3].menuItemName)}
+            {isNA(menuData.menuDetailsList[4]?.subBridgeList[3]?.menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -90,7 +90,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.menuDetailsList[4].subBridgeList[4].menuItemName)}
+            {isNA(menuData.menuDetailsList[4]?.subBridgeList[4]?.menuItemName)}
           </TextR16>
           {/* <TextR16
             css={css`
@@ -119,14 +119,14 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             margin-bottom: 10px;
           `}
         >
-          <TextB20>{menuData.menuDetailsList[5].menuDetailsName}</TextB20>
+          <TextB20>{menuData.menuDetailsList[5]?.menuDetailsName}</TextB20>
           <TextR16
             css={css`
               margin-top: 8px;
               text-align: center;
             `}
           >
-            {isNA(menuData.menuDetailsList[5].subBridgeList[0].menuItemName)}
+            {isNA(menuData.menuDetailsList[5]?.subBridgeList[0]?.menuItemName)}
           </TextR16>
           <TextR16
             css={css`
@@ -134,7 +134,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               margin-bottom: 30px;
             `}
           >
-            {isNA(menuData.menuDetailsList[5].subBridgeList[1].menuItemName)}
+            {isNA(menuData.menuDetailsList[5]?.subBridgeList[1]?.menuItemName)}
           </TextR16>
         </div>
       </div>
