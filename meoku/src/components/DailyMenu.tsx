@@ -100,7 +100,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.menuDetailsList[0].subBridgeList[5].menuItemName)}
+            {isNA(menuData.menuDetailsList[0]?.subBridgeList[5]?.menuItemName)}
           </TextR16>
           <hr
             css={css`
@@ -109,66 +109,104 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             `}
           />
         </div>
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 242px;
-            margin-top: 10px;
-            height: 176px;
-          `}
-        >
-          <TextB20>{menuData.menuDetailsList[1].menuDetailsName}</TextB20>
-          <TextR16
+        {menuData?.menuDetailsList[1]?.dailyMenuDate ? (
+          <div
             css={css`
-              margin-top: 12px;
-              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              width: 242px;
+              margin-top: 10px;
+              height: 176px;
             `}
           >
-            {isNA(menuData.menuDetailsList[1].subBridgeList[0].menuItemName)}
-          </TextR16>
-          <TextR16
+            <TextB20>{menuData?.menuDetailsList[1]?.menuDetailsName}</TextB20>
+            <TextR16
+              css={css`
+                margin-top: 12px;
+                text-align: center;
+              `}
+            >
+              {isNA(
+                menuData?.menuDetailsList[1]?.subBridgeList[0]?.menuItemName
+              )}
+            </TextR16>
+            <TextR16
+              css={css`
+                margin-top: 6px;
+                text-align: center;
+                /* letter-spacing: -3px; */
+              `}
+            >
+              {isNA(
+                menuData?.menuDetailsList[1]?.subBridgeList[1]?.menuItemName
+              )}
+            </TextR16>
+            <TextR16
+              css={css`
+                margin-top: 6px;
+                text-align: center;
+              `}
+            >
+              {isNA(
+                menuData?.menuDetailsList[1]?.subBridgeList[2]?.menuItemName
+              )}
+            </TextR16>
+            <TextR16
+              css={css`
+                margin-top: 6px;
+                text-align: center;
+              `}
+            >
+              {isNA(
+                menuData?.menuDetailsList[1]?.subBridgeList[3]?.menuItemName
+              )}
+            </TextR16>
+            <TextR16
+              css={css`
+                margin-top: 6px;
+                text-align: center;
+              `}
+            >
+              {isNA(
+                menuData?.menuDetailsList[1]?.subBridgeList[4]?.menuItemName
+              )}
+            </TextR16>
+            <hr
+              css={css`
+                margin-top: 20px;
+                width: 80%;
+              `}
+            />
+          </div>
+        ) : (
+          <div
             css={css`
-              margin-top: 6px;
-              text-align: center;
-              /* letter-spacing: -3px; */
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              width: 242px;
+              margin-top: 10px;
+              height: 176px;
             `}
           >
-            {isNA(menuData.menuDetailsList[1].subBridgeList[1].menuItemName)}
-          </TextR16>
-          <TextR16
-            css={css`
-              margin-top: 6px;
-              text-align: center;
-            `}
-          >
-            {isNA(menuData.menuDetailsList[1].subBridgeList[2].menuItemName)}
-          </TextR16>
-          <TextR16
-            css={css`
-              margin-top: 6px;
-              text-align: center;
-            `}
-          >
-            {isNA(menuData.menuDetailsList[1].subBridgeList[3].menuItemName)}
-          </TextR16>
-          <TextR16
-            css={css`
-              margin-top: 6px;
-              text-align: center;
-            `}
-          >
-            {isNA(menuData.menuDetailsList[1].subBridgeList[4].menuItemName)}
-          </TextR16>
-          <hr
-            css={css`
-              margin-top: 20px;
-              width: 80%;
-            `}
-          />
-        </div>
+            <TextB20>{"　"}</TextB20>
+            <TextB20>{"　"}</TextB20>
+            <TextB20>{"　"}</TextB20>
+            <TextB20>{"단일메뉴"}</TextB20>
+            <TextB20>{"　"}</TextB20>
+            <TextB20>{"　"}</TextB20>
+            <TextB20>{"　"}</TextB20>
+            <hr
+              css={css`
+                margin-top: 20px;
+                width: 80%;
+              `}
+            />
+          </div>
+        )}
         <div
           css={css`
             display: flex;
