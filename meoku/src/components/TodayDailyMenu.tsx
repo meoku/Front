@@ -127,16 +127,17 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             `}
           >
             <TextB20>{menuData?.menuDetailsList[1]?.menuDetailsName}</TextB20>
-            <TextR16
+            <TextB16
               css={css`
                 margin-top: 12px;
                 text-align: center;
+                color: var(--color_01);
               `}
             >
               {isNA(
                 menuData?.menuDetailsList[1]?.subBridgeList[0]?.menuItemName
               )}
-            </TextR16>
+            </TextB16>
             <TextR16
               css={css`
                 margin-top: 6px;
