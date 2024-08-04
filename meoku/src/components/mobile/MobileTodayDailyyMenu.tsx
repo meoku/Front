@@ -57,7 +57,7 @@ const MobileTodayDailyMenu = ({
     }
   };
   return menuData ? (
-    menuData.holidayFg == "N" ? (
+    menuData.holidayFg == "N" && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
       <>
         <MobileMainDiv>
           <MobileMenuHeader>
@@ -317,13 +317,15 @@ const MobileTodayDailyMenu = ({
               height: 576px;
             `}
           >
-            <TextB20>공휴일</TextB20>
+            <TextB20>
+              {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
+            </TextB20>
           </div>
         </div>
       </div>
     )
   ) : (
-    <>haha</>
+    <></>
   );
 };
 

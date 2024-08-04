@@ -56,7 +56,8 @@ const MobileDailyDinnerMenu = ({
       return value;
     }
   };
-  return menuData?.holidayFg == "N" ? (
+  return menuData?.holidayFg == "N" &&
+    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
         margin-top: 20px;
@@ -213,7 +214,9 @@ const MobileDailyDinnerMenu = ({
             height: 576px;
           `}
         >
-          <TextB20>공휴일</TextB20>
+          <TextB20>
+            {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
+          </TextB20>
         </div>
       </div>
     </div>
