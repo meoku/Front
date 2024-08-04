@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import timeState from "../../store/atoms/time";
 import { DefaultAdminData } from "../../utils/defaultAdminData";
 import { adminMenu } from "../../type/type";
+import { useEffect, useState } from "react";
 
 interface RequestData {
   date: string;
@@ -25,23 +26,16 @@ const formatDate = (date: Date) => {
 };
 
 const Admin = () => {
-  // const onchangeImageUpload = (e) => {
-  //   const { files } = e.target;
-  //   const uploadFile = files[0];
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(uploadFile);
-  //   reader.onloadend = () => {
-  //     setUploadImgUrl(reader.result);
-  //   };
-  // };
   const [date] = useRecoilState(timeState);
-  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File>();
+  const [sendFileState, setSendFileState] = useState(false);
+  const [fileData, setFileData] = useState();
   const dayWeek = date.getDay();
   const requestData: RequestData = {
     date: formatDate(date),
     // date: "2024-05-31",
   };
-  const { data: menuData } = useQuery({
+  const { data: menuData, refetch } = useQuery({
     queryKey: ["data", requestData],
     queryFn: () => fetchData(requestData),
   });
@@ -53,11 +47,18 @@ const Admin = () => {
         date,
       }
     );
+    if (sendFileState === true) {
+      return fileData;
+    }
     if (response.data.length === 0) {
       return DefaultAdminData(dayArr);
     }
     return response.data;
   };
+  useEffect(() => {
+    refetch();
+    setSendFileState(false);
+  }, [fileData]);
   const postMenuData = async (data: adminMenu[]) => {
     try {
       console.log("Sending data:", data);
@@ -70,6 +71,39 @@ const Admin = () => {
     } catch (error) {
       console.error("Failed to post data:", error);
       alert("저장실패");
+    }
+  };
+  const postMenuFile = async () => {
+    if (!selectedFile) {
+      alert("파일이 선택되지 않았습니다.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("menuFile", selectedFile);
+
+    try {
+      const response = await axios.post(
+        "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/MenuImageUploadAndReturnMenuData",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setFileData(response.data);
+      setSendFileState(true);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to upload file:", error);
+      alert("파일 업로드 실패");
+    }
+  };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setSelectedFile(e.target.files[0]);
     }
   };
   const getTodayWeek = (date: Date, num: number) => {
@@ -297,49 +331,6 @@ const Admin = () => {
       ],
     ];
   }
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   setSelectedFile(file || null);
-  // };
-  // const handleSubmit = async () => {
-  //   if (selectedFile) {
-  //     try {
-  //       const formData = new FormData();
-  //       formData.append("image", selectedFile);
-
-  //       const response = await axios.post("/api/upload", formData, {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       });
-
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  // };
-  // const handleMenuData = (data: menuDetail[], day: string) => {
-  //   const arr = menuData;
-  //   console.log(arr);
-  //   if (day == "월") {
-  //     arr[0].menuDetailsList = data;
-  //     setMenuData(arr);
-  //   }
-  //   else if (day == "화") {
-  //     arr[1].menuDetailsList = data;
-  //     setMenuData(arr);
-  //   } else if (day == "수") {
-  //     arr[2].menuDetailsList = data;
-  //     setMenuData(arr);
-  //   } else if (day == "목") {
-  //     arr[3].menuDetailsList = data;
-  //     setMenuData(arr);
-  //   } else if (day == "금") {
-  //     arr[4].menuDetailsList = data;
-  //     setMenuData(arr);
-  //   }
-  // };
   return (
     <div
       css={css`
@@ -369,22 +360,22 @@ const Admin = () => {
           margin: 30px 90px 10px 0;
         `}
       >
-        {/* <input type="file" accept="image/*" onChange={handleFileChange} /> */}
-        {/* <button
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <button
           css={css`
             background-color: orange;
             margin-right: 10px;
           `}
           onClick={() => {
             if (confirm("사진을 전송 하시겠습니까?")) {
-              postMenuData(menuData, selectedFile);
+              postMenuFile();
             } else {
               return;
             }
           }}
         >
           사진 전송
-        </button> */}
+        </button>
         <button
           css={css`
             background-color: orange;
