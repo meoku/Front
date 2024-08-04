@@ -16,6 +16,7 @@ const MobileMenuHeader = styled.div`
   border-radius: 10px;
   background-color: var(--color_05);
   color: var(--background_color_02);
+  margin-top: 12px;
 `;
 const MobileMenuTitle = styled.div`
   display: flex;
@@ -52,7 +53,9 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       return value;
     }
   };
-  return menuData && menuData.holidayFg == "N" ? (
+  return menuData &&
+    menuData.holidayFg == "N" &&
+    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <>
       <MobileMainDiv>
         <MobileMenuHeader>
@@ -278,6 +281,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           width: 80%;
           background-color: var(--color_05);
           color: var(--background_color_02);
+          margin-top: 12px;
         `}
       >
         <div
@@ -314,7 +318,9 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               height: 576px;
             `}
           >
-            <TextB20>{menuData ? "공휴일" : "준비중입니다"}</TextB20>
+            <TextB20>
+              {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
+            </TextB20>
           </div>
         </div>
       </div>
