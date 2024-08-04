@@ -9,7 +9,8 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       return value;
     }
   };
-  return menuData?.holidayFg == "N" ? (
+  return menuData?.holidayFg == "N" &&
+    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -297,7 +298,9 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             height: 576px;
           `}
         >
-          <TextB20>{menuData ? "공휴일" : "준비중입니다."}</TextB20>
+          <TextB20>
+            {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
+          </TextB20>
         </div>
       </div>
     </div>
