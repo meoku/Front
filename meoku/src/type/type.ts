@@ -28,6 +28,7 @@ export interface menuDetail {
 }
 
 export interface dailyMenu {
+  menuDetailsList: menuDetail[];
   dailyMenuId: null;
   date: string;
   holidayFg: string;
@@ -40,15 +41,15 @@ export interface dailyMenu {
 }
 //메인에서 컴포넌트로 데이터 넘길 때
 export type firstMenu = {
-  createdDate: null | Date;
-  createdBy: null | string;
-  dailyMenuId: null | string;
-  date: string | Date;
+  createdDate?: null | Date;
+  createdBy?: null | string;
+  dailyMenuId?: null | string;
+  date?: string | Date;
   menuDetailsList: menuDTO[];
   holidayFg: string;
-  restaurantOpenFg: string;
-  updatedDate: null | Date;
-  updatedBy: null | string;
+  restaurantOpenFg?: string;
+  updatedDate?: null | Date;
+  updatedBy?: null | string;
 };
 export interface menuDTO {
   createdBy: null;
@@ -89,4 +90,34 @@ export interface menu {
   bridgeId: number;
   mainMenuYn: string;
   menuItemName: string;
+}
+
+export interface adminMenu {
+  dailyMenuId: number | null;
+  holidayFg: string;
+  menuDate: string;
+  menuDetailsList: adminMenuDetails[];
+  restaurantOpenFn?: string;
+  restaurantOpenFg?: string | null;
+}
+
+export interface adminMenuDetails {
+  dailyMenuCategory: string | null;
+  dailyMenuDate: string | null;
+  dailyMenuId: null;
+  mainMealYn: string;
+  menuDetailsId: number | null;
+  menuDetailsImgUrl: string | null;
+  menuDetailsName: string;
+  subBridgeList: bridgeData[];
+}
+
+export interface bridgeData {
+  bridgeId: number | null;
+  mainMenuYn: string;
+  menuDetailsId: number | string | null;
+  menuItemId: number | string | null;
+  menuItemName: string;
+  submenuDetails: string | null;
+  submenuItem: string | null;
 }
