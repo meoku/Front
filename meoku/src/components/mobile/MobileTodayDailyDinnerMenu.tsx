@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { TextB16, TextB20, TextR16 } from ".././common/Text";
+import { TextB16, TextR16 } from ".././common/Text";
 import { mainDailyMenuTime } from "../../type/type";
 import styled from "@emotion/styled";
 
@@ -56,7 +56,8 @@ const MobileDailyDinnerMenu = ({
       return value;
     }
   };
-  return menuData?.holidayFg == "N" ? (
+  return menuData?.holidayFg == "N" &&
+    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
         margin-top: 20px;
@@ -179,44 +180,7 @@ const MobileDailyDinnerMenu = ({
         margin: 0px 9px;
         background-color: var(--color_02);
       `}
-    >
-      <div
-        css={css`
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 214px;
-          height: 44px;
-        `}
-      >
-        <TextB16>{`${dayWeek}(${day})`}</TextB16>
-      </div>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 214px;
-          border-radius: 0 0 18px 18px;
-          /* height: 576px; */
-          background-color: var(--background_color_02);
-        `}
-      >
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 242px;
-            height: 576px;
-          `}
-        >
-          <TextB20>공휴일</TextB20>
-        </div>
-      </div>
-    </div>
+    ></div>
   );
 };
 

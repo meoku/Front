@@ -390,6 +390,7 @@ function App() {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 8px;
   `;
   const MobileDayBtn = styled.div`
     display: flex;
