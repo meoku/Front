@@ -111,7 +111,6 @@ function App() {
     queryKey: ["data"],
     queryFn: () => getWeatherDate(),
   });
-
   const getWeekOfMonth = (date: Date): string => {
     const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
     const firstDayOfWeek = firstDate.getDay();
