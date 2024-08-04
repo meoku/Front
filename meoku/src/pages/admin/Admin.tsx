@@ -12,6 +12,7 @@ import timeState from "../../store/atoms/time";
 import { DefaultAdminData } from "../../utils/defaultAdminData";
 import { adminMenu } from "../../type/type";
 import { useEffect, useState } from "react";
+import Loading from "../../components/common/Loading";
 
 interface RequestData {
   date: string;
@@ -30,6 +31,7 @@ const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File>();
   const [sendFileState, setSendFileState] = useState(false);
   const [fileData, setFileData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const dayWeek = date.getDay();
   const requestData: RequestData = {
     date: formatDate(date),
@@ -61,6 +63,7 @@ const Admin = () => {
   }, [fileData]);
   const postMenuData = async (data: adminMenu[]) => {
     try {
+      setIsLoading(true);
       console.log("Sending data:", data);
       const response = await axios.post(
         "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/WeekMenuUpload",
@@ -71,6 +74,8 @@ const Admin = () => {
     } catch (error) {
       console.error("Failed to post data:", error);
       alert("저장실패");
+    } finally {
+      setIsLoading(false);
     }
   };
   const postMenuFile = async () => {
@@ -78,7 +83,7 @@ const Admin = () => {
       alert("파일이 선택되지 않았습니다.");
       return;
     }
-
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("menuFile", selectedFile);
 
@@ -98,11 +103,12 @@ const Admin = () => {
     } catch (error) {
       console.error("Failed to upload file:", error);
       alert("파일 업로드 실패");
+    } finally {
+      setIsLoading(false);
     }
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      console.log(e.target.files[0]);
       setSelectedFile(e.target.files[0]);
     }
   };
@@ -337,6 +343,7 @@ const Admin = () => {
         height: 1200px;
       `}
     >
+      {isLoading && <Loading />}
       <Navbar />
       <div
         css={css`
