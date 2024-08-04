@@ -29,7 +29,7 @@ export interface menuDetail {
 
 export interface dailyMenu {
   menuDetailsList: menuDetail[];
-  dailyMenuId: null;
+  dailyMenuId: null | number | string;
   date: string;
   holidayFg: string;
   restaurantOpenFg: string;
