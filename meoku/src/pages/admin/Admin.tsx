@@ -355,9 +355,10 @@ const Admin = () => {
       <div
         css={css`
           display: flex;
-          justify-content: right;
+          justify-content: center;
           align-items: center;
-          margin: 30px 90px 10px 0;
+          margin: 20px 0px;
+          padding-left: 750px;
         `}
       >
         <input type="file" accept="image/*" onChange={handleFileChange} />
