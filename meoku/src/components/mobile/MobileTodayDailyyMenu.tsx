@@ -16,6 +16,7 @@ const MobileMenuHeader = styled.div`
   border-radius: 10px;
   background-color: var(--color_01);
   color: var(--background_color_02);
+  margin-top: 12px;
 `;
 const MobileMenuTitle = styled.div`
   display: flex;
@@ -275,54 +276,60 @@ const MobileTodayDailyMenu = ({
         </MobileMainDiv>
       </>
     ) : (
-      <div
-        css={css`
-          box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-          border-radius: 18px;
-          /* margin: 0px 9px 30px 9px; */
-          margin: 0px 9px;
-          background-color: var(--color_02);
-        `}
-      >
+      <MobileMainDiv>
         <div
           css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 214px;
-            height: 44px;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+            border-radius: 18px;
+            /* margin: 0px 9px 30px 9px; */
+            margin: 0px 9px;
+            width: 80%;
+            background-color: var(--color_05);
+            color: var(--background_color_02);
+            margin-top: 12px;
           `}
         >
-          <TextB16>{`${dayWeek}(${day})`}</TextB16>
-        </div>
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 214px;
-            border-radius: 0 0 18px 18px;
-            /* height: 576px; */
-            background-color: var(--background_color_02);
-          `}
-        >
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              height: 44px;
+            `}
+          >
+            <TextB16>{`${dayWeek}(${day})`}</TextB16>
+          </div>
           <div
             css={css`
               display: flex;
               flex-direction: column;
               justify-content: center;
               align-items: center;
-              width: 242px;
-              height: 576px;
+              width: 100%;
+              border-radius: 0 0 18px 18px;
+              /* height: 576px; */
+              background-color: var(--background_color_02);
+              color: var(--color_05);
             `}
           >
-            <TextB20>
-              {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
-            </TextB20>
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 242px;
+                height: 576px;
+              `}
+            >
+              <TextB20>
+                {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
+              </TextB20>
+            </div>
           </div>
         </div>
-      </div>
+      </MobileMainDiv>
     )
   ) : (
     <></>

@@ -16,6 +16,7 @@ const MobileMenuHeader = styled.div`
   border-radius: 10px;
   background-color: var(--color_05);
   color: var(--background_color_02);
+  margin-top: 12px;
 `;
 const MobileMenuTitle = styled.div`
   display: flex;
@@ -280,6 +281,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           width: 80%;
           background-color: var(--color_05);
           color: var(--background_color_02);
+          margin-top: 12px;
         `}
       >
         <div
