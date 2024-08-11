@@ -20,8 +20,8 @@ import icNav from "/icNav.svg";
 import icHamburger from "/icHamburger.svg";
 import leftarrow from "/leftarrow.svg";
 import rightarrow from "/rightarrow.svg";
-import icMonth from "/icMonth.svg";
-import icShare from "/icShare.svg";
+// import icMonth from "/icMonth.svg";
+// import icShare from "/icShare.svg";
 import { Link } from "react-router-dom";
 import { TextB20 } from "./components/common/Text";
 import Slider from "react-slick";
@@ -33,6 +33,7 @@ import { useEffect, useRef, useState } from "react";
 import sunnyImage from "/weather/ImageSunny.svg";
 import { useRecoilState } from "recoil";
 import timeState from "./store/atoms/time";
+import MobileModal from "./components/mobile/MobileModal";
 
 interface RequestData {
   date: string;
@@ -68,6 +69,15 @@ function App() {
   // const date = new Date();
   const dayWeek = date.getDay();
   const sliderRef = useRef<Slider | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   useEffect(() => {
     const day = date.getDay();
     if (day == 0) setSelectedDay(0);
@@ -679,8 +689,20 @@ function App() {
             />
           </MobileDay>
           <MobileSideBtn>
-            <img src={icMonth} alt="arrowImg" />
-            <img src={icShare} alt="arrowImg" />
+            {/* <img src={icMonth} alt="arrowImg" /> */}
+            {/* <img src={icShare} alt="arrowImg" /> */}
+            {isModalOpen && <MobileModal closeModal={closeModal} />}
+            <button
+              css={css`
+                border: 1px solid black;
+                white-space: nowrap;
+                padding: 5px 10px;
+                background-color: #f9f9f9;
+              `}
+              onClick={openModal}
+            >
+              식단순서
+            </button>
           </MobileSideBtn>
         </MobileHeader>
         <div>
