@@ -530,7 +530,14 @@ function App() {
                 height: 74px;
                 margin-top: 20px;
                 animation: ${moveUpDown} 1s ease-in-out infinite;
+                cursor: pointer;
               `}
+              onClick={() => {
+                window.scrollTo({
+                  top: document.body.scrollHeight,
+                  behavior: "smooth",
+                });
+              }}
             />
             <div
               css={css`
