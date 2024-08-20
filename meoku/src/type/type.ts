@@ -90,6 +90,7 @@ export interface menu {
   bridgeId: number;
   mainMenuYn: string;
   menuItemName: string;
+  menuItemId: number;
 }
 
 export interface adminMenu {
@@ -120,4 +121,20 @@ export interface bridgeData {
   menuItemName: string;
   submenuDetails: string | null;
   submenuItem: string | null;
+}
+
+export interface tagData {
+  calories?: null | number;
+  frequencyCnt: number;
+  likesCnt?: null | number;
+  menuItemId?: number;
+  menuItemName?: string;
+  recentMenuDetailsId?: number;
+  recentMenuDetailsUrl?: null | string;
+  subBridegeList: [];
+  subMenuTageList: {
+    menuTagId: number;
+    menuTagName: string;
+    tagEndDate: string | Date;
+  }[];
 }
