@@ -1,7 +1,33 @@
 import { css } from "@emotion/react";
 import { TextB16, TextB20, TextR16 } from "./common/Text";
-import { mainDailyMenuTime } from "../type/type";
+import { mainDailyMenuTime, tagData } from "../type/type";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import icNewTag from "/icNewTag.svg";
+interface RequestData {
+  menuIdList: (number | undefined)[];
+}
 const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
+  const menu1 = menuData?.menuDetailsList[0]?.subBridgeList[0]?.menuItemId;
+  const menu2 = menuData?.menuDetailsList[0]?.subBridgeList[1]?.menuItemId;
+  const menu3 = menuData?.menuDetailsList[1]?.subBridgeList[0]?.menuItemId;
+  const menu4 = menuData?.menuDetailsList[1]?.subBridgeList[1]?.menuItemId;
+  const requestData: RequestData = {
+    menuIdList: [menu1, menu2, menu3, menu4],
+  };
+  const getTagData = async () => {
+    const response = await axios.post(
+      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/searchMenuTag",
+      {
+        menuIdList: [menu1, menu2, menu3, menu4],
+      }
+    );
+    return response.data;
+  };
+  const { data: tagData } = useQuery({
+    queryKey: ["data", requestData],
+    queryFn: () => getTagData(),
+  });
   const isNA = (value: string): string | JSX.Element => {
     if (value === "N/A") {
       return "";
@@ -66,7 +92,33 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               color: var(--color_01);
             `}
           >
-            {isNA(menuData.menuDetailsList[0].subBridgeList[0].menuItemName)}
+            <div
+              css={css`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+              `}
+            >
+              <div>
+                {tagData?.map((v: tagData) => {
+                  if (v.menuItemId == menu1) {
+                    return (
+                      <img
+                        css={css`
+                          position: absolute;
+                          top: -1px;
+                          left: -20px;
+                        `}
+                        src={icNewTag}
+                        alt="New Tag"
+                      />
+                    );
+                  }
+                })}
+              </div>
+              {isNA(menuData.menuDetailsList[0].subBridgeList[0].menuItemName)}
+            </div>
           </TextB16>
           <TextR16
             css={css`
@@ -74,7 +126,33 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               text-align: center;
             `}
           >
-            {isNA(menuData.menuDetailsList[0].subBridgeList[1].menuItemName)}
+            <div
+              css={css`
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+              `}
+            >
+              <div>
+                {tagData?.map((v: tagData) => {
+                  if (v.menuItemId == menu2) {
+                    return (
+                      <img
+                        css={css`
+                          position: absolute;
+                          top: -1px;
+                          left: -20px;
+                        `}
+                        src={icNewTag}
+                        alt="New Tag"
+                      />
+                    );
+                  }
+                })}
+              </div>
+              {isNA(menuData.menuDetailsList[0].subBridgeList[1].menuItemName)}
+            </div>
           </TextR16>
           <TextR16
             css={css`
@@ -135,9 +213,35 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 color: var(--color_01);
               `}
             >
-              {isNA(
-                menuData?.menuDetailsList[1]?.subBridgeList[0]?.menuItemName
-              )}
+              <div
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                `}
+              >
+                <div>
+                  {tagData?.map((v: tagData) => {
+                    if (v.menuItemId == menu3) {
+                      return (
+                        <img
+                          css={css`
+                            position: absolute;
+                            top: -1px;
+                            left: -20px;
+                          `}
+                          src={icNewTag}
+                          alt="New Tag"
+                        />
+                      );
+                    }
+                  })}
+                </div>
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[0].menuItemName
+                )}
+              </div>
             </TextB16>
             <TextR16
               css={css`
@@ -146,9 +250,35 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 /* letter-spacing: -3px; */
               `}
             >
-              {isNA(
-                menuData?.menuDetailsList[1]?.subBridgeList[1]?.menuItemName
-              )}
+              <div
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                `}
+              >
+                <div>
+                  {tagData?.map((v: tagData) => {
+                    if (v.menuItemId == menu4) {
+                      return (
+                        <img
+                          css={css`
+                            position: absolute;
+                            top: -1px;
+                            left: -20px;
+                          `}
+                          src={icNewTag}
+                          alt="New Tag"
+                        />
+                      );
+                    }
+                  })}
+                </div>
+                {isNA(
+                  menuData.menuDetailsList[1].subBridgeList[1].menuItemName
+                )}
+              </div>
             </TextR16>
             <TextR16
               css={css`
