@@ -33,6 +33,7 @@ import timeState from "./store/atoms/time";
 import MobileModal from "./components/mobile/MobileModal";
 import { fetchMenuData } from "./api/menuApi";
 import { fetchWeatherData } from "./api/weatherApi";
+import { calculateDayArr, getWeekOfMonth } from "./utils/dateUtils";
 
 interface RequestData {
   date: string;
@@ -50,7 +51,7 @@ function App() {
   const [date, setDate] = useRecoilState(timeState);
   const [selectedDay, setSelectedDay] = useState(date.getDay());
   // const date = new Date();
-  const dayWeek = date.getDay();
+  // const dayWeek = date.getDay();
   const sliderRef = useRef<Slider | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -99,217 +100,7 @@ function App() {
     queryKey: ["data"],
     queryFn: () => fetchWeatherData(),
   });
-  const getWeekOfMonth = (date: Date): string => {
-    const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    const firstDayOfWeek = firstDate.getDay();
-
-    const nowDay = date.getDay() === 0 ? 7 : date.getDay();
-    const startWeekOfDay = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() - nowDay + 1
-    );
-    const endWeekOfDay = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() - nowDay + 5
-    );
-    let weekIndex = ((startWeekOfDay.getDate() / 7) >> 0) + 1;
-
-    if (firstDayOfWeek !== 1) {
-      weekIndex += 1;
-    }
-    if (firstDate.getDay() !== 1) {
-      weekIndex -= 1;
-    }
-    if (startWeekOfDay.getMonth() != endWeekOfDay.getMonth()) {
-      weekIndex = 5;
-    }
-    if (startWeekOfDay.getDate() % 7 === 0) {
-      weekIndex -= 1;
-    }
-    return `${startWeekOfDay.getMonth() + 1}월 ${weekIndex}주`;
-  };
-  let dayArr: [string | undefined, number][] = [];
-  const getDayWeek = (day: number) => {
-    if (day === 0) {
-      return "일요일";
-    } else if (day === 1) {
-      return "월요일";
-    } else if (day === 2) {
-      return "화요일";
-    } else if (day === 3) {
-      return "수요일";
-    } else if (day === 4) {
-      return "목요일";
-    } else if (day === 5) {
-      return "금요일";
-    } else if (day === 6) {
-      return "토요일";
-    }
-  };
-  if (dayWeek === 0) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() - 6)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 5),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-      ],
-    ];
-  } else if (dayWeek === 1) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(date.getDate() + 4)).getDate(),
-      ],
-    ];
-  } else if (dayWeek === 2) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
-      ],
-    ];
-  } else if (dayWeek == 3) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-      ],
-    ];
-  } else if (dayWeek == 4) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-      ],
-    ];
-  } else if (dayWeek == 5) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-      ],
-    ];
-  } else if (dayWeek == 6) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 5),
-        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-      ],
-    ];
-  }
+  const dayArr: [string | undefined, number][] = calculateDayArr(date);
   const MobileMain = styled.div`
     display: flex;
     justify-content: space-between;

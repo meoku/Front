@@ -16,6 +16,7 @@ import {
   uploadMenuData,
   uploadMenuFile,
 } from "../../api/menuApi";
+import { calculateDayArrAdmin } from "../../utils/dateUtils";
 
 interface RequestData {
   date: string;
@@ -35,7 +36,7 @@ const Admin = () => {
   const [sendFileState, setSendFileState] = useState(false);
   const [fileData, setFileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const dayWeek = date.getDay();
+  // const dayWeek = date.getDay();
   const requestData: RequestData = {
     date: formatDate(date),
     // date: "2024-05-31",
@@ -88,231 +89,10 @@ const Admin = () => {
       setSelectedFile(e.target.files[0]);
     }
   };
-  const getTodayWeek = (date: Date, num: number) => {
-    const targetDate = new Date(date);
-    targetDate.setDate(date.getDate() - num);
 
-    const year = targetDate.getFullYear();
-    const month = String(targetDate.getMonth() + 1).padStart(2, "0");
-    const day = String(targetDate.getDate()).padStart(2, "0");
+  const dayArr: [string | undefined, number, string][] =
+    calculateDayArrAdmin(date);
 
-    return `${year}-${month}-${day}`;
-  };
-  let dayArr: [string | undefined, number, string][] = [];
-  const getDayWeek = (day: number) => {
-    if (day === 0) {
-      return "일요일";
-    } else if (day === 1) {
-      return "월요일";
-    } else if (day === 2) {
-      return "화요일";
-    } else if (day === 3) {
-      return "수요일";
-    } else if (day === 4) {
-      return "목요일";
-    } else if (day === 5) {
-      return "금요일";
-    } else if (day === 6) {
-      return "토요일";
-    }
-  };
-  if (dayWeek === 0) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() - 6)).getDate(),
-        getTodayWeek(date, 6),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
-        getTodayWeek(date, 5),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-        getTodayWeek(date, 4),
-      ],
-      [
-        getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() + 5),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-    ];
-  } else if (dayWeek === 1) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-        getTodayWeek(date, -2),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
-        getTodayWeek(date, -3),
-      ],
-      [
-        getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(date.getDate() + 4)).getDate(),
-        getTodayWeek(date, -4),
-      ],
-    ];
-  } else if (dayWeek === 2) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-        getTodayWeek(date, -2),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
-        getTodayWeek(date, -3),
-      ],
-    ];
-  } else if (dayWeek == 3) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-        getTodayWeek(date, -2),
-      ],
-    ];
-  } else if (dayWeek == 4) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-    ];
-  } else if (dayWeek == 5) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-        getTodayWeek(date, 4),
-      ],
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-    ];
-  } else if (dayWeek == 6) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 5),
-        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
-        getTodayWeek(date, 5),
-      ],
-      [
-        getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-        getTodayWeek(date, 4),
-      ],
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-    ];
-  }
   return (
     <div
       css={css`

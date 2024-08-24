@@ -1,17 +1,5 @@
 import { useState, useEffect } from "react";
-
-const getDayWeek = (day: number) => {
-  const days = [
-    "일요일",
-    "월요일",
-    "화요일",
-    "수요일",
-    "목요일",
-    "금요일",
-    "토요일",
-  ];
-  return days[day];
-};
+import { getDayWeek } from "./dateUtils";
 
 const useDayArr = (currentDate: Date) => {
   const [dayArr, setDayArr] = useState<[string | undefined, number][]>([]);

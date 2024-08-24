@@ -4,39 +4,9 @@ import { css } from "@emotion/react";
 import { TextB20 } from "./common/Text";
 import { useRecoilState } from "recoil";
 import timeState from "../store/atoms/time";
+import { getWeekOfMonth } from "../utils/dateUtils";
 const Day = ({ time }: { time: string }) => {
   const [date, setDate] = useRecoilState(timeState);
-  const getWeekOfMonth = (date: Date): string => {
-    const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    const firstDayOfWeek = firstDate.getDay();
-
-    const nowDay = date.getDay() === 0 ? 7 : date.getDay();
-    const startWeekOfDay = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() - nowDay + 1
-    );
-    const endWeekOfDay = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() - nowDay + 5
-    );
-    let weekIndex = ((startWeekOfDay.getDate() / 7) >> 0) + 1;
-
-    if (firstDayOfWeek !== 1) {
-      weekIndex += 1;
-    }
-    if (firstDate.getDay() !== 1) {
-      weekIndex -= 1;
-    }
-    if (startWeekOfDay.getMonth() != endWeekOfDay.getMonth()) {
-      weekIndex = 5;
-    }
-    if (startWeekOfDay.getDate() % 7 === 0) {
-      weekIndex -= 1;
-    }
-    return `${startWeekOfDay.getMonth() + 1}월 ${weekIndex}주`;
-  };
   return (
     <div
       css={css`
