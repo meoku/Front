@@ -10,7 +10,6 @@ import bottomarrow from "/bottonarrow.svg";
 import DinnerTime from "./components/DinnerTime";
 import DailyDinnerMenu from "./components/DailyDinnerMenu";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { firstMenu } from "./type/type";
 import TodayDailyMenu from "./components/TodayDailyMenu";
 import TodayDailyDinnerMenu from "./components/TodayDailyDinnerMenu";
@@ -20,8 +19,6 @@ import icNav from "/icNav.svg";
 import icHamburger from "/icHamburger.svg";
 import leftarrow from "/leftarrow.svg";
 import rightarrow from "/rightarrow.svg";
-// import icMonth from "/icMonth.svg";
-// import icShare from "/icShare.svg";
 import { Link } from "react-router-dom";
 import { TextB20 } from "./components/common/Text";
 import Slider from "react-slick";
@@ -34,6 +31,8 @@ import sunnyImage from "/weather/ImageSunny.svg";
 import { useRecoilState } from "recoil";
 import timeState from "./store/atoms/time";
 import MobileModal from "./components/mobile/MobileModal";
+import { fetchMenuData } from "./api/menuApi";
+import { fetchWeatherData } from "./api/weatherApi";
 
 interface RequestData {
   date: string;
@@ -46,22 +45,6 @@ const moveUpDown = keyframes`
     transform: translateY(-15px);
   }
 `;
-
-const fetchData = async ({ date }: RequestData) => {
-  const response = await axios.post(
-    // "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/weekdaysmenu",
-    "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/weekdaysmenu",
-    {
-      date,
-    }
-  );
-  for (let i = 0; i < 5; i++) {
-    if (response.data[i].menuDetailsList.length == 5) {
-      response.data[i].menuDetailsList.splice(1, 0, []);
-    }
-  }
-  return response.data;
-};
 
 function App() {
   const [date, setDate] = useRecoilState(timeState);
@@ -108,18 +91,13 @@ function App() {
   };
   const { data: menuData } = useQuery({
     queryKey: ["data", requestData],
-    queryFn: () => fetchData(requestData),
+    queryFn: () => fetchMenuData(requestData),
   });
   const noMenuData = [[], [], [], [], []];
-  const getWeatherDate = async () => {
-    const res = await axios.get(
-      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
-    );
-    return res;
-  };
+
   const { data: weatherData } = useQuery({
     queryKey: ["data"],
-    queryFn: () => getWeatherDate(),
+    queryFn: () => fetchWeatherData(),
   });
   const getWeekOfMonth = (date: Date): string => {
     const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -910,22 +888,6 @@ function App() {
               })}
             </Slider>
           ) : (
-            // <div>
-            //   {noMenuData.map((_, index: number) => {
-            //     return selectedDay - 1 == index ? (
-            //       <div>
-            //         <MobileDailyMenu
-            //           key={index + "mobile2"}
-            //           dayWeek={dayArr[index][0]}
-            //           day={dayArr[index][1]}
-            //           // menuData={menu}
-            //         />
-            //       </div>
-            //     ) : (
-            //       <div></div>
-            //     );
-            //   })}
-            // </div>
             <Slider {...settings} ref={sliderRef}>
               {noMenuData.map((_, index: number) => {
                 return dayArr[index][1] == date.getDate() &&

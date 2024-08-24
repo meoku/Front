@@ -1,7 +1,6 @@
 import InputMenus from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
-import axios from "axios";
 import Weather from "../../components/Weather";
 import Day from "../../components/Day";
 import LunchTime from "../../components/LunchTime";
@@ -9,10 +8,14 @@ import LunchBtn from "../../components/LunchBtn";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import timeState from "../../store/atoms/time";
-import { DefaultAdminData } from "../../utils/defaultAdminData";
 import { adminMenu } from "../../type/type";
 import { useEffect, useState } from "react";
 import Loading from "../../components/common/Loading";
+import {
+  fetchAdminMenuData,
+  uploadMenuData,
+  uploadMenuFile,
+} from "../../api/menuApi";
 
 interface RequestData {
   date: string;
@@ -39,24 +42,10 @@ const Admin = () => {
   };
   const { data: menuData, refetch } = useQuery({
     queryKey: ["data", requestData],
-    queryFn: () => fetchData(requestData),
+    queryFn: () =>
+      fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
   });
 
-  const fetchData = async ({ date }: RequestData) => {
-    const response = await axios.post(
-      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/weekdaysmenu",
-      {
-        date,
-      }
-    );
-    if (sendFileState === true) {
-      return fileData;
-    }
-    if (response.data.length === 0) {
-      return DefaultAdminData(dayArr);
-    }
-    return response.data;
-  };
   useEffect(() => {
     refetch();
     setSendFileState(false);
@@ -65,11 +54,7 @@ const Admin = () => {
     try {
       setIsLoading(true);
       console.log("Sending data:", data);
-      const response = await axios.post(
-        "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/WeekMenuUpload",
-        data
-      );
-      console.log("Data successfully posted:", response.data);
+      await uploadMenuData(data);
       alert("저장성공");
     } catch (error) {
       console.error("Failed to post data:", error);
@@ -88,18 +73,9 @@ const Admin = () => {
     formData.append("menuFile", selectedFile);
 
     try {
-      const response = await axios.post(
-        "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/MenuImageUploadAndReturnMenuData",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setFileData(response.data);
+      const data = await uploadMenuFile(selectedFile);
+      setFileData(data);
       setSendFileState(true);
-      return response.data;
     } catch (error) {
       console.error("Failed to upload file:", error);
       alert("파일 업로드 실패");

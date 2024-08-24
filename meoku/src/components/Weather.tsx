@@ -8,8 +8,8 @@ import icSnow from "/weather/snowflake23.png";
 import icSnowRain from "/weather/snow22.png";
 import icHeavyRain from "/weather/heavy-rain24.png";
 import { TextB24, TextR14 } from "./common/Text";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { fetchWeatherData } from "../api/weatherApi";
 
 const getWeatherImg = (isRain: boolean, value: string) => {
   if (isRain) {
@@ -42,15 +42,9 @@ const Weather = () => {
   rainMap.set("2", "비/눈");
   rainMap.set("3", "눈");
   rainMap.set("4", "소나기");
-  const getWeatherDate = async () => {
-    const res = await axios.get(
-      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meoku/getCurrentWeatherData"
-    );
-    return res;
-  };
   const { data: weatherData } = useQuery({
     queryKey: ["data"],
-    queryFn: () => getWeatherDate(),
+    queryFn: () => fetchWeatherData(),
   });
   const getUvIndex = () => {
     const value = weatherData?.data?.responseBody?.uvIndex;
