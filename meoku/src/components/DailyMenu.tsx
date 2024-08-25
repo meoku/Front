@@ -7,7 +7,7 @@ import { fetchTagData } from "../api/menuApi";
 interface RequestData {
   menuIdList: (number | undefined)[];
 }
-const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
+const DailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
   const menu1 = menuData?.menuDetailsList?.[0]?.subBridgeList?.[0]?.menuItemId;
   const menu2 = menuData?.menuDetailsList?.[0]?.subBridgeList?.[1]?.menuItemId;
   const menu3 = menuData?.menuDetailsList?.[1]?.subBridgeList?.[0]?.menuItemId;
@@ -26,6 +26,8 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       return value;
     }
   };
+  console.log("?????????????");
+  console.log(menuData?.holidayFg, menuData?.menuDetailsList[0]?.dailyMenuDate);
   return menuData?.holidayFg == "N" &&
     menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
@@ -33,7 +35,8 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
         margin: 0px 10px;
-        background-color: var(--color_02);
+        background-color: ${isToday ? "var(--color_01)" : "var(--color_02)"};
+        //background-color: var(--color_02);
       `}
     >
       <div
@@ -46,7 +49,11 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           margin: auto;
         `}
       >
-        <TextB16>{`${dayWeek}(${day})`}</TextB16>
+        <TextB16
+          css={css`
+            color: ${isToday ? "#ffffff" : "black"};
+          `}
+        >{`${dayWeek}(${day})`}</TextB16>
       </div>
       <div
         css={css`
@@ -76,6 +83,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             css={css`
               margin-top: 12px;
               text-align: center;
+              color: ${isToday ? "var(--color_01)" : ""};
             `}
           >
             <div
@@ -196,6 +204,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               css={css`
                 margin-top: 12px;
                 text-align: center;
+                color: ${isToday ? "var(--color_01)" : ""};
               `}
             >
               <div
@@ -383,7 +392,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
         border-radius: 18px;
         /* margin: 0px 9px 30px 9px; */
         margin: 0px 10px;
-        background-color: var(--color_02);
+        background-color: ${isToday ? "var(--color_01)" : "var(--color_02)"};
       `}
     >
       <div
@@ -395,7 +404,11 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           height: 44px;
         `}
       >
-        <TextB16>{`${dayWeek}(${day})`}</TextB16>
+        <TextB16
+          css={css`
+            color: ${isToday ? "#ffffff" : "black"};
+          `}
+        >{`${dayWeek}(${day})`}</TextB16>
       </div>
       <div
         css={css`

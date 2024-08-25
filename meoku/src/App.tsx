@@ -11,8 +11,6 @@ import DinnerTime from "./components/DinnerTime";
 import DailyDinnerMenu from "./components/DailyDinnerMenu";
 import { useQuery } from "@tanstack/react-query";
 import { firstMenu } from "./type/type";
-import TodayDailyMenu from "./components/TodayDailyMenu";
-import TodayDailyDinnerMenu from "./components/TodayDailyDinnerMenu";
 import { BrowserView, MobileView } from "react-device-detect";
 import styled from "@emotion/styled";
 import icNav from "/icNav.svg";
@@ -34,6 +32,7 @@ import MobileModal from "./components/mobile/MobileModal";
 import { fetchMenuData } from "./api/menuApi";
 import { fetchWeatherData } from "./api/weatherApi";
 import { calculateDayArr, formatDate, getWeekOfMonth } from "./utils/dateUtils";
+import { defaultMenuData } from "./utils/defaultMenuData";
 
 interface RequestData {
   date: string;
@@ -82,11 +81,12 @@ function App() {
   const requestData: RequestData = {
     date: formatDate(date),
   };
+
   const { data: menuData } = useQuery({
     queryKey: ["data", requestData],
     queryFn: () => fetchMenuData(requestData),
+    initialData: defaultMenuData,
   });
-  const noMenuData = [[], [], [], [], []];
 
   const { data: weatherData } = useQuery({
     queryKey: ["data"],
@@ -231,50 +231,20 @@ function App() {
               background-color: var(--background_color_01);
             `}
           >
-            {menuData && menuData.length > 0 ? (
-              menuData.map((menu: firstMenu, index: number) => {
-                return dayArr[index][1] == new Date().getDate() &&
-                  date.getMonth() == new Date().getMonth() ? (
-                  <TodayDailyMenu
-                    key={index}
-                    dayWeek={dayArr[index][0]}
-                    day={dayArr[index][1]}
-                    menuData={menu}
-                  />
-                ) : (
-                  <DailyMenu
-                    key={index}
-                    dayWeek={dayArr[index][0]}
-                    day={dayArr[index][1]}
-                    menuData={menu}
-                  />
-                );
-              })
-            ) : (
-              <div
-                css={css`
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  margin-top: 26px;
-                  /* margin-left: 20px; */
-                  background-color: var(--background_color_01);
-                `}
-              >
-                {noMenuData.map((_, index: number) => {
-                  return (
-                    <div>
-                      <DailyMenu
-                        key={index + "mobile2"}
-                        dayWeek={dayArr[index][0]}
-                        day={dayArr[index][1]}
-                        // menuData={menu}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            {menuData?.map((menu: firstMenu, index: number) => {
+              return (
+                <DailyMenu
+                  key={index}
+                  dayWeek={dayArr[index][0]}
+                  day={dayArr[index][1]}
+                  menuData={menu}
+                  isToday={
+                    dayArr[index][1] == new Date().getDate() &&
+                    date.getMonth() == new Date().getMonth()
+                  }
+                />
+              );
+            })}
           </div>
           <div
             css={css`
@@ -325,47 +295,20 @@ function App() {
                 /* margin-left: 20px; */
               `}
             >
-              {menuData && menuData.length > 0 ? (
-                menuData.map((menu: firstMenu, index: number) => {
-                  return dayArr[index][1] == new Date().getDate() &&
-                    date.getMonth() == new Date().getMonth() ? (
-                    <TodayDailyDinnerMenu
-                      key={index}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                      menuData={menu}
-                    />
-                  ) : (
-                    <DailyDinnerMenu
-                      key={index}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                      menuData={menu}
-                    />
-                  );
-                })
-              ) : (
-                <div
-                  css={css`
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                  `}
-                >
-                  {noMenuData.map((_, index: number) => {
-                    return (
-                      <div>
-                        <DailyDinnerMenu
-                          key={index + "mobile2"}
-                          dayWeek={dayArr[index][0]}
-                          day={dayArr[index][1]}
-                          // menuData={menu}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              {menuData.map((menu: firstMenu, index: number) => {
+                return (
+                  <DailyDinnerMenu
+                    key={index}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={
+                      dayArr[index][1] == new Date().getDate() &&
+                      date.getMonth() == new Date().getMonth()
+                    }
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -633,67 +576,46 @@ function App() {
               </MobileDayBtn>
             )}
           </MobileDays>
-          {menuData && menuData.length > 0 ? (
-            <Slider {...settings} ref={sliderRef}>
-              {menuData.map((menu: firstMenu, index: number) => {
-                return dayArr[index][1] == new Date().getDate() &&
-                  date.getMonth() == new Date().getMonth() ? (
-                  <div>
-                    <MobileTodayDailyMenu
-                      key={index + "mobileToday"}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                      menuData={menu}
-                    />
-                    <MobileTodayDailyDinnerMenu
-                      key={index + "mobileTodayDinner"}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                      menuData={menu}
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <MobileDailyMenu
-                      key={index + "mobile"}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                      menuData={menu}
-                    />
-                    <MobileDailyDinnerMenu
-                      key={index + "mobileDinner"}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                      menuData={menu}
-                    />
-                  </div>
-                );
-              })}
-            </Slider>
-          ) : (
-            <Slider {...settings} ref={sliderRef}>
-              {noMenuData.map((_, index: number) => {
-                return dayArr[index][1] == date.getDate() &&
-                  date.getMonth() == new Date().getMonth() ? (
-                  <div>
-                    <MobileDailyMenu
-                      key={index + "mobileToday"}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <MobileDailyMenu
-                      key={index + "mobile"}
-                      dayWeek={dayArr[index][0]}
-                      day={dayArr[index][1]}
-                    />
-                  </div>
-                );
-              })}
-            </Slider>
-          )}
+          <Slider {...settings} ref={sliderRef}>
+            {menuData.map((menu: firstMenu, index: number) => {
+              return dayArr[index][1] == new Date().getDate() &&
+                date.getMonth() == new Date().getMonth() ? (
+                <div>
+                  <MobileTodayDailyMenu
+                    key={index + "mobileToday"}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={true}
+                  />
+                  <MobileTodayDailyDinnerMenu
+                    key={index + "mobileTodayDinner"}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={true}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <MobileDailyMenu
+                    key={index + "mobile"}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={false}
+                  />
+                  <MobileDailyDinnerMenu
+                    key={index + "mobileDinner"}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={false}
+                  />
+                </div>
+              );
+            })}
+          </Slider>
         </div>
       </MobileView>
     </div>
