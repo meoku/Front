@@ -67,7 +67,7 @@ function App() {
     queryKey: ["data"],
     queryFn: () => fetchWeatherData(),
   });
-  console.log(menuData);
+
   const dayArr: [string | undefined, number][] = calculateDayArr(date);
 
   return (
