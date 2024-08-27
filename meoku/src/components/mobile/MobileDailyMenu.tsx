@@ -7,17 +7,7 @@ const MobileMainDiv = styled.div`
   display: flex;
   justify-content: center;
 `;
-const MobileMenuHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  height: 38px;
-  border-radius: 10px;
-  background-color: var(--color_05);
-  color: var(--background_color_02);
-  margin-top: 12px;
-`;
+
 const MobileMenuTitle = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -45,7 +35,12 @@ const MobileMainMenuDiv = styled.div`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 0.4rem auto;
 `;
-const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
+const MobileDailyMenu = ({
+  dayWeek,
+  day,
+  menuData,
+  isToday,
+}: mainDailyMenuTime) => {
   const isNA = (value: string): string | JSX.Element => {
     if (value === "N/A") {
       return "";
@@ -53,6 +48,17 @@ const MobileDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       return value;
     }
   };
+  const MobileMenuHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 38px;
+    border-radius: 10px;
+    background-color: ${isToday ? "var(--color_01)" : "var(--color_05)"};
+    color: var(--background_color_02);
+    margin-top: 12px;
+  `;
   return menuData &&
     menuData.holidayFg == "N" &&
     menuData?.menuDetailsList[0]?.dailyMenuDate ? (
