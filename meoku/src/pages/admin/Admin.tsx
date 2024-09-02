@@ -1,7 +1,6 @@
 import InputMenus from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
-import axios from "axios";
 import Weather from "../../components/Weather";
 import Day from "../../components/Day";
 import LunchTime from "../../components/LunchTime";
@@ -9,22 +8,19 @@ import LunchBtn from "../../components/LunchBtn";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import timeState from "../../store/atoms/time";
-import { DefaultAdminData } from "../../utils/defaultAdminData";
 import { adminMenu } from "../../type/type";
 import { useEffect, useState } from "react";
 import Loading from "../../components/common/Loading";
+import {
+  fetchAdminMenuData,
+  uploadMenuData,
+  uploadMenuFile,
+} from "../../api/menuApi";
+import { calculateDayArrAdmin, formatDate } from "../../utils/dateUtils";
 
 interface RequestData {
   date: string;
 }
-
-const formatDate = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-};
 
 const Admin = () => {
   const [date] = useRecoilState(timeState);
@@ -32,31 +28,16 @@ const Admin = () => {
   const [sendFileState, setSendFileState] = useState(false);
   const [fileData, setFileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const dayWeek = date.getDay();
+  // const dayWeek = date.getDay();
   const requestData: RequestData = {
     date: formatDate(date),
-    // date: "2024-05-31",
   };
   const { data: menuData, refetch } = useQuery({
     queryKey: ["data", requestData],
-    queryFn: () => fetchData(requestData),
+    queryFn: () =>
+      fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
   });
 
-  const fetchData = async ({ date }: RequestData) => {
-    const response = await axios.post(
-      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/weekdaysmenu",
-      {
-        date,
-      }
-    );
-    if (sendFileState === true) {
-      return fileData;
-    }
-    if (response.data.length === 0) {
-      return DefaultAdminData(dayArr);
-    }
-    return response.data;
-  };
   useEffect(() => {
     refetch();
     setSendFileState(false);
@@ -65,11 +46,7 @@ const Admin = () => {
     try {
       setIsLoading(true);
       console.log("Sending data:", data);
-      const response = await axios.post(
-        "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/WeekMenuUpload",
-        data
-      );
-      console.log("Data successfully posted:", response.data);
+      await uploadMenuData(data);
       alert("저장성공");
     } catch (error) {
       console.error("Failed to post data:", error);
@@ -88,18 +65,9 @@ const Admin = () => {
     formData.append("menuFile", selectedFile);
 
     try {
-      const response = await axios.post(
-        "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/MenuImageUploadAndReturnMenuData",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setFileData(response.data);
+      const data = await uploadMenuFile(selectedFile);
+      setFileData(data);
       setSendFileState(true);
-      return response.data;
     } catch (error) {
       console.error("Failed to upload file:", error);
       alert("파일 업로드 실패");
@@ -112,231 +80,10 @@ const Admin = () => {
       setSelectedFile(e.target.files[0]);
     }
   };
-  const getTodayWeek = (date: Date, num: number) => {
-    const targetDate = new Date(date);
-    targetDate.setDate(date.getDate() - num);
 
-    const year = targetDate.getFullYear();
-    const month = String(targetDate.getMonth() + 1).padStart(2, "0");
-    const day = String(targetDate.getDate()).padStart(2, "0");
+  const dayArr: [string | undefined, number, string][] =
+    calculateDayArrAdmin(date);
 
-    return `${year}-${month}-${day}`;
-  };
-  let dayArr: [string | undefined, number, string][] = [];
-  const getDayWeek = (day: number) => {
-    if (day === 0) {
-      return "일요일";
-    } else if (day === 1) {
-      return "월요일";
-    } else if (day === 2) {
-      return "화요일";
-    } else if (day === 3) {
-      return "수요일";
-    } else if (day === 4) {
-      return "목요일";
-    } else if (day === 5) {
-      return "금요일";
-    } else if (day === 6) {
-      return "토요일";
-    }
-  };
-  if (dayWeek === 0) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() - 6)).getDate(),
-        getTodayWeek(date, 6),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
-        getTodayWeek(date, 5),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-        getTodayWeek(date, 4),
-      ],
-      [
-        getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() + 5),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-    ];
-  } else if (dayWeek === 1) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-        getTodayWeek(date, -2),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
-        getTodayWeek(date, -3),
-      ],
-      [
-        getDayWeek(date.getDay() + 4),
-        new Date(new Date().setDate(date.getDate() + 4)).getDate(),
-        getTodayWeek(date, -4),
-      ],
-    ];
-  } else if (dayWeek === 2) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-        getTodayWeek(date, -2),
-      ],
-      [
-        getDayWeek(date.getDay() + 3),
-        new Date(new Date().setDate(date.getDate() + 3)).getDate(),
-        getTodayWeek(date, -3),
-      ],
-    ];
-  } else if (dayWeek == 3) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-      [
-        getDayWeek(date.getDay() + 2),
-        new Date(new Date().setDate(date.getDate() + 2)).getDate(),
-        getTodayWeek(date, -2),
-      ],
-    ];
-  } else if (dayWeek == 4) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-      [
-        getDayWeek(date.getDay() + 1),
-        new Date(new Date().setDate(date.getDate() + 1)).getDate(),
-        getTodayWeek(date, -1),
-      ],
-    ];
-  } else if (dayWeek == 5) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-        getTodayWeek(date, 4),
-      ],
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-      [
-        getDayWeek(date.getDay()),
-        new Date(new Date().setDate(date.getDate())).getDate(),
-        getTodayWeek(date, 0),
-      ],
-    ];
-  } else if (dayWeek == 6) {
-    dayArr = [
-      [
-        getDayWeek(date.getDay() - 5),
-        new Date(new Date().setDate(date.getDate() - 5)).getDate(),
-        getTodayWeek(date, 5),
-      ],
-      [
-        getDayWeek(date.getDay() - 4),
-        new Date(new Date().setDate(date.getDate() - 4)).getDate(),
-        getTodayWeek(date, 4),
-      ],
-      [
-        getDayWeek(date.getDay() - 3),
-        new Date(new Date().setDate(date.getDate() - 3)).getDate(),
-        getTodayWeek(date, 3),
-      ],
-      [
-        getDayWeek(date.getDay() - 2),
-        new Date(new Date().setDate(date.getDate() - 2)).getDate(),
-        getTodayWeek(date, 2),
-      ],
-      [
-        getDayWeek(date.getDay() - 1),
-        new Date(new Date().setDate(date.getDate() - 1)).getDate(),
-        getTodayWeek(date, 1),
-      ],
-    ];
-  }
   return (
     <div
       css={css`

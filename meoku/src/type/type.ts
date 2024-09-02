@@ -84,6 +84,7 @@ export interface mainDailyMenuTime {
   dayWeek: string | undefined;
   day: number;
   menuData?: firstMenu;
+  isToday: boolean;
 }
 
 export interface menu {
