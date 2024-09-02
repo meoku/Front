@@ -1,30 +1,26 @@
 import { css } from "@emotion/react";
 import { TextB16, TextB20, TextR16 } from "./common/Text";
 import { mainDailyMenuTime, tagData } from "../type/type";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import icNewTag from "/icNewTag.svg";
+import { fetchTagData } from "../api/menuApi";
 interface RequestData {
   menuIdList: (number | undefined)[];
 }
-const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
-  const menu1 = menuData?.menuDetailsList[4]?.subBridgeList[0]?.menuItemId;
-  const menu2 = menuData?.menuDetailsList[4]?.subBridgeList[1]?.menuItemId;
+const DailyDinnerMenu = ({
+  dayWeek,
+  day,
+  menuData,
+  isToday,
+}: mainDailyMenuTime) => {
+  const menu1 = menuData?.menuDetailsList?.[4]?.subBridgeList?.[0]?.menuItemId;
+  const menu2 = menuData?.menuDetailsList?.[4]?.subBridgeList?.[1]?.menuItemId;
   const requestData: RequestData = {
     menuIdList: [menu1, menu2],
   };
-  const getTagData = async () => {
-    const response = await axios.post(
-      "https://port-0-meokuserver-1cupyg2klv9emciy.sel5.cloudtype.app/api/v1/meokumenu/searchMenuTag",
-      {
-        menuIdList: [menu1, menu2],
-      }
-    );
-    return response.data;
-  };
   const { data: tagData } = useQuery({
     queryKey: ["data", requestData],
-    queryFn: () => getTagData(),
+    queryFn: () => fetchTagData(menu1, menu2),
   });
   const isNA = (value: string): string | JSX.Element => {
     if (value === "N/A") {
@@ -40,7 +36,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
         margin: 0px 10px 30px 10px;
-        background-color: var(--color_02);
+        background-color: ${isToday ? "var(--color_01)" : "var(--color_02)"};
       `}
     >
       <div
@@ -52,7 +48,11 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           height: 44px;
         `}
       >
-        <TextB16 css={css``}>{`${dayWeek}(${day})`}</TextB16>
+        <TextB16
+          css={css`
+            color: ${isToday ? "#ffffff" : ""};
+          `}
+        >{`${dayWeek}(${day})`}</TextB16>
       </div>
       <div
         css={css`
@@ -81,6 +81,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             css={css`
               margin-top: 12px;
               text-align: center;
+              color: ${isToday ? "var(--color_01)" : ""};
             `}
           >
             <div
@@ -234,7 +235,11 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           height: 44px;
         `}
       >
-        <TextB16 css={css``}>{`${dayWeek}(${day})`}</TextB16>
+        <TextB16
+          css={css`
+            color: ${isToday ? "#ffffff" : ""};
+          `}
+        >{`${dayWeek}(${day})`}</TextB16>
       </div>
       <div
         css={css`
