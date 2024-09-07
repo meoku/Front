@@ -140,7 +140,7 @@ const MobileApp = ({ weatherData, menuData }: MobileProps) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    initialSlide: selectedDay - 1,
+    initialSlide: 0,
     slidesToScroll: 1,
     beforeChange: (left: number, right: number) => {
       if (left < 0 || right < 0) {

@@ -26,8 +26,6 @@ const DailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
       return value;
     }
   };
-  console.log("?????????????");
-  console.log(menuData?.holidayFg, menuData?.menuDetailsList[0]?.dailyMenuDate);
   return menuData?.holidayFg == "N" &&
     menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
