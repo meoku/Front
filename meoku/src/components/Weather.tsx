@@ -135,7 +135,7 @@ const Weather = () => {
             padding: 2px 7px 2px 3px;
           `}
         >
-          {`최저 ${weatherData?.data?.responseBody?.dailyMaximumTemperature}˚ | 최고 ${weatherData?.data?.responseBody?.dailyMinimumTemperature}˚`}
+          {`최저 ${weatherData?.data?.responseBody?.dailyMinimumTemperature}˚ | 최고 ${weatherData?.data?.responseBody?.dailyMaximumTemperature}˚`}
         </p>
       </div>
       <div
