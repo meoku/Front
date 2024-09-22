@@ -86,10 +86,10 @@ const Weather = () => {
                 )
           }`}
           css={css`
-            width: 75px;
-            height: 75px;
+            width: 64px;
+            height: 64px;
             margin-top: 16px;
-            margin-left: 28px;
+            margin-left: 24px;
             /* visibility: hidden; */
           `}
         />
