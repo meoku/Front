@@ -88,6 +88,8 @@ const Admin = () => {
     <div
       css={css`
         height: 1200px;
+        width: 160%;
+        overflow-x: auto;
       `}
     >
       {isLoading && <Loading />}
