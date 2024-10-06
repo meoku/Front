@@ -75,7 +75,7 @@ function App() {
       <BrowserView>
         <div
           css={css`
-            min-width: 1340px;
+            width: 100vw;
           `}
         >
           <Navbar />
@@ -186,7 +186,14 @@ function App() {
         </div>
       </BrowserView>
       <MobileView>
-        <MobileApp weatherData={weatherData} menuData={menuData} />
+        <div
+          css={css`
+            width: 100vw;
+            overflow-x: clip;
+          `}
+        >
+          <MobileApp weatherData={weatherData} menuData={menuData} />
+        </div>
       </MobileView>
     </div>
   );

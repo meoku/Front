@@ -4,7 +4,7 @@
 */
 #root {
   /* min-width: 1340px; */
-  width: 100vw;
+  /* width: 100vw; */
   min-height: 100vh;
   box-sizing: border-box;
   background-color: #f8f8f8;
@@ -24,7 +24,7 @@
 }
 html,
 body {
-  overflow-x: clip;
+  /* overflow-x: clip; */
 }
 /* html,
 body, */

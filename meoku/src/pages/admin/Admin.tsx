@@ -88,6 +88,8 @@ const Admin = () => {
     <div
       css={css`
         height: 1200px;
+        width: 160%;
+        overflow-x: auto;
       `}
     >
       {isLoading && <Loading />}
@@ -115,7 +117,7 @@ const Admin = () => {
           padding-left: 750px;
         `}
       >
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="file" accept="*.pdf image/*" onChange={handleFileChange} />
         <button
           css={css`
             background-color: orange;
