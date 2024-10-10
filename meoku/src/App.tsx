@@ -12,7 +12,6 @@ import DailyDinnerMenu from "./components/DailyDinnerMenu";
 import { useQuery } from "@tanstack/react-query";
 import { firstMenu } from "./type/type";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import timeState from "./store/atoms/time";
 import { fetchMenuData } from "./api/menuApi";
@@ -35,24 +34,6 @@ const moveUpDown = keyframes`
 
 function App() {
   const [date] = useRecoilState(timeState);
-  const [selectedDay, setSelectedDay] = useState(date.getDay());
-  useEffect(() => {
-    const day = date.getDay();
-    if (day == 0) setSelectedDay(0);
-    else if (day === 1) setSelectedDay(1);
-    else if (day === 2) setSelectedDay(2);
-    else if (day === 3) setSelectedDay(3);
-    else if (day === 4) setSelectedDay(4);
-    else if (day === 5) setSelectedDay(5);
-    else if (day === 6) setSelectedDay(6);
-  }, []);
-  useEffect(() => {
-    if (selectedDay <= 0) {
-      setSelectedDay(5);
-    } else if (selectedDay > 5) {
-      setSelectedDay(1);
-    }
-  }, [selectedDay]);
   const requestData: RequestData = {
     date: formatDate(date),
   };
