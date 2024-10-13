@@ -1,34 +1,66 @@
 //현재날짜 입력 => 현재 몇월 몇주
 export const getWeekOfMonth = (date: Date): string => {
-  const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
-  const firstDayOfWeek = firstDate.getDay();
+  //주어진 날짜의 주에 속하는 월요일
+  const dateDayOfWeek = date.getDay() || 7; // 일요일(0)을 7로 변경
+  const daysToSubtract = dateDayOfWeek - 1;
+  const dateWeekMonday = new Date(date);
+  dateWeekMonday.setDate(date.getDate() - daysToSubtract);
 
-  const nowDay = date.getDay() === 0 ? 7 : date.getDay();
-  const startWeekOfDay = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate() - nowDay + 1
-  );
-  const endWeekOfDay = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate() - nowDay + 5
-  );
-  let weekIndex = ((startWeekOfDay.getDate() / 7) >> 0) + 1;
+  //해당 주의 월요일부터 금요일까지 각 월에 속하는 평일 수를 계산
+  const monthDays: { [key: number]: number } = {};
+  for (let i = 0; i < 5; i++) {
+    const day = new Date(dateWeekMonday);
+    day.setDate(dateWeekMonday.getDate() + i);
+    const month = day.getMonth(); // 0부터 시작
+    if (!monthDays[month]) {
+      monthDays[month] = 0;
+    }
+    monthDays[month]++;
+  }
 
-  if (firstDayOfWeek !== 1) {
-    weekIndex += 1;
+  //평일이 더 많은 월을 기준으로 해당 주의 월을 결정
+  let assignedMonth = date.getMonth(); // 기본값은 주어진 날짜의 월
+  let maxDays = monthDays[assignedMonth] || 0;
+  for (const month in monthDays) {
+    const m = parseInt(month, 10);
+    if (monthDays[m] > maxDays) {
+      assignedMonth = m;
+      maxDays = monthDays[m];
+    }
   }
-  if (firstDate.getDay() !== 1) {
-    weekIndex -= 1;
+
+  //해당 월의 첫 번째 주의 월요일
+  const assignedMonthFirstDay = new Date(date.getFullYear(), assignedMonth, 1);
+  const assignedMonthFirstMonday = new Date(assignedMonthFirstDay);
+  const firstDayOfWeek = assignedMonthFirstDay.getDay() || 7;
+  const daysToSubtractFirstMonday = (firstDayOfWeek + 6) % 7;
+  assignedMonthFirstMonday.setDate(
+    assignedMonthFirstDay.getDate() - daysToSubtractFirstMonday
+  );
+
+  // 첫 번째 주의 평일 중 해당 월에 속하는 날의 수를 계산
+  let weekdaysInAssignedMonth = 0;
+  for (let i = 0; i < 5; i++) {
+    const day = new Date(assignedMonthFirstMonday);
+    day.setDate(assignedMonthFirstMonday.getDate() + i);
+    if (day.getMonth() === assignedMonth) {
+      weekdaysInAssignedMonth++;
+    }
   }
-  if (startWeekOfDay.getMonth() != endWeekOfDay.getMonth()) {
-    weekIndex = 5;
+
+  // 만약 첫 번째 주의 해당 월 평일 수가 3일 미만이면, 다음 주를 첫 번째 주로 설정
+  if (weekdaysInAssignedMonth < 3) {
+    assignedMonthFirstMonday.setDate(assignedMonthFirstMonday.getDate() + 7);
   }
-  if (startWeekOfDay.getDate() % 7 === 0) {
-    weekIndex -= 1;
-  }
-  return `${startWeekOfDay.getMonth() + 1}월 ${weekIndex}주`;
+
+  //주차 계산
+  const diffInDays =
+    (dateWeekMonday.getTime() - assignedMonthFirstMonday.getTime()) /
+    (7 * 24 * 3600 * 1000);
+  const weekIndex = Math.floor(diffInDays) + 1;
+
+  const monthDisplay = assignedMonth + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+  return `${monthDisplay}월 ${weekIndex}주`;
 };
 
 //숫자 => 요일변환
@@ -49,25 +81,15 @@ export const getDayWeek = (day: number) => {
     return "토요일";
   }
 };
-// const getDayWeek = (day: number) => {
-//   const days = [
-//     "일요일",
-//     "월요일",
-//     "화요일",
-//     "수요일",
-//     "목요일",
-//     "금요일",
-//     "토요일",
-//   ];
-//   return days[day];
-// };
 
 export const calculateDayArr = (date: Date): [string | undefined, number][] => {
   const dayWeek = date.getDay();
   let dayArr: [string | undefined, number][] = [];
 
   const calculateDate = (offset: number) => {
-    return new Date(new Date().setDate(date.getDate() + offset)).getDate();
+    const tempDate = new Date(date); // date 객체를 복사합니다.
+    tempDate.setDate(tempDate.getDate() + offset); // offset을 적용합니다.
+    return tempDate.getDate();
   };
 
   switch (dayWeek) {
@@ -140,8 +162,8 @@ export const calculateDayArr = (date: Date): [string | undefined, number][] => {
 };
 
 export const getTodayWeek = (date: Date, num: number) => {
-  const targetDate = new Date(date);
-  targetDate.setDate(date.getDate() - num);
+  const targetDate = new Date(date); // date 객체를 복사합니다.
+  targetDate.setDate(targetDate.getDate() - num); // targetDate를 기준으로 계산합니다.
 
   const year = targetDate.getFullYear();
   const month = String(targetDate.getMonth() + 1).padStart(2, "0");
@@ -157,7 +179,9 @@ export const calculateDayArrAdmin = (
   let dayArr: [string | undefined, number, string][] = [];
 
   const calculateDate = (offset: number) => {
-    return new Date(new Date().setDate(date.getDate() + offset)).getDate();
+    const tempDate = new Date(date); // date 객체를 복사합니다.
+    tempDate.setDate(tempDate.getDate() + offset); // offset을 적용합니다.
+    return tempDate.getDate();
   };
 
   const createDayEntry = (offset: number, weekOffset: number) => {
