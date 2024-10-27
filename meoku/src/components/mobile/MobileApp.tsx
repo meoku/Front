@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
-import { calculateDayArr, getWeekOfMonth } from "../../utils/dateUtils";
+import {
+  calculateDayArr,
+  formatDate,
+  getWeekOfMonth,
+} from "../../utils/dateUtils";
 import timeState from "../../store/atoms/time";
 import { useRecoilState } from "recoil";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +20,10 @@ import MobileModal from "./MobileModal";
 import MobileDailyMenu from "./MobileDailyMenu";
 import MobileDailyDinnerMenu from "./MobileTodayDailyDinnerMenu";
 import { firstMenu } from "../../type/type";
+import { useQuery } from "@tanstack/react-query";
+import { fetchMenuData } from "../../api/menuApi";
+import { defaultMenuData } from "../../utils/defaultMenuData";
+import { fetchWeatherData } from "../../api/weatherApi";
 
 const MobileMain = styled.div`
   display: flex;
@@ -95,39 +103,56 @@ const MobileDayBtnSelectedToday = styled.div`
   margin: 6px 6px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 `;
-type MobileProps = {
-  weatherData?: {
-    data: {
-      responseBody: {
-        dailyMaximumTemperature?: string; // 일일 최고 기온
-        dailyMinimumTemperature?: string; // 일일 최저 기온
-        hourlyPrecipitation?: string; // 시간당 강수량
-        humidity?: string; // 습도
-        oneHourSnowfall?: string; // 1시간 적설량
-        oneHourTemperature?: string; // 1시간 기온
-        percivedTemperature?: string; // 체감 기온
-        precipitationProbability?: string; // 강수 확률
-        precipitationType?: string; // 강수 유형
-        skyCondition?: string; // 하늘 상태 (맑음, 흐림 등)
-        temperature?: string; // 현재 기온
-        ucomponentWind?: string; // 바람의 U 성분
-        uvIndex?: string; // 자외선 지수
-        vcomponentWind?: string; // 바람의 V 성분
-        weatherDate?: string; // 날씨 데이터 날짜
-        weatherId?: number; // 날씨 ID
-        windDirection?: string; // 바람 방향
-        windSpeed?: string; // 바람 속도
-      };
-    };
-  };
-  menuData?: firstMenu[];
-};
-const MobileApp = ({ weatherData, menuData }: MobileProps) => {
+// type MobileProps = {
+//   weatherData?: {
+//     data: {
+//       responseBody: {
+//         dailyMaximumTemperature?: string; // 일일 최고 기온
+//         dailyMinimumTemperature?: string; // 일일 최저 기온
+//         hourlyPrecipitation?: string; // 시간당 강수량
+//         humidity?: string; // 습도
+//         oneHourSnowfall?: string; // 1시간 적설량
+//         oneHourTemperature?: string; // 1시간 기온
+//         percivedTemperature?: string; // 체감 기온
+//         precipitationProbability?: string; // 강수 확률
+//         precipitationType?: string; // 강수 유형
+//         skyCondition?: string; // 하늘 상태 (맑음, 흐림 등)
+//         temperature?: string; // 현재 기온
+//         ucomponentWind?: string; // 바람의 U 성분
+//         uvIndex?: string; // 자외선 지수
+//         vcomponentWind?: string; // 바람의 V 성분
+//         weatherDate?: string; // 날씨 데이터 날짜
+//         weatherId?: number; // 날씨 ID
+//         windDirection?: string; // 바람 방향
+//         windSpeed?: string; // 바람 속도
+//       };
+//     };
+//   };
+//   menuData?: firstMenu[];
+// };
+
+interface RequestData {
+  date: string;
+}
+const MobileApp = () => {
   const [date, setDate] = useRecoilState(timeState);
   const [selectedDay, setSelectedDay] = useState(date.getDay());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dayArr: [string | undefined, number][] = calculateDayArr(date);
   const sliderRef = useRef<Slider | null>(null);
+  const requestData: RequestData = {
+    date: formatDate(date),
+  };
+  const { data: menuData } = useQuery({
+    queryKey: ["data", requestData],
+    queryFn: () => fetchMenuData(requestData),
+    initialData: defaultMenuData,
+  });
+
+  const { data: weatherData } = useQuery({
+    queryKey: ["data"],
+    queryFn: () => fetchWeatherData(),
+  });
   const openModal = () => {
     setIsModalOpen(true);
   };
