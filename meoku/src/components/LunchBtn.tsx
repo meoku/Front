@@ -14,7 +14,7 @@ const LunchBtn = () => {
   const handleShareClick = () => {
     if (shareBtnRef.current) {
       const rect = shareBtnRef.current.getBoundingClientRect();
-      const value = 1529 - rect.right;
+      const value = 1560 - rect.right;
       setModalPosition({
         top: 230,
         right: 380 - value,
