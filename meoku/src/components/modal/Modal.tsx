@@ -1,15 +1,13 @@
-import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import styled from "@emotion/styled";
+import { ReactNode } from "react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
-  position?: { top: number; left: number };
+  position?: { top?: number; left?: number; right?: number };
   width?: string;
   height?: string;
-  top?: string;
-  right?: string;
 }
 
 const ModalOverlay = styled.div`
@@ -30,20 +28,26 @@ const ModalContent = styled.div<{
   height?: string;
   top?: number;
   left?: number;
+  right?: number;
 }>`
   background: #fff;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: absolute;
-  width: ${(props) => props.width || '500px'};
-  height: ${(props) => props.height || 'auto'};
-  top: ${(props) => (props.top !== undefined ? `${props.top}px` : '50%')};
-  left: ${(props) => (props.left !== undefined ? `${props.left}px` : '50%')};
+  width: ${(props) => props.width || "500px"};
+  height: ${(props) => props.height || "auto"};
+  top: ${(props) => (props.top !== undefined ? `${props.top}px` : "50%")};
+  ${(props) =>
+    props.left !== undefined
+      ? `left: ${props.left}px;`
+      : props.right !== undefined
+      ? `right: ${props.right}px;`
+      : "left: 50%;"}
   transform: ${(props) =>
-    props.top !== undefined && props.left !== undefined
-      ? 'none'
-      : 'translate(-50%, -50%)'};
+    props.top !== undefined &&
+    (props.left !== undefined || props.right !== undefined)
+      ? "none"
+      : "translate(-50%, -50%)"};
 `;
 
 const Modal = ({
@@ -63,6 +67,7 @@ const Modal = ({
         height={height}
         top={position?.top}
         left={position?.left}
+        right={position?.right}
         onClick={(e) => e.stopPropagation()}
       >
         {children}
