@@ -99,19 +99,22 @@ export const TextB20 = ({
 export const TextR20 = ({
   children,
   className,
+  onClick, // 외부 클릭 리스너 전달받을 수 있게됨
 }: {
   children: string | JSX.Element;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLParagraphElement>;
 }) => {
   return (
-    <p
+    <span
       css={css`
         font-size: 20px;
       `}
       className={className}
+      onClick={onClick}
     >
       {children}
-    </p>
+    </span>
   );
 };
 export const TextB16 = ({
