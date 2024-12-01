@@ -2,6 +2,8 @@ import { css } from "@emotion/react";
 import icNav from "/icNav.svg";
 import { TextR20 } from "./common/Text";
 import { Link } from "react-router-dom";
+import { Modal } from "./common/Modal";
+import { useState } from 'react';
 
 const Navbar = () => {
   // const Text = styled.h2`
@@ -15,6 +17,10 @@ const Navbar = () => {
   //     cursor: pointer;
   //   }
   // `;
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   return (
     <div
       css={css`
@@ -64,6 +70,7 @@ const Navbar = () => {
           구내식당표
         </TextR20>
         <TextR20
+          onClick={openModal}
           css={css`
             color: var(--color_06);
             margin-left: 90px;
@@ -76,6 +83,7 @@ const Navbar = () => {
           맛집리스트
         </TextR20>
         <TextR20
+          onClick={openModal}
           css={css`
             color: var(--color_06);
             margin-left: 90px;
@@ -87,6 +95,12 @@ const Navbar = () => {
         >
           AI추천
         </TextR20>
+        {isOpen && 
+        <Modal 
+            onClose={closeModal} 
+            title="meoku"
+            content="아직 준비중인 기능입니다."
+        />}
       </div>
     </div>
   );
