@@ -11,7 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { RecoilRoot } from "recoil";
 
 const router = createBrowserRouter([
-  {
+  { 
     path: "/",
     element: <App />,
     errorElement: <NotFoundPage />,
