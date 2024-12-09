@@ -14,7 +14,7 @@ import icNav from "/icNav.svg";
 import sunnyImage from "/weather/ImageSunny.svg";
 import leftarrow from "/leftarrow.svg";
 import Slider from "react-slick";
-import { TextB20 } from "../common/Text";
+import { TextB20, TextR16 } from "../common/Text";
 import rightarrow from "/rightarrow.svg";
 import MobileModal from "./MobileModal";
 import MobileDailyMenu from "./MobileDailyMenu";
@@ -33,6 +33,8 @@ const MobileMain = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
   height: 44px;
+  position: relative;
+  z-index: 50;
 `;
 const MobileHeader = styled.div`
   display: flex;
@@ -103,6 +105,30 @@ const MobileDayBtnSelectedToday = styled.div`
   margin: 6px 6px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 `;
+const NavigationMenu = styled.div<NavigationMenuProps>`
+  position: absolute;
+  top: 44px;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+  max-height: ${({ isOpen }) => (isOpen ? "500px" : "0")};
+  z-index: 2;
+  padding: 10px 0 10px 0;
+`;
+const MenuItem = styled.div`
+  padding: 10px 0 10px 42px;
+  /* border-bottom: 1px solid #f0f0f0; */
+
+  a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+  }
+`;
+
 // type MobileProps = {
 //   weatherData?: {
 //     data: {
@@ -134,10 +160,14 @@ const MobileDayBtnSelectedToday = styled.div`
 interface RequestData {
   date: string;
 }
+interface NavigationMenuProps {
+  isOpen: boolean;
+}
 const MobileApp = () => {
   const [date, setDate] = useRecoilState(timeState);
   const [selectedDay, setSelectedDay] = useState(date.getDay());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHamOpen, setIsHamOpen] = useState(false);
   const dayArr: [string | undefined, number][] = calculateDayArr(date);
   const sliderRef = useRef<Slider | null>(null);
   const requestData: RequestData = {
@@ -159,6 +189,9 @@ const MobileApp = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const toggleHamburger = () => {
+    setIsHamOpen(!isHamOpen);
   };
   const settings = {
     dots: true,
@@ -232,10 +265,43 @@ const MobileApp = () => {
             position: relative;
             right: 10px;
           `}
+          onClick={() => {
+            toggleHamburger();
+          }}
           src={icHamburger}
           alt="image"
         />
       </MobileMain>
+      {isHamOpen && (
+        <>
+          <div
+            css={css`
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.6);
+              z-index: 1;
+            `}
+            onClick={toggleHamburger}
+          />
+          <NavigationMenu isOpen={isHamOpen}>
+            <MenuItem>
+              <TextR16>구내식당표</TextR16>
+              {/* <Link to="/menu1">구내식당표</Link> */}
+            </MenuItem>
+            <MenuItem>
+              <TextR16>맛집리스트</TextR16>
+              {/* <Link to="/menu2">맛집리스트</Link> */}
+            </MenuItem>
+            <MenuItem>
+              <TextR16>AI 추천</TextR16>
+              {/* <Link to="/menu3">AI 추천</Link> */}
+            </MenuItem>
+          </NavigationMenu>
+        </>
+      )}
       <MobileHeader>
         <MobileWeather>
           <div>
