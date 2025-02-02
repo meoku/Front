@@ -20,7 +20,13 @@ const InputMenus = ({ menuData, day, dayWeek }: InputMenusProps) => {
       ? ["한식", "일식", "PLUS", "샐러드팩", "석식", "PLUS"]
       : ["특식", "PLUS", "샐러드팩", "석식", "PLUS"];
   useEffect(() => {
-    setItem1(menuData);
+    const updatedMenu = { ...menuData };
+    updatedMenu.menuDetailsList.forEach((bridgeItem) => {
+    bridgeItem.subBridgeList.forEach((subItem) => {
+    subItem.menuItemName = subItem.menuItemName.trim();
+    });
+  });
+    setItem1(updatedMenu);
   }, [menuData]);
   const InputTextMenu = styled.input`
     width: 174px;
@@ -42,19 +48,19 @@ const InputMenus = ({ menuData, day, dayWeek }: InputMenusProps) => {
   ) => {
     if (dayWeek === "월요일") {
       menuData.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-        e.target.value;
+      e.target.value.trim() || "";
     } else if (dayWeek === "화요일") {
       menuData.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-        e.target.value;
+      e.target.value.trim() || "";
     } else if (dayWeek === "수요일") {
       menuData.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-        e.target.value;
+      e.target.value.trim() || "";
     } else if (dayWeek === "목요일") {
       menuData.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-        e.target.value;
+      e.target.value.trim() || "";
     } else if (dayWeek === "금요일") {
       menuData.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-        e.target.value;
+      e.target.value.trim() || "";
     }
   };
   return (
@@ -129,7 +135,7 @@ const InputMenus = ({ menuData, day, dayWeek }: InputMenusProps) => {
                     <InputTextMenu
                       key={data.bridgeId}
                       defaultValue={data.menuItemName}
-                      placeholder="데이터가 없습니다."
+                    //placeholder="데이터가 없습니다."
                       onChange={(e) => handleMenuData(e, index1, index2)}
                     ></InputTextMenu>
                   </div>
