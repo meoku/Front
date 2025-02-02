@@ -1,40 +1,49 @@
 //현재날짜 입력 => 현재 몇월 몇주
 export const getWeekOfMonth = (date: Date): string => {
   //주에 속하는 월요일 찾기
-  const dateDayOfWeek = date.getDay() || 7; // 일요일(0)을 7로 변경
+  const dateDayOfWeek = date.getDay() || 7; // 일요일(0) => 7로 변경
   const daysToSubtract = dateDayOfWeek - 1;
   const dateWeekMonday = new Date(date);
   dateWeekMonday.setDate(date.getDate() - daysToSubtract);
 
+  //해당 주의 평일(월~금) 중 각 달의 날짜 개수를 세기
   const monthDays: { [key: number]: number } = {};
   for (let i = 0; i < 5; i++) {
     const day = new Date(dateWeekMonday);
     day.setDate(dateWeekMonday.getDate() + i);
     const month = day.getMonth();
-    if (!monthDays[month]) {
-      monthDays[month] = 0;
-    }
-    monthDays[month]++;
+    monthDays[month] = (monthDays[month] || 0) + 1;
   }
 
-  //평일이 더 많이 분포된 month를 결정
-  let assignedMonth = date.getMonth();
-  let assignedYear = date.getFullYear();
-  let maxDays = monthDays[assignedMonth] || 0;
-
+  //평일이 더 많이 분포된 달을 소속 달로 결정
+  let assignedMonth = date.getMonth(); // 기본값: 입력 날짜의 달
   for (const month in monthDays) {
     const m = parseInt(month, 10);
-    if (monthDays[m] > maxDays) {
+    if (monthDays[m] > (monthDays[assignedMonth] || 0)) {
       assignedMonth = m;
-      maxDays = monthDays[m];
     }
   }
 
-  if (assignedMonth < date.getMonth()) {
-    assignedYear++;
+  //연도 조정: 입력 날짜의 달과 소속 달이 다르면 경계에 따른 연도 보정
+  let assignedYear: number;
+  if (date.getMonth() === assignedMonth) {
+    // 입력 날짜의 달과 같다면 입력 날짜의 연도 사용
+    assignedYear = date.getFullYear();
+  } else {
+    // 입력 날짜의 달과 소속 달이 다르다면, 경계 상황에 따라 연도 조정
+    // 예: 입력 날짜가 12월(11)인데 소속 달이 1월(0)인 경우 → 다음 해로 조정
+    if (date.getMonth() === 11 && assignedMonth === 0) {
+      assignedYear = date.getFullYear() + 1;
+    } 
+    // 예: 입력 날짜가 1월(0)인데 소속 달이 12월(11)인 경우 → 이전 해로 조정
+    else if (date.getMonth() === 0 && assignedMonth === 11) {
+      assignedYear = date.getFullYear() - 1;
+    } else {
+      assignedYear = date.getFullYear();
+    }
   }
 
-  //첫 번째 주(월요일) 찾기
+  //해당 소속 달의 첫 번째 날과 첫 번째 주(월요일) 찾기
   const assignedMonthFirstDay = new Date(assignedYear, assignedMonth, 1);
   const assignedMonthFirstMonday = new Date(assignedMonthFirstDay);
   const firstDayOfWeek = assignedMonthFirstDay.getDay() || 7;
@@ -43,7 +52,7 @@ export const getWeekOfMonth = (date: Date): string => {
     assignedMonthFirstDay.getDate() - daysToSubtractFirstMonday
   );
 
-  //속하는 수 계산
+  //첫 주에 해당 달 날짜가 3일 미만이면, 다음 주를 첫 주로 간주
   let weekdaysInAssignedMonth = 0;
   for (let i = 0; i < 5; i++) {
     const day = new Date(assignedMonthFirstMonday);
@@ -52,7 +61,6 @@ export const getWeekOfMonth = (date: Date): string => {
       weekdaysInAssignedMonth++;
     }
   }
-  //첫 주에 3일 미만이면, 다음 주가 해당 월의 첫 주
   if (weekdaysInAssignedMonth < 3) {
     assignedMonthFirstMonday.setDate(assignedMonthFirstMonday.getDate() + 7);
   }
@@ -61,8 +69,6 @@ export const getWeekOfMonth = (date: Date): string => {
   const diffInDays =
     (dateWeekMonday.getTime() - assignedMonthFirstMonday.getTime()) /
     (7 * 24 * 3600 * 1000);
-
-  //음수가 되면 1주차로 보정
   let weekIndex = Math.floor(diffInDays) + 1;
   if (weekIndex < 1) {
     weekIndex = 1;
