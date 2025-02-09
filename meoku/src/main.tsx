@@ -9,9 +9,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { RecoilRoot } from "recoil";
+import LoginPage from "./pages/Login/LoginPage.tsx";
 
 const router = createBrowserRouter([
-  { 
+  {
     path: "/",
     element: <App />,
     errorElement: <NotFoundPage />,
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
   // {
   //   path: "/ex",
