@@ -137,11 +137,6 @@ const Admin = () => {
             margin-right: 10px;
           `}
           onClick={() => {
-            for (let i = 0; i < menuData.length; i++) {
-              if (menuData[i]) {
-                menuData[i].menuDate = dayArr[i][2];
-              }
-            }
             if (confirm("사진을 전송 하시겠습니까?")) {
               postMenuFile();
             } else {
@@ -156,6 +151,12 @@ const Admin = () => {
             background-color: orange;
           `}
           onClick={() => {
+            for (let i = 0; i < menuData.length; i++) {
+              if (menuData[i]) {
+                menuData[i].menuDate = dayArr[i][2];
+              }
+            }
+            console.log(menuData);
             if (confirm("등록 하시겠습니까?")) {
               postMenuData(menuData);
             }
