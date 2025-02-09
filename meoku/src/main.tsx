@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import NotFoundPage from "./pages/common/NotFoundPage.tsx";
 import Admin from "./pages/admin/Admin.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,6 +10,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { RecoilRoot } from "recoil";
 import LoginPage from "./pages/Login/LoginPage.tsx";
+
+function ProtectedRoute({ children }: { children: React.ReactElement }) {
+  const token = sessionStorage.getItem("accessToken");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
 
 const router = createBrowserRouter([
   {
@@ -19,7 +27,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <ProtectedRoute>
+        <Admin />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",

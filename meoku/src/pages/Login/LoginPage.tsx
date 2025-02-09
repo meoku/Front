@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import icLogoText from "/icLogoText.svg";
 import { TextB20 } from "../../components/common/Text";
+import { useMutation } from "@tanstack/react-query";
+import { loginCheckApi } from "../../api/userApi";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const LoginMain = styled.div`
   display: flex;
   justify-content: center;
@@ -81,17 +85,65 @@ const LoginBtn = styled.button`
   color: #ffffff;
 `;
 const LoginPage = () => {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const {
+    mutate: loginMutate
+    // isLoading,
+    // isError,
+    // error,
+    // data: loginResponse,
+  } = useMutation({
+    mutationFn: ({ id, password }: { id: string; password: string }) => {
+      return loginCheckApi(id, password);
+    },
+    onSuccess: (data) => {
+      console.log("로그인 성공:", data);
+      if (data) {
+        sessionStorage.setItem("accessToken", data);
+      }
+      alert("로그인에 성공했습니다.");
+      navigate("/admin", { replace: true });
+    },
+    onError: (err) => {
+      console.error("로그인 실패:", err);
+      alert("로그인에 실패했습니다. 다시 시도해 주세요.");
+    },
+  });
+
+  const handleLoginClick = () => {
+    loginMutate({ id, password });
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); 
+      handleLoginClick();
+    }
+  };
   return (
     <LoginMain>
       <LoginDiv>
         <LogoImg src={icLogoText} />
-        <InputUserInfoId placeholder="아이디 입력" />
-        <InputUserInfoPw placeholder="비밀번호 입력" type="password" />
+<InputUserInfoId
+          placeholder="아이디 입력"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <InputUserInfoPw
+          placeholder="비밀번호 입력"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
         {/* <CheckBoxContainer>
           <StyledCheckBox type="checkbox" />
           <Label>로그인 상태 유지</Label>
         </CheckBoxContainer> */}
-        <LoginBtn>
+        <LoginBtn onClick={handleLoginClick}>
           <TextB20>로그인</TextB20>
         </LoginBtn>
       </LoginDiv>
