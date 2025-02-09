@@ -44,33 +44,33 @@ const InputUserInfoId = styled(InputUserInfo)`
 const InputUserInfoPw = styled(InputUserInfo)`
   margin: 8px auto 0 auto;
 `;
-const CheckBoxContainer = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 424px;
-  margin: 12px auto 0 auto;
-`;
+// const CheckBoxContainer = styled.div`
+//   display: flex;
+//   justify-content: start;
+//   align-items: center;
+//   width: 424px;
+//   margin: 12px auto 0 auto;
+// `;
 
-const StyledCheckBox = styled.input`
-  width: 20px;
-  height: 20px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-right: 8px;
+// const StyledCheckBox = styled.input`
+//   width: 20px;
+//   height: 20px;
+//   border: 1px solid #ccc;
+//   border-radius: 3px;
+//   cursor: pointer;
+//   margin-right: 8px;
 
-  &:checked {
-    background-color: #000; // 체크된 상태일 때 색상
-    border: 1px solid #000; // 체크된 상태일 때 테두리
-  }
-`;
+//   &:checked {
+//     background-color: #000; // 체크된 상태일 때 색상
+//     border: 1px solid #000; // 체크된 상태일 때 테두리
+//   }
+// `;
 
-const Label = styled.label`
-  font-size: 16px;
-  color: #555;
-  cursor: pointer;
-`;
+// const Label = styled.label`
+//   font-size: 16px;
+//   color: #555;
+//   cursor: pointer;
+// `;
 
 const LoginBtn = styled.button`
   border-radius: 10.667px;
