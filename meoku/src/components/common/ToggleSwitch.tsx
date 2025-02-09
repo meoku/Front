@@ -1,9 +1,9 @@
-import { useState } from "react";
+// ToggleSwitch.tsx
 import styled from "@emotion/styled";
 
 interface ToggleSwitchProps {
-  // 토글 변경 시 호출되는 콜백 (true: ON, false: OFF)
-  onToggle?: (state: boolean) => void;
+  checked: boolean;
+  onToggle: (state: boolean) => void;
 }
 
 const SwitchContainer = styled.label`
@@ -51,20 +51,14 @@ const Slider = styled.span`
   }
 `;
 
-function ToggleSwitch({ onToggle }: ToggleSwitchProps) {
-  const [isOn, setIsOn] = useState(false);
-
+function ToggleSwitch({ checked, onToggle }: ToggleSwitchProps) {
   const handleToggle = () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    if (onToggle) {
-      onToggle(newState);
-    }
+    onToggle(!checked);
   };
 
   return (
     <SwitchContainer>
-      <SwitchInput type="checkbox" checked={isOn} onChange={handleToggle} />
+      <SwitchInput type="checkbox" checked={checked} onChange={handleToggle} />
       <Slider />
     </SwitchContainer>
   );

@@ -104,6 +104,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
           {`${dayWeek}(${day})`}
         </TextB16>
         <ToggleSwitch
+          checked={item.holidayFg === "Y"}
           onToggle={handleToggleChange}
           css={css`
             width: 56px;
