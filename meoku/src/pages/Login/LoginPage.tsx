@@ -86,7 +86,7 @@ const LoginPage = () => {
       <LoginDiv>
         <LogoImg src={icLogoText} />
         <InputUserInfoId placeholder="아이디 입력" />
-        <InputUserInfoPw placeholder="비밀번호 입력" />
+        <InputUserInfoPw placeholder="비밀번호 입력" type="password" />
         {/* <CheckBoxContainer>
           <StyledCheckBox type="checkbox" />
           <Label>로그인 상태 유지</Label>
