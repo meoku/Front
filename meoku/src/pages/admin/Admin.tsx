@@ -1,3 +1,4 @@
+// Admin.tsx
 import InputMenus from "../../components/InputMenu";
 import Navbar from "../../components/Navbar";
 import { css } from "@emotion/react";
@@ -28,20 +29,33 @@ const Admin = () => {
   const [sendFileState, setSendFileState] = useState(false);
   const [fileData, setFileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  // const dayWeek = date.getDay();
+
+  const dayArr: [string | undefined, number, string][] =
+    calculateDayArrAdmin(date);
+
   const requestData: RequestData = {
     date: formatDate(date),
   };
-  const { data: menuData, refetch } = useQuery({
+
+  const { data: fetchedMenuData, refetch } = useQuery({
     queryKey: ["data", requestData],
     queryFn: () =>
       fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
   });
 
+  const [menuData, setMenuData] = useState<adminMenu[]>([]);
+
   useEffect(() => {
     refetch();
     setSendFileState(false);
   }, [fileData]);
+
+  useEffect(() => {
+    if (fetchedMenuData) {
+      setMenuData(fetchedMenuData);
+    }
+  }, [fetchedMenuData]);
+
   const postMenuData = async (data: adminMenu[]) => {
     try {
       setIsLoading(true);
@@ -55,6 +69,7 @@ const Admin = () => {
       setIsLoading(false);
     }
   };
+
   const postMenuFile = async () => {
     if (!selectedFile) {
       alert("파일이 선택되지 않았습니다.");
@@ -75,14 +90,12 @@ const Admin = () => {
       setIsLoading(false);
     }
   };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setSelectedFile(e.target.files[0]);
     }
   };
-
-  const dayArr: [string | undefined, number, string][] =
-    calculateDayArrAdmin(date);
 
   return (
     <div
@@ -140,8 +153,6 @@ const Admin = () => {
           onClick={() => {
             if (confirm("등록 하시겠습니까?")) {
               postMenuData(menuData);
-            } else {
-              return;
             }
           }}
         >
@@ -153,7 +164,6 @@ const Admin = () => {
           display: flex;
           justify-content: center;
           align-items: flex-start;
-          /* flex-wrap: wrap; */
           width: 90%;
           height: 70vh;
           margin: 0 auto;
@@ -164,7 +174,13 @@ const Admin = () => {
             menuData={menuData[0]}
             dayWeek={dayArr[0][0]}
             day={dayArr[0][1]}
-            // handleMenuData={handleMenuData}
+            onChange={(updatedMenu) => {
+              setMenuData((prev) => {
+                const newMenus = [...prev];
+                newMenus[0] = updatedMenu;
+                return newMenus;
+              });
+            }}
           />
         )}
         {menuData?.[1] && (
@@ -172,7 +188,13 @@ const Admin = () => {
             menuData={menuData[1]}
             dayWeek={dayArr[1][0]}
             day={dayArr[1][1]}
-            // handleMenuData={handleMenuData}
+            onChange={(updatedMenu) => {
+              setMenuData((prev) => {
+                const newMenus = [...prev];
+                newMenus[1] = updatedMenu;
+                return newMenus;
+              });
+            }}
           />
         )}
         {menuData?.[2] && (
@@ -180,7 +202,13 @@ const Admin = () => {
             menuData={menuData[2]}
             dayWeek={dayArr[2][0]}
             day={dayArr[2][1]}
-            // handleMenuData={handleMenuData}
+            onChange={(updatedMenu) => {
+              setMenuData((prev) => {
+                const newMenus = [...prev];
+                newMenus[2] = updatedMenu;
+                return newMenus;
+              });
+            }}
           />
         )}
         {menuData?.[3] && (
@@ -188,7 +216,13 @@ const Admin = () => {
             menuData={menuData[3]}
             dayWeek={dayArr[3][0]}
             day={dayArr[3][1]}
-            // handleMenuData={handleMenuData}
+            onChange={(updatedMenu) => {
+              setMenuData((prev) => {
+                const newMenus = [...prev];
+                newMenus[3] = updatedMenu;
+                return newMenus;
+              });
+            }}
           />
         )}
         {menuData?.[4] && (
@@ -196,7 +230,13 @@ const Admin = () => {
             menuData={menuData[4]}
             dayWeek={dayArr[4][0]}
             day={dayArr[4][1]}
-            // handleMenuData={handleMenuData}
+            onChange={(updatedMenu) => {
+              setMenuData((prev) => {
+                const newMenus = [...prev];
+                newMenus[4] = updatedMenu;
+                return newMenus;
+              });
+            }}
           />
         )}
       </div>
