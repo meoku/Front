@@ -156,7 +156,6 @@ const Admin = () => {
                 menuData[i].menuDate = dayArr[i][2];
               }
             }
-            console.log(menuData);
             if (confirm("등록 하시겠습니까?")) {
               postMenuData(menuData);
             }
