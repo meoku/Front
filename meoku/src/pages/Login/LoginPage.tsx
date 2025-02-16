@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginCheckApi } from "../../api/userApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 const LoginMain = styled.div`
   display: flex;
   justify-content: center;
@@ -90,7 +91,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const {
-    mutate: loginMutate
+    mutate: loginMutate,
     // isLoading,
     // isError,
     // error,
@@ -102,7 +103,7 @@ const LoginPage = () => {
     onSuccess: (data) => {
       console.log("로그인 성공:", data);
       if (data) {
-        sessionStorage.setItem("accessToken", data);
+        sessionStorage.setItem("accessToken", data.accessToken);
       }
       alert("로그인에 성공했습니다.");
       navigate("/admin", { replace: true });
@@ -118,7 +119,7 @@ const LoginPage = () => {
   };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      e.preventDefault(); 
+      e.preventDefault();
       handleLoginClick();
     }
   };
@@ -126,7 +127,7 @@ const LoginPage = () => {
     <LoginMain>
       <LoginDiv>
         <LogoImg src={icLogoText} />
-<InputUserInfoId
+        <InputUserInfoId
           placeholder="아이디 입력"
           value={id}
           onChange={(e) => setId(e.target.value)}
