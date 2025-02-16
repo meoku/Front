@@ -55,7 +55,6 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     const newItem = { ...item };
     newItem.menuDetailsList[index1].subBridgeList[index2].menuItemName =
       e.target.value.trim() || "";
-    console.log(newItem);
     setItem(newItem);
     if (onChange) {
       onChange(newItem);
