@@ -14,6 +14,20 @@ interface InputMenusProps {
   onChange?: (updatedMenu: adminMenu) => void;
 }
 
+const InputTextMenu = styled.input`
+  width: 174px;
+  margin-left: 4px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  background-color: #f0efee;
+  border-radius: 5px;
+  color: #666666;
+`;
+const InputMenuContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
   const [item, setItem] = useState<adminMenu>(menuData);
 
@@ -32,20 +46,6 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     });
     setItem(updatedMenu);
   }, [menuData]);
-
-  const InputTextMenu = styled.input`
-    width: 174px;
-    margin-left: 4px;
-    margin-right: 8px;
-    margin-bottom: 4px;
-    background-color: #f0efee;
-    border-radius: 5px;
-    color: #666666;
-  `;
-  const InputMenuContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-  `;
 
   const handleMenuData = (
     e: ChangeEvent<HTMLInputElement>,
@@ -162,7 +162,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
                       alt="plus"
                     />
                     <InputTextMenu
-                      defaultValue={data.menuItemName}
+                      value={data.menuItemName}
                       onChange={(e) => handleMenuData(e, index1, index2)}
                     />
                   </div>
