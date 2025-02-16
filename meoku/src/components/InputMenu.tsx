@@ -6,6 +6,10 @@ import plusIco from "/icPlus.svg";
 import { adminMenu } from "../type/type";
 import { TextB16, TextB20 } from "./common/Text";
 import ToggleSwitch from "./common/ToggleSwitch";
+import { deleteMenuData } from "../api/menuApi";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+import Loading from "../components/common/Loading";
 
 interface InputMenusProps {
   menuData: adminMenu;
@@ -69,15 +73,67 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     }
   };
 
+  const deleteMutation = useMutation<AxiosResponse<unknown>, Error, string>({
+    mutationFn: (date: string) => deleteMenuData(date),
+    onSuccess: () => {
+      const clearedMenu = {
+        ...item,
+        menuDetailsList: item.menuDetailsList.map((bridgeItem) => ({
+          ...bridgeItem,
+          subBridgeList: bridgeItem.subBridgeList.map((subItem) => ({
+            ...subItem,
+            menuItemName: "",
+          })),
+        })),
+      };
+      setItem(clearedMenu);
+      if (onChange) {
+        onChange(clearedMenu);
+      }
+    },
+    onError: (error) => {
+      console.error("메뉴 삭제에 실패했습니다.", error);
+    },
+  });
+
+  const handleDelete = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      if (day) {
+        deleteMutation.mutate(menuData.menuDate);
+      } else {
+        console.error("삭제할 날짜 정보가 없습니다.");
+      }
+    }
+  };
+
   return (
     <div
       css={css`
+        position: relative;
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
         margin: 0px 10px;
         background-color: var(--color_02);
       `}
     >
+      {deleteMutation.status === "pending" && (
+        <div
+          css={css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+          `}
+        >
+          <Loading />
+        </div>
+      )}
       <div
         css={css`
           display: flex;
@@ -90,6 +146,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
             width: 40px;
             cursor: pointer;
           `}
+          onClick={handleDelete}
         >
           x
         </h6>
@@ -156,7 +213,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
                         cursor: pointer;
                       `}
                       onClick={() => {
-                        // 삭제기능
+                        // 개별 메뉴 삭제 기능 추가 가능 (현재는 전체 삭제만 구현)
                       }}
                       src={plusIco}
                       alt="plus"

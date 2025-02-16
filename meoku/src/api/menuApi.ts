@@ -75,3 +75,11 @@ export const uploadMenuData = async (data: adminMenu[]) => {
 
   return response.data;
 };
+
+export const deleteMenuData = async (date: string) => {
+  const response = await axiosInstance.post("/meokumenu/deleteMenuData", {
+    date,
+  });
+
+  return response;
+};
