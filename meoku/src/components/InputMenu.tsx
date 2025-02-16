@@ -142,7 +142,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
               {bridgeItem.subBridgeList.map((data, index2) => {
                 return (
                   <div
-                    key={data.bridgeId}
+                    key={data.bridgeId || index2}
                     css={css`
                       display: flex;
                       width: 214px;
