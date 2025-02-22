@@ -22,13 +22,17 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// 401 에러 발생 시 refresh token으로 access token 갱신
+//401 에러 발생 시 refresh token으로 access token 갱신
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    // 만약 401 에러가 발생했고, 아직 재시도하지 않았다면(_retry 플래그로 체크)
+    // 무한루프 방지
+    if (originalRequest.url.includes("/auth/refreshAccessToken")) {
+      return Promise.reject(error);
+    }
+
     if (
       error.response &&
       error.response.status === 401 &&
@@ -39,24 +43,22 @@ axiosInstance.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          // refresh token을 사용해 새로운 access token 요청
           const response = await axiosInstance.post(
             "/auth/refreshAccessToken",
+            "",
             {
-              refreshToken,
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
             }
           );
           const newAccessToken = response.data.access_token;
           const newRefreshToken = response.data.refresh_token;
-          // 새로운 access token을 저장
           sessionStorage.setItem("access_token", newAccessToken);
           sessionStorage.setItem("refresh_token", newRefreshToken);
-          // 원래 요청의 헤더에 새로운 토큰 적용
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          // 원래 요청 재시도
           return axiosInstance(originalRequest);
         } catch (refreshError) {
-          // refresh token이 만료되었거나 갱신에 실패
           sessionStorage.removeItem("access_token");
           sessionStorage.removeItem("refresh_token");
           window.location.href = "/login";
