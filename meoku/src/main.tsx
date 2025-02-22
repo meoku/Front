@@ -32,6 +32,7 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
         }
       } catch (err) {
         alert("관리자가 아닙니다.");
+        window.location.href = "/login";
         console.error("관리자 여부 확인 실패:", err);
         setIsAdmin(false);
       }
