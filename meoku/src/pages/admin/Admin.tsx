@@ -18,6 +18,7 @@ import {
   uploadMenuFile,
 } from "../../api/menuApi";
 import { calculateDayArrAdmin, formatDate } from "../../utils/dateUtils";
+import { DefaultAllAdminDataDaily } from "../../utils/defaultAdminDataDaily";
 
 interface RequestData {
   date: string;
@@ -58,7 +59,10 @@ const Admin = () => {
   }, [fetchedMenuData]);
 
   const postMenuData = async (data: adminMenu[]) => {
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < 5; i++) {
+      if (!data[i]) {
+        data[i] = DefaultAllAdminDataDaily(dayArr[i][2]);
+      }
       if (data[i].holidayFg === "Y") {
         delete data[i].menuDetailsList;
       }
@@ -191,9 +195,9 @@ const Admin = () => {
           margin: 0 auto;
         `}
       >
-        {menuData?.[0] && (
+        {(menuData?.[0] || DefaultAllAdminDataDaily(dayArr[0][2])) && (
           <InputMenus
-            menuData={menuData[0]}
+            menuData={menuData[0] ?? DefaultAllAdminDataDaily(dayArr[0][2])}
             dayWeek={dayArr[0][0]}
             day={dayArr[0][1]}
             onChange={(updatedMenu) => {
@@ -205,9 +209,9 @@ const Admin = () => {
             }}
           />
         )}
-        {menuData?.[1] && (
+        {(menuData?.[1] || DefaultAllAdminDataDaily(dayArr[1][2])) && (
           <InputMenus
-            menuData={menuData[1]}
+            menuData={menuData[1] ?? DefaultAllAdminDataDaily(dayArr[1][2])}
             dayWeek={dayArr[1][0]}
             day={dayArr[1][1]}
             onChange={(updatedMenu) => {
@@ -219,9 +223,9 @@ const Admin = () => {
             }}
           />
         )}
-        {menuData?.[2] && (
+        {(menuData?.[2] || DefaultAllAdminDataDaily(dayArr[2][2])) && (
           <InputMenus
-            menuData={menuData[2]}
+            menuData={menuData[2] ?? DefaultAllAdminDataDaily(dayArr[2][2])}
             dayWeek={dayArr[2][0]}
             day={dayArr[2][1]}
             onChange={(updatedMenu) => {
@@ -233,9 +237,9 @@ const Admin = () => {
             }}
           />
         )}
-        {menuData?.[3] && (
+        {(menuData?.[3] || DefaultAllAdminDataDaily(dayArr[3][2])) && (
           <InputMenus
-            menuData={menuData[3]}
+            menuData={menuData[3] ?? DefaultAllAdminDataDaily(dayArr[3][2])}
             dayWeek={dayArr[3][0]}
             day={dayArr[3][1]}
             onChange={(updatedMenu) => {
@@ -247,9 +251,9 @@ const Admin = () => {
             }}
           />
         )}
-        {menuData?.[4] && (
+        {(menuData?.[4] || DefaultAllAdminDataDaily(dayArr[4][2])) && (
           <InputMenus
-            menuData={menuData[4]}
+            menuData={menuData[4] ?? DefaultAllAdminDataDaily(dayArr[4][2])}
             dayWeek={dayArr[4][0]}
             day={dayArr[4][1]}
             onChange={(updatedMenu) => {
