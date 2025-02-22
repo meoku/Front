@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
 // 요청 인터셉터 추가
 axiosInstance.interceptors.request.use(
   (config) => {
-    window.location.href = "/login";
     // sessionStorage에서 accessToken 값을 가져옴
     const token = sessionStorage.getItem("access_token");
     if (token) {
