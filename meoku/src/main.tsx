@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -14,12 +14,45 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { RecoilRoot } from "recoil";
 import LoginPage from "./pages/Login/LoginPage.tsx";
+import { isAdminCheckApi } from "./api/userApi.ts";
+import Loading from "./components/common/Loading.tsx";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem("access_token");
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const response = await isAdminCheckApi();
+        if (response === 200) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (err) {
+        alert("관리자가 아닙니다.");
+        console.error("관리자 여부 확인 실패:", err);
+        setIsAdmin(false);
+      }
+    };
+    if (token) {
+      checkAdmin();
+    }
+  }, [token]);
+
   if (!token) {
     return <Navigate to="/login" replace />;
   }
+
+  if (isAdmin === null) {
+    return <Loading />;
+  }
+
+  if (!isAdmin) {
+    return <Navigate to="/" replace />;
+  }
+
   return children;
 }
 
