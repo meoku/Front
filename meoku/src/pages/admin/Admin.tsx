@@ -41,6 +41,7 @@ const Admin = () => {
     queryKey: ["data", requestData],
     queryFn: () =>
       fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
+    refetchOnWindowFocus: false,
   });
 
   const [menuData, setMenuData] = useState<adminMenu[]>([]);
@@ -57,6 +58,22 @@ const Admin = () => {
   }, [fetchedMenuData]);
 
   const postMenuData = async (data: adminMenu[]) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].holidayFg === "Y") {
+        delete data[i].menuDetailsList;
+      }
+      if (data[i].holidayFg === "N") {
+        const detailsList = data[i].menuDetailsList || [];
+        for (const detail of detailsList) {
+          for (const bridge of detail.subBridgeList) {
+            if (bridge.menuItemName === " " || !bridge.menuItemName) {
+              alert(`${i + 1}번째 메뉴 값이 없습니다.`);
+              return;
+            }
+          }
+        }
+      }
+    }
     try {
       setIsLoading(true);
       console.log("Sending data:", data);

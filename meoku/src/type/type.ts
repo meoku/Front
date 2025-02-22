@@ -96,9 +96,9 @@ export interface menu {
 
 export interface adminMenu {
   dailyMenuId: number | null;
-  holidayFg: string;
+  holidayFg: string | null;
   menuDate: string;
-  menuDetailsList: adminMenuDetails[];
+  menuDetailsList?: adminMenuDetails[];
   restaurantOpenFn?: string;
   restaurantOpenFg?: string | null;
 }
@@ -107,19 +107,19 @@ export interface adminMenuDetails {
   dailyMenuCategory: string | null;
   dailyMenuDate: string | null;
   dailyMenuId: null;
-  mainMealYn: string;
+  mainMealYn: string | null;
   menuDetailsId: number | null;
   menuDetailsImgUrl: string | null;
-  menuDetailsName: string;
+  menuDetailsName: string | null;
   subBridgeList: bridgeData[];
 }
 
 export interface bridgeData {
   bridgeId: number | null;
-  mainMenuYn: string;
+  mainMenuYn: string | null;
   menuDetailsId: number | string | null;
   menuItemId: number | string | null;
-  menuItemName: string;
+  menuItemName: string | undefined;
   submenuDetails: string | null;
   submenuItem: string | null;
 }

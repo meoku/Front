@@ -10,6 +10,7 @@ import { deleteMenuData } from "../api/menuApi";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import Loading from "../components/common/Loading";
+import { DefaultAdminDataDaily } from "../utils/defaultAdminDataDaily";
 
 interface InputMenusProps {
   menuData: adminMenu;
@@ -37,17 +38,23 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
 
   let titleIndex = 0;
   const titleArr =
-    item.menuDetailsList.length > 5
+    item.menuDetailsList && item.menuDetailsList.length > 5
       ? ["한식", "일식", "PLUS", "샐러드팩", "석식", "PLUS"]
       : ["특식", "PLUS", "샐러드팩", "석식", "PLUS"];
 
   useEffect(() => {
     const updatedMenu = { ...menuData };
-    updatedMenu.menuDetailsList.forEach((bridgeItem) => {
-      bridgeItem.subBridgeList.forEach((subItem) => {
-        subItem.menuItemName = subItem.menuItemName.trim();
-      });
-    });
+    // updatedMenu.menuDetailsList.forEach((bridgeItem) => {
+    //   bridgeItem.subBridgeList.forEach((subItem) => {
+    //     subItem.menuItemName = subItem.menuItemName.trim();
+    //   });
+    // });
+    if (updatedMenu.holidayFg == "Y") {
+      delete updatedMenu.menuDetailsList;
+    }
+    if (updatedMenu.holidayFg == "N" && !updatedMenu.menuDetailsList) {
+      updatedMenu.menuDetailsList = DefaultAdminDataDaily(updatedMenu.menuDate);
+    }
     setItem(updatedMenu);
   }, [menuData]);
 
@@ -57,8 +64,10 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     index2: number
   ) => {
     const newItem = { ...item };
-    newItem.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-      e.target.value.trim() || "";
+    if (newItem.menuDetailsList) {
+      newItem.menuDetailsList[index1].subBridgeList[index2].menuItemName =
+        e.target.value.trim() || "";
+    }
     setItem(newItem);
     if (onChange) {
       onChange(newItem);
@@ -78,9 +87,9 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     onSuccess: () => {
       const clearedMenu = {
         ...item,
-        menuDetailsList: item.menuDetailsList.map((bridgeItem) => ({
+        menuDetailsList: (item.menuDetailsList ?? []).map((bridgeItem) => ({
           ...bridgeItem,
-          subBridgeList: bridgeItem.subBridgeList.map((subItem) => ({
+          subBridgeList: (bridgeItem.subBridgeList ?? []).map((subItem) => ({
             ...subItem,
             menuItemName: "",
           })),
@@ -93,6 +102,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     },
     onError: (error) => {
       console.error("메뉴 삭제에 실패했습니다.", error);
+      alert("메뉴 삭제에 실패했습니다.");
     },
   });
 
@@ -177,57 +187,58 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
           background-color: var(--background_color_01);
         `}
       >
-        {item.menuDetailsList.map((bridgeItem, index1) => {
-          return (
-            <InputMenuContainer key={index1}>
-              <div
-                css={css`
-                  display: flex;
-                  justify-content: center;
-                `}
-              >
-                <TextB20
+        {item.menuDetailsList &&
+          item.menuDetailsList.map((bridgeItem, index1) => {
+            return (
+              <InputMenuContainer key={index1}>
+                <div
                   css={css`
-                    color: #666666;
-                    margin-top: 16px;
-                    margin-bottom: 9px;
+                    display: flex;
+                    justify-content: center;
                   `}
                 >
-                  {titleArr[titleIndex++]}
-                </TextB20>
-              </div>
-              {bridgeItem.subBridgeList.map((data, index2) => {
-                return (
-                  <div
-                    key={data.bridgeId || index2}
+                  <TextB20
                     css={css`
-                      display: flex;
-                      width: 214px;
-                      margin-left: 8px;
+                      color: #666666;
+                      margin-top: 16px;
+                      margin-bottom: 9px;
                     `}
                   >
-                    <img
+                    {titleArr[titleIndex++]}
+                  </TextB20>
+                </div>
+                {bridgeItem.subBridgeList.map((data, index2) => {
+                  return (
+                    <div
+                      key={data.bridgeId || index2}
                       css={css`
-                        width: 20px;
-                        height: 20px;
-                        cursor: pointer;
+                        display: flex;
+                        width: 214px;
+                        margin-left: 8px;
                       `}
-                      onClick={() => {
-                        // 개별 메뉴 삭제 기능 추가 가능 (현재는 전체 삭제만 구현)
-                      }}
-                      src={plusIco}
-                      alt="plus"
-                    />
-                    <InputTextMenu
-                      value={data.menuItemName}
-                      onChange={(e) => handleMenuData(e, index1, index2)}
-                    />
-                  </div>
-                );
-              })}
-            </InputMenuContainer>
-          );
-        })}
+                    >
+                      <img
+                        css={css`
+                          width: 20px;
+                          height: 20px;
+                          cursor: pointer;
+                        `}
+                        onClick={() => {
+                          // 개별 메뉴 삭제 기능 추가 가능 (현재는 전체 삭제만 구현)
+                        }}
+                        src={plusIco}
+                        alt="plus"
+                      />
+                      <InputTextMenu
+                        value={data.menuItemName}
+                        onChange={(e) => handleMenuData(e, index1, index2)}
+                      />
+                    </div>
+                  );
+                })}
+              </InputMenuContainer>
+            );
+          })}
       </div>
     </div>
   );
