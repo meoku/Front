@@ -104,6 +104,7 @@ const LoginPage = () => {
       console.log("로그인 성공:", data);
       if (data) {
         sessionStorage.setItem("access_token", data.access_token);
+        sessionStorage.setItem("refresh_token", data.access_token);
       }
       alert("로그인에 성공했습니다.");
       try {
