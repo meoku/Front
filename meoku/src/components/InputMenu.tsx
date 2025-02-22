@@ -35,7 +35,6 @@ const InputMenuContainer = styled.div`
 
 const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
   const [item, setItem] = useState<adminMenu>(menuData);
-
   let titleIndex = 0;
   const titleArr =
     item.menuDetailsList && item.menuDetailsList.length > 5
