@@ -103,7 +103,7 @@ const LoginPage = () => {
     onSuccess: (data) => {
       console.log("로그인 성공:", data);
       if (data) {
-        sessionStorage.setItem("accessToken", data.accessToken);
+        sessionStorage.setItem("access_token", data.access_token);
       }
       alert("로그인에 성공했습니다.");
       navigate("/admin", { replace: true });

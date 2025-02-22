@@ -1,8 +1,8 @@
 import axiosInstance from "./axiosConfig";
 
 interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 export const loginCheckApi = async (

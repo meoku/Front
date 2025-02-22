@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // sessionStorage에서 accessToken 값을 가져옴
-    const token = sessionStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("access_token");
     if (token) {
       // Authorization 헤더에 Bearer 토큰 형태로 추가
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -21,6 +21,5 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 
 export default axiosInstance;
