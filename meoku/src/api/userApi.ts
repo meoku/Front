@@ -1,8 +1,8 @@
 import axiosInstance from "./axiosConfig";
 
 interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 export const loginCheckApi = async (
@@ -15,4 +15,9 @@ export const loginCheckApi = async (
   });
   console.log(response.data);
   return response.data;
+};
+
+export const isAdminCheckApi = async () => {
+  const response = await axiosInstance.get("/admin/getAdminYn");
+  return response.status;
 };
