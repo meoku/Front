@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import icLogoText from "/icLogoText.svg";
 import { TextB20 } from "../../components/common/Text";
 import { useMutation } from "@tanstack/react-query";
-import { loginCheckApi } from "../../api/userApi";
+import { isAdminCheckApi, loginCheckApi } from "../../api/userApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -100,13 +100,25 @@ const LoginPage = () => {
     mutationFn: ({ id, password }: { id: string; password: string }) => {
       return loginCheckApi(id, password);
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       console.log("로그인 성공:", data);
       if (data) {
-        sessionStorage.setItem("accessToken", data.accessToken);
+        sessionStorage.setItem("access_token", data.access_token);
       }
       alert("로그인에 성공했습니다.");
-      navigate("/admin", { replace: true });
+      try {
+        // 관리자 확인
+        const response = await isAdminCheckApi();
+        if (response == 200) {
+          navigate("/admin", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
+      } catch (err) {
+        //console.error("관리자 여부 확인 실패:", err);
+        //alert("사용자 권한 확인에 실패했습니다. 다시 시도해 주세요.");
+        navigate("/", { replace: true });
+      }
     },
     onError: (err) => {
       console.error("로그인 실패:", err);
