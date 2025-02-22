@@ -16,3 +16,8 @@ export const loginCheckApi = async (
   console.log(response.data);
   return response.data;
 };
+
+export const isAdminCheckApi = async () => {
+  const response = await axiosInstance.get("/admin/getAdminYn");
+  return response.status;
+};
