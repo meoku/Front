@@ -41,6 +41,7 @@ const Admin = () => {
     queryKey: ["data", requestData],
     queryFn: () =>
       fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
+    refetchOnWindowFocus: false,
   });
 
   const [menuData, setMenuData] = useState<adminMenu[]>([]);
