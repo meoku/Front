@@ -16,7 +16,7 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  /*     background-color: rgba(0, 0, 0, 0.5); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,8 +31,9 @@ const ModalContent = styled.div<{
   right?: number;
 }>`
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  border: 1px solid var(--03, #ccc);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
   position: absolute;
   width: ${(props) => props.width || "500px"};
   height: ${(props) => props.height || "auto"};
