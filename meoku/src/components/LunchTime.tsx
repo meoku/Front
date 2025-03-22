@@ -2,17 +2,17 @@ import { css } from "@emotion/react";
 import { TextB16, TextR14 } from "./common/Text";
 
 const LunchTime = () => {
-  let arr = [["1, 3층"], ["2층"], ["4, 5, 6층"]];
+  let arr = [["1, 3층"], ["2층, 4층(IT본부)"], ["4(아성), 5, 6층"]];
   const currentDate = new Date(); // 현재 날짜
   const weeksSinceEpoch = getWeeksSince1970(currentDate);
   getFloorDate(weeksSinceEpoch);
   function getFloorDate(week: number) {
     if (week % 3 == 0) {
-      arr = [["4·5·6층"], ["1·3층"], ["2층"]];
+      arr = [["4(아성)·5·6층"], ["1·3층"], ["2층·4층(IT)"]];
     } else if (week % 3 == 1) {
-      arr = [["1·3층"], ["2층"], ["4·5·6층"]];
+      arr = [["1·3층"], ["2·4층(IT)"], ["4(아성)·5·6층"]];
     } else {
-      arr = [["2층"], ["4·5·6층"], ["1·3층"]];
+      arr = [["2층·4층(IT)"], ["4(아성)·5·6층"], ["1·3층"]];
     }
   }
   function getWeeksSince1970(date: Date) {
@@ -61,7 +61,7 @@ const LunchTime = () => {
       >
         <div
           css={css`
-            width: 56px;
+            width: 86px;
             height: 16px;
             text-align: center;
             margin-bottom: 6px;
@@ -77,7 +77,7 @@ const LunchTime = () => {
         </div>
         <div
           css={css`
-            width: 56px;
+            width: 86px;
             height: 16px;
             text-align: center;
             margin-bottom: 6px;
@@ -93,7 +93,7 @@ const LunchTime = () => {
         </div>
         <div
           css={css`
-            width: 56px;
+            width: 86px;
             height: 16px;
             text-align: center;
           `}
