@@ -8,11 +8,11 @@ const LunchTime = () => {
   getFloorDate(weeksSinceEpoch);
   function getFloorDate(week: number) {
     if (week % 3 == 0) {
-      arr = [["4(아성)·5·6층"], ["1·3층"], ["2층·4층(IT)"]];
+      arr = [["4(아성)·5·6층"], ["1·3층"], ["2·4층(IT)"]];
     } else if (week % 3 == 1) {
       arr = [["1·3층"], ["2·4층(IT)"], ["4(아성)·5·6층"]];
     } else {
-      arr = [["2층·4층(IT)"], ["4(아성)·5·6층"], ["1·3층"]];
+      arr = [["2·4층(IT)"], ["4(아성)·5·6층"], ["1·3층"]];
     }
   }
   function getWeeksSince1970(date: Date) {
@@ -29,7 +29,7 @@ const LunchTime = () => {
     <div
       css={css`
         display: flex;
-        min-width: 260px;
+        width: 285px;
         height: 96px;
         box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.16);
         border-radius: 15px;
