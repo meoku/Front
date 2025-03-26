@@ -3,7 +3,7 @@ import icNav from "/icNav.svg";
 import { TextR20 } from "./common/Text";
 import { Link } from "react-router-dom";
 import { Modal } from "./common/Modal";
-import { useState } from 'react';
+import { useState } from "react";
 
 const Navbar = () => {
   // const Text = styled.h2`
@@ -61,6 +61,8 @@ const Navbar = () => {
         <TextR20
           css={css`
             color: var(--color_06);
+            white-space: nowrap;
+            word-break: keep-all;
             &:hover {
               font-weight: bold;
               cursor: pointer;
@@ -74,6 +76,8 @@ const Navbar = () => {
           css={css`
             color: var(--color_06);
             margin-left: 90px;
+            white-space: nowrap;
+            word-break: keep-all;
             &:hover {
               font-weight: bold;
               cursor: pointer;
@@ -87,6 +91,8 @@ const Navbar = () => {
           css={css`
             color: var(--color_06);
             margin-left: 90px;
+            white-space: nowrap;
+            word-break: keep-all;
             &:hover {
               font-weight: bold;
               cursor: pointer;
@@ -95,12 +101,13 @@ const Navbar = () => {
         >
           AI추천
         </TextR20>
-        {isOpen && 
-        <Modal 
-            onClose={closeModal} 
+        {isOpen && (
+          <Modal
+            onClose={closeModal}
             title="meoku"
             content="아직 준비중인 기능입니다."
-        />}
+          />
+        )}
       </div>
     </div>
   );
