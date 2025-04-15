@@ -11,7 +11,6 @@ import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import icHamburger from "/icHamburger.svg";
 import icNav from "/icNav.svg";
-import sunnyImage from "/weather/ImageSunny.svg";
 import leftarrow from "/leftarrow.svg";
 import Slider from "react-slick";
 import { TextB20, TextR16 } from "../common/Text";
@@ -24,6 +23,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchMenuData } from "../../api/menuApi";
 import { defaultMenuData } from "../../utils/defaultMenuData";
 import { fetchWeatherData } from "../../api/weatherApi";
+import { getWeatherImg } from "../../utils/weatherUtils";
 
 const MobileMain = styled.div`
   display: flex;
@@ -45,13 +45,13 @@ const MobileHeader = styled.div`
 `;
 const MobileWeather = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 90px;
   height: 44px;
   background-color: var(--color_02);
-  border-radius: 5px;
+  border-radius: 6px;
 `;
 const MobileDay = styled.div`
   display: flex;
@@ -128,35 +128,6 @@ const MenuItem = styled.div`
     font-size: 18px;
   }
 `;
-
-// type MobileProps = {
-//   weatherData?: {
-//     data: {
-//       responseBody: {
-//         dailyMaximumTemperature?: string; // 일일 최고 기온
-//         dailyMinimumTemperature?: string; // 일일 최저 기온
-//         hourlyPrecipitation?: string; // 시간당 강수량
-//         humidity?: string; // 습도
-//         oneHourSnowfall?: string; // 1시간 적설량
-//         oneHourTemperature?: string; // 1시간 기온
-//         percivedTemperature?: string; // 체감 기온
-//         precipitationProbability?: string; // 강수 확률
-//         precipitationType?: string; // 강수 유형
-//         skyCondition?: string; // 하늘 상태 (맑음, 흐림 등)
-//         temperature?: string; // 현재 기온
-//         ucomponentWind?: string; // 바람의 U 성분
-//         uvIndex?: string; // 자외선 지수
-//         vcomponentWind?: string; // 바람의 V 성분
-//         weatherDate?: string; // 날씨 데이터 날짜
-//         weatherId?: number; // 날씨 ID
-//         windDirection?: string; // 바람 방향
-//         windSpeed?: string; // 바람 속도
-//       };
-//     };
-//   };
-//   menuData?: firstMenu[];
-// };
-
 interface RequestData {
   date: string;
 }
@@ -304,22 +275,62 @@ const MobileApp = () => {
       )}
       <MobileHeader>
         <MobileWeather>
-          <div>
-            <div>서울특별시</div>
-            <div
+          <img
+            src={`${
+              weatherData?.data?.responseBody?.precipitationType == "0"
+                ? getWeatherImg(
+                    false,
+                    weatherData?.data?.responseBody?.skyCondition
+                  )
+                : getWeatherImg(
+                    true,
+                    weatherData?.data?.responseBody?.precipitationType
+                  )
+            }`}
+            css={css`
+              width: 25.626px; // 수정 요구 필요
+              height: 27.222px;
+              padding: 2.5px 3.258px 2.278px 3.116px;
+            `}
+          />
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              margin-left: 1px;
+            `}
+          >
+            <h1
               css={css`
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                color: var(--color_06);
+                text-align: right;
+                font-size: 23px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                padding-left: 1px;
               `}
             >
               {`${
                 weatherData?.data?.responseBody?.temperature
-                  ? weatherData?.data?.responseBody?.temperature + "’"
+                  ? weatherData?.data?.responseBody?.temperature + "˚"
                   : ""
               }`}
-              <img src={sunnyImage} alt="sun" />
-            </div>
+            </h1>
+            <h1
+              css={css`
+                color: var(--color_06);
+                text-align: right;
+                font-size: 7px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+              `}
+            >
+              서울특별시
+            </h1>
           </div>
         </MobileWeather>
         <MobileDay>
