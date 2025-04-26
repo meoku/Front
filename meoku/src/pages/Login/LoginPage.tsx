@@ -32,6 +32,8 @@ const InputUserInfo = styled.input`
   width: 394px;
   height: 50px;
   padding-left: 24px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
 
   &::placeholder {
     color: var(--color_03, #ccc);
@@ -49,33 +51,52 @@ const InputUserInfoId = styled(InputUserInfo)`
 const InputUserInfoPw = styled(InputUserInfo)`
   margin: 8px auto 0 auto;
 `;
-// const CheckBoxContainer = styled.div`
-//   display: flex;
-//   justify-content: start;
-//   align-items: center;
-//   width: 424px;
-//   margin: 12px auto 0 auto;
-// `;
 
-// const StyledCheckBox = styled.input`
-//   width: 20px;
-//   height: 20px;
-//   border: 1px solid #ccc;
-//   border-radius: 3px;
-//   cursor: pointer;
-//   margin-right: 8px;
+const CheckBoxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 424px;
+  margin: 12px auto 0 auto;
+`;
 
-//   &:checked {
-//     background-color: #000; // 체크된 상태일 때 색상
-//     border: 1px solid #000; // 체크된 상태일 때 테두리
-//   }
-// `;
+const HiddenCheckBox = styled.input`
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`;
 
-// const Label = styled.label`
-//   font-size: 16px;
-//   color: #555;
-//   cursor: pointer;
-// `;
+const StyledCheckBox = styled.div<{ checked: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  background: ${(props) => (props.checked ? 'var(--color_01)' : '#fff')};
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: all 150ms;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+`;
+
+const Label = styled.label`
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
 
 const LoginBtn = styled.button`
   border-radius: 10.667px;
@@ -85,10 +106,71 @@ const LoginBtn = styled.button`
   margin: 40px auto 0 auto;
   color: #ffffff;
 `;
+
+const SubMenu = styled.div`
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  margin-top: 9px;
+  padding: 0px;
+`;
+
+const SubMenuDetail = styled.div<{ width?: string; height?: string }>`
+  width: ${(props) => props.width || 'auto'};
+  height: ${(props) => props.height || 'auto'};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color_05);
+  cursor: pointer;
+  padding: 8px 4px 8px 4px;
+`;
+
+const DividerWithText = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 48px 0;
+`;
+
+const Line = styled.div`
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ccc;
+`;
+
+const Text = styled.span`
+  margin: 0 16px;
+  font-size: 12px;
+  color: var(--color_04);
+  white-space: nowrap;
+`;
+
+const SnsIconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+`;
+
+const SnsIcon = styled.img`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: white;
+  object-fit: cover;
+  border: 1px solid #eee;
+`;
+
 const LoginPage = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheck = () => setIsChecked(!isChecked);
 
   const {
     mutate: loginMutate,
@@ -153,13 +235,46 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        {/* <CheckBoxContainer>
-          <StyledCheckBox type="checkbox" />
-          <Label>로그인 상태 유지</Label>
-        </CheckBoxContainer> */}
+        <CheckBoxContainer>
+          <Label>
+            <HiddenCheckBox type="checkbox" checked={isChecked} onChange={handleCheck} />
+            <StyledCheckBox checked={isChecked}>{isChecked && '✓'}</StyledCheckBox>
+            로그인 상태 유지
+          </Label>
+        </CheckBoxContainer>
         <LoginBtn onClick={handleLoginClick}>
           <TextB20>로그인</TextB20>
         </LoginBtn>
+        <SubMenu>
+          <SubMenuDetail width="56px" height="12px">
+            아이디 찾기
+          </SubMenuDetail>
+          <SubMenuDetail width="12px" height="12px">
+            |
+          </SubMenuDetail>
+          <SubMenuDetail width="68px" height="12px">
+            비밀번호 찾기
+          </SubMenuDetail>
+          <SubMenuDetail width="12px" height="12px">
+            |
+          </SubMenuDetail>
+          <SubMenuDetail width="48px" height="12px">
+            회원가입
+          </SubMenuDetail>
+        </SubMenu>
+        <div>
+          <DividerWithText>
+            <Line />
+            <Text>SNS 계정으로 로그인</Text>
+            <Line />
+          </DividerWithText>
+          <SnsIconContainer>
+            <SnsIcon src="/snsLogo/IcNaver.svg" alt="Naver Login" />
+            <SnsIcon src="/snsLogo/IcKakao.svg" alt="Kakao Login" />
+            <SnsIcon src="/snsLogo/IcApple.svg" alt="Apple Login" />
+            <SnsIcon src="/snsLogo/IcGoogle.svg" alt="Google Login" />
+          </SnsIconContainer>
+        </div>
       </LoginDiv>
     </LoginMain>
   );
