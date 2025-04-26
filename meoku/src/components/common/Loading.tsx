@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import { SyncLoader } from "react-spinners";
+import { css } from '@emotion/react';
+import { SyncLoader } from 'react-spinners';
 
 const Loading = () => {
   return (

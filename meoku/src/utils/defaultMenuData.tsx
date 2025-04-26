@@ -1,24 +1,24 @@
-import { firstMenu } from "../type/type";
+import { firstMenu } from '../type/type';
 
 export const defaultMenuData: firstMenu[] = [
   {
     menuDetailsList: [],
-    holidayFg: "N",
+    holidayFg: 'N',
   },
   {
     menuDetailsList: [],
-    holidayFg: "N",
+    holidayFg: 'N',
   },
   {
     menuDetailsList: [],
-    holidayFg: "N",
+    holidayFg: 'N',
   },
   {
     menuDetailsList: [],
-    holidayFg: "N",
+    holidayFg: 'N',
   },
   {
     menuDetailsList: [],
-    holidayFg: "N",
+    holidayFg: 'N',
   },
 ];

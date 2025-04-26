@@ -1,35 +1,35 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 // import snowImage from "/weather/ImageSnow.svg";
-import { useQuery } from "@tanstack/react-query";
-import { fetchWeatherData } from "../api/weatherApi";
-import { getWeatherImg } from "../utils/weatherUtils";
+import { useQuery } from '@tanstack/react-query';
+import { fetchWeatherData } from '../api/weatherApi';
+import { getWeatherImg } from '../utils/weatherUtils';
 
 const Weather = () => {
   const skyMap = new Map();
   const rainMap = new Map();
-  skyMap.set("1", "맑음");
-  skyMap.set("3", "구름");
-  skyMap.set("4", "흐림");
-  rainMap.set("1", "비");
-  rainMap.set("2", "비/눈");
-  rainMap.set("3", "눈");
-  rainMap.set("4", "소나기");
+  skyMap.set('1', '맑음');
+  skyMap.set('3', '구름');
+  skyMap.set('4', '흐림');
+  rainMap.set('1', '비');
+  rainMap.set('2', '비/눈');
+  rainMap.set('3', '눈');
+  rainMap.set('4', '소나기');
   const { data: weatherData } = useQuery({
-    queryKey: ["data"],
+    queryKey: ['data'],
     queryFn: () => fetchWeatherData(),
   });
   const getUvIndex = () => {
     const value = weatherData?.data?.responseBody?.uvIndex;
     if (value < 3) {
-      return "좋음";
+      return '좋음';
     } else if (value < 6) {
-      return "보통";
+      return '보통';
     } else if (value < 8) {
-      return "나쁨";
+      return '나쁨';
     } else if (value < 10) {
-      return "매우 나쁨";
+      return '매우 나쁨';
     } else {
-      return "위험";
+      return '위험';
     }
   };
   return (
@@ -48,15 +48,9 @@ const Weather = () => {
         <img
           // src={snowImage}
           src={`${
-            weatherData?.data?.responseBody?.precipitationType == "0"
-              ? getWeatherImg(
-                  false,
-                  weatherData?.data?.responseBody?.skyCondition
-                )
-              : getWeatherImg(
-                  true,
-                  weatherData?.data?.responseBody?.precipitationType
-                )
+            weatherData?.data?.responseBody?.precipitationType == '0'
+              ? getWeatherImg(false, weatherData?.data?.responseBody?.skyCondition)
+              : getWeatherImg(true, weatherData?.data?.responseBody?.precipitationType)
           }`}
           css={css`
             width: 64px;
@@ -91,8 +85,8 @@ const Weather = () => {
         >
           {`${
             weatherData?.data?.responseBody?.temperature
-              ? weatherData?.data?.responseBody?.temperature + "˚"
-              : ""
+              ? weatherData?.data?.responseBody?.temperature + '˚'
+              : ''
           }`}
         </p>
 
@@ -178,11 +172,9 @@ const Weather = () => {
           >
             &nbsp;
             {`${
-              weatherData?.data?.responseBody?.precipitationType == "0"
+              weatherData?.data?.responseBody?.precipitationType == '0'
                 ? skyMap.get(weatherData?.data?.responseBody?.skyCondition)
-                : rainMap.get(
-                    weatherData?.data?.responseBody?.precipitationType
-                  )
+                : rainMap.get(weatherData?.data?.responseBody?.precipitationType)
             }
             `}
           </span>

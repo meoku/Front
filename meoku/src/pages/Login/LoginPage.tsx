@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import icLogoText from "/icLogoText.svg";
-import { TextB20 } from "../../components/common/Text";
-import { useMutation } from "@tanstack/react-query";
-import { isAdminCheckApi, loginCheckApi } from "../../api/userApi";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import icLogoText from '/icLogoText.svg';
+import { TextB20 } from '../../components/common/Text';
+import { useMutation } from '@tanstack/react-query';
+import { isAdminCheckApi, loginCheckApi } from '../../api/userApi';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginMain = styled.div`
   display: flex;
@@ -86,8 +86,8 @@ const LoginBtn = styled.button`
   color: #ffffff;
 `;
 const LoginPage = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const {
@@ -101,29 +101,29 @@ const LoginPage = () => {
       return loginCheckApi(id, password);
     },
     onSuccess: async (data) => {
-      console.log("로그인 성공:", data);
+      console.log('로그인 성공:', data);
       if (data) {
-        sessionStorage.setItem("access_token", data.access_token);
-        sessionStorage.setItem("refresh_token", data.refresh_token);
+        sessionStorage.setItem('access_token', data.access_token);
+        sessionStorage.setItem('refresh_token', data.refresh_token);
       }
-      alert("로그인에 성공했습니다.");
+      alert('로그인에 성공했습니다.');
       try {
         // 관리자 확인
         const response = await isAdminCheckApi();
         if (response == 200) {
-          navigate("/admin", { replace: true });
+          navigate('/admin', { replace: true });
         } else {
-          navigate("/", { replace: true });
+          navigate('/', { replace: true });
         }
       } catch (err) {
         //console.error("관리자 여부 확인 실패:", err);
         //alert("사용자 권한 확인에 실패했습니다. 다시 시도해 주세요.");
-        navigate("/", { replace: true });
+        navigate('/', { replace: true });
       }
     },
     onError: (err) => {
-      console.error("로그인 실패:", err);
-      alert("로그인에 실패했습니다. 다시 시도해 주세요.");
+      console.error('로그인 실패:', err);
+      alert('로그인에 실패했습니다. 다시 시도해 주세요.');
     },
   });
 
@@ -131,7 +131,7 @@ const LoginPage = () => {
     loginMutate({ id, password });
   };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleLoginClick();
     }

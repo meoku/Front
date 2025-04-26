@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
-import { TextB16, TextB20, TextR16 } from "../common/Text";
-import { mainDailyMenuTime } from "../../type/type";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react';
+import { TextB16, TextB20, TextR16 } from '../common/Text';
+import { mainDailyMenuTime } from '../../type/type';
+import styled from '@emotion/styled';
 
 const MobileMainDiv = styled.div`
   display: flex;
@@ -45,20 +45,16 @@ const MobileMainMenuDiv = styled.div`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 0.4rem auto;
 `;
-const MobileTodayDailyMenu = ({
-  dayWeek,
-  day,
-  menuData,
-}: mainDailyMenuTime) => {
+const MobileTodayDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
   const isNA = (value: string): string | JSX.Element => {
-    if (value === "N/A") {
-      return "";
+    if (value === 'N/A') {
+      return '';
     } else {
       return value;
     }
   };
   return menuData ? (
-    menuData.holidayFg == "N" && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
+    menuData.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
       <>
         <MobileMainDiv>
           <MobileMenuHeader>
@@ -91,45 +87,35 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[0]?.subBridgeList[0]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[0]?.subBridgeList[0]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[0]?.subBridgeList[1]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[0]?.subBridgeList[1]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[0]?.subBridgeList[2]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[0]?.subBridgeList[2]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[0]?.subBridgeList[3]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[0]?.subBridgeList[3]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[0]?.subBridgeList[4]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[0]?.subBridgeList[4]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
@@ -137,9 +123,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[0]?.subBridgeList[5]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[0]?.subBridgeList[5]?.menuItemName)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -148,9 +132,7 @@ const MobileTodayDailyMenu = ({
           <MobileMainDiv>
             <MobileMainMenuDiv>
               <MobileMenuTitle>
-                <TextB16>
-                  {menuData.menuDetailsList[1]?.menuDetailsName}
-                </TextB16>
+                <TextB16>{menuData.menuDetailsList[1]?.menuDetailsName}</TextB16>
               </MobileMenuTitle>
               <MobileMenuContent>
                 <TextR16
@@ -158,45 +140,35 @@ const MobileTodayDailyMenu = ({
                     margin-top: 1.5rem;
                   `}
                 >
-                  {isNA(
-                    menuData.menuDetailsList[1]?.subBridgeList[0]?.menuItemName
-                  )}
+                  {isNA(menuData.menuDetailsList[1]?.subBridgeList[0]?.menuItemName)}
                 </TextR16>
                 <TextR16
                   css={css`
                     margin-top: 0.5rem;
                   `}
                 >
-                  {isNA(
-                    menuData.menuDetailsList[1]?.subBridgeList[1]?.menuItemName
-                  )}
+                  {isNA(menuData.menuDetailsList[1]?.subBridgeList[1]?.menuItemName)}
                 </TextR16>
                 <TextR16
                   css={css`
                     margin-top: 0.5rem;
                   `}
                 >
-                  {isNA(
-                    menuData.menuDetailsList[1]?.subBridgeList[2]?.menuItemName
-                  )}
+                  {isNA(menuData.menuDetailsList[1]?.subBridgeList[2]?.menuItemName)}
                 </TextR16>
                 <TextR16
                   css={css`
                     margin-top: 0.5rem;
                   `}
                 >
-                  {isNA(
-                    menuData.menuDetailsList[1]?.subBridgeList[3]?.menuItemName
-                  )}
+                  {isNA(menuData.menuDetailsList[1]?.subBridgeList[3]?.menuItemName)}
                 </TextR16>
                 <TextR16
                   css={css`
                     margin-top: 0.5rem;
                   `}
                 >
-                  {isNA(
-                    menuData.menuDetailsList[1]?.subBridgeList[4]?.menuItemName
-                  )}
+                  {isNA(menuData.menuDetailsList[1]?.subBridgeList[4]?.menuItemName)}
                 </TextR16>
                 <TextR16
                   css={css`
@@ -204,9 +176,7 @@ const MobileTodayDailyMenu = ({
                     margin-bottom: 1rem;
                   `}
                 >
-                  {isNA(
-                    menuData.menuDetailsList[1]?.subBridgeList[5]?.menuItemName
-                  )}
+                  {isNA(menuData.menuDetailsList[1]?.subBridgeList[5]?.menuItemName)}
                 </TextR16>
               </MobileMenuContent>
             </MobileMainMenuDiv>
@@ -225,18 +195,14 @@ const MobileTodayDailyMenu = ({
                   margin-top: 1.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[2]?.subBridgeList[0]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[2]?.subBridgeList[0]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[2]?.subBridgeList[1]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[2]?.subBridgeList[1]?.menuItemName)}
               </TextR16>
               <TextR16
                 css={css`
@@ -244,9 +210,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[2]?.subBridgeList[2]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[2]?.subBridgeList[2]?.menuItemName)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -267,9 +231,7 @@ const MobileTodayDailyMenu = ({
                   margin-bottom: 1rem;
                 `}
               >
-                {isNA(
-                  menuData.menuDetailsList[3]?.subBridgeList[0]?.menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[3]?.subBridgeList[0]?.menuItemName)}
               </TextR16>
             </MobileMenuContent>
           </MobileMainMenuDiv>
@@ -323,9 +285,7 @@ const MobileTodayDailyMenu = ({
                 height: 576px;
               `}
             >
-              <TextB20>
-                {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
-              </TextB20>
+              <TextB20>{menuData?.holidayFg == 'Y' ? '공휴일' : '준비중입니다.'}</TextB20>
             </div>
           </div>
         </div>

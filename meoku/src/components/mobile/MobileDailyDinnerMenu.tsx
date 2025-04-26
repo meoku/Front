@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
-import { TextB16, TextR16 } from ".././common/Text";
-import { mainDailyMenuTime } from "../../type/type";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react';
+import { TextB16, TextR16 } from '.././common/Text';
+import { mainDailyMenuTime } from '../../type/type';
+import styled from '@emotion/styled';
 
 const MobileMainDiv = styled.div`
   display: flex;
@@ -35,15 +35,10 @@ const MobileMainMenuDiv = styled.div`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 0.4rem auto;
 `;
-const MobileDailyDinnerMenu = ({
-  dayWeek,
-  day,
-  menuData,
-  isToday,
-}: mainDailyMenuTime) => {
+const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
   const isNA = (value: string): string | JSX.Element => {
-    if (value === "N/A") {
-      return "";
+    if (value === 'N/A') {
+      return '';
     } else {
       return value;
     }
@@ -55,11 +50,10 @@ const MobileDailyDinnerMenu = ({
     width: 80%;
     height: 38px;
     border-radius: 10px;
-    background-color: ${isToday ? "var(--color_01)" : "var(--color_05)"};
+    background-color: ${isToday ? 'var(--color_01)' : 'var(--color_05)'};
     color: var(--background_color_02);
   `;
-  return menuData?.holidayFg == "N" &&
-    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
+  return menuData?.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
         margin-top: 20px;
@@ -132,9 +126,7 @@ const MobileDailyDinnerMenu = ({
                 margin-bottom: 1rem;
               `}
             >
-              {isNA(
-                menuData.menuDetailsList[4]?.subBridgeList[5]?.menuItemName
-              )}
+              {isNA(menuData.menuDetailsList[4]?.subBridgeList[5]?.menuItemName)}
             </TextR16>
           </MobileMenuContent>
         </MobileMainMenuDiv>
@@ -165,9 +157,7 @@ const MobileDailyDinnerMenu = ({
                 margin-bottom: 1rem;
               `}
             >
-              {isNA(
-                menuData.menuDetailsList[5]?.subBridgeList[2]?.menuItemName
-              )}
+              {isNA(menuData.menuDetailsList[5]?.subBridgeList[2]?.menuItemName)}
             </TextR16>
           </MobileMenuContent>
         </MobileMainMenuDiv>

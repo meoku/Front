@@ -1,24 +1,20 @@
 // Admin.tsx
-import InputMenus from "../../components/InputMenu";
-import Navbar from "../../components/Navbar";
-import { css } from "@emotion/react";
-import Weather from "../../components/Weather";
-import Day from "../../components/Day";
-import LunchTime from "../../components/LunchTime";
-import LunchBtn from "../../components/LunchBtn";
-import { useQuery } from "@tanstack/react-query";
-import { useRecoilState } from "recoil";
-import timeState from "../../store/atoms/time";
-import { adminMenu } from "../../type/type";
-import { useEffect, useState } from "react";
-import Loading from "../../components/common/Loading";
-import {
-  fetchAdminMenuData,
-  uploadMenuData,
-  uploadMenuFile,
-} from "../../api/menuApi";
-import { calculateDayArrAdmin, formatDate } from "../../utils/dateUtils";
-import { DefaultAllAdminDataDaily } from "../../utils/defaultAdminDataDaily";
+import InputMenus from '../../components/InputMenu';
+import Navbar from '../../components/Navbar';
+import { css } from '@emotion/react';
+import Weather from '../../components/Weather';
+import Day from '../../components/Day';
+import LunchTime from '../../components/LunchTime';
+import LunchBtn from '../../components/LunchBtn';
+import { useQuery } from '@tanstack/react-query';
+import { useRecoilState } from 'recoil';
+import timeState from '../../store/atoms/time';
+import { adminMenu } from '../../type/type';
+import { useEffect, useState } from 'react';
+import Loading from '../../components/common/Loading';
+import { fetchAdminMenuData, uploadMenuData, uploadMenuFile } from '../../api/menuApi';
+import { calculateDayArrAdmin, formatDate } from '../../utils/dateUtils';
+import { DefaultAllAdminDataDaily } from '../../utils/defaultAdminDataDaily';
 
 interface RequestData {
   date: string;
@@ -31,17 +27,15 @@ const Admin = () => {
   const [fileData, setFileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
-  const dayArr: [string | undefined, number, string][] =
-    calculateDayArrAdmin(date);
+  const dayArr: [string | undefined, number, string][] = calculateDayArrAdmin(date);
 
   const requestData: RequestData = {
     date: formatDate(date),
   };
 
   const { data: fetchedMenuData, refetch } = useQuery({
-    queryKey: ["data", requestData],
-    queryFn: () =>
-      fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
+    queryKey: ['data', requestData],
+    queryFn: () => fetchAdminMenuData(requestData, sendFileState, dayArr, fileData),
     refetchOnWindowFocus: false,
   });
 
@@ -63,14 +57,14 @@ const Admin = () => {
       if (!data[i]) {
         data[i] = DefaultAllAdminDataDaily(dayArr[i][2]);
       }
-      if (data[i].holidayFg === "Y") {
+      if (data[i].holidayFg === 'Y') {
         delete data[i].menuDetailsList;
       }
-      if (data[i].holidayFg === "N") {
+      if (data[i].holidayFg === 'N') {
         const detailsList = data[i].menuDetailsList || [];
         for (const detail of detailsList) {
           for (const bridge of detail.subBridgeList) {
-            if (bridge.menuItemName === " " || !bridge.menuItemName) {
+            if (bridge.menuItemName === ' ' || !bridge.menuItemName) {
               alert(`${i + 1}번째 메뉴 값이 없습니다.`);
               return;
             }
@@ -80,12 +74,12 @@ const Admin = () => {
     }
     try {
       setIsLoading(true);
-      console.log("Sending data:", data);
+      console.log('Sending data:', data);
       await uploadMenuData(data);
-      alert("저장성공");
+      alert('저장성공');
     } catch (error) {
-      console.error("Failed to post data:", error);
-      alert("저장실패");
+      console.error('Failed to post data:', error);
+      alert('저장실패');
     } finally {
       setIsLoading(false);
     }
@@ -93,20 +87,20 @@ const Admin = () => {
 
   const postMenuFile = async () => {
     if (!selectedFile) {
-      alert("파일이 선택되지 않았습니다.");
+      alert('파일이 선택되지 않았습니다.');
       return;
     }
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("menuFile", selectedFile);
+    formData.append('menuFile', selectedFile);
 
     try {
       const data = await uploadMenuFile(selectedFile);
       setFileData(data);
       setSendFileState(true);
     } catch (error) {
-      console.error("Failed to upload file:", error);
-      alert("파일 업로드 실패");
+      console.error('Failed to upload file:', error);
+      alert('파일 업로드 실패');
     } finally {
       setIsLoading(false);
     }
@@ -138,7 +132,7 @@ const Admin = () => {
         `}
       >
         <Weather />
-        <Day time={"점심"} />
+        <Day time={'점심'} />
         <LunchTime />
         <LunchBtn />
       </div>
@@ -158,7 +152,7 @@ const Admin = () => {
             margin-right: 10px;
           `}
           onClick={() => {
-            if (confirm("사진을 전송 하시겠습니까?")) {
+            if (confirm('사진을 전송 하시겠습니까?')) {
               postMenuFile();
             } else {
               return;
@@ -177,7 +171,7 @@ const Admin = () => {
                 menuData[i].menuDate = dayArr[i][2];
               }
             }
-            if (confirm("등록 하시겠습니까?")) {
+            if (confirm('등록 하시겠습니까?')) {
               postMenuData(menuData);
             }
           }}

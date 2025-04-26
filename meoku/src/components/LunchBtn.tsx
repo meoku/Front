@@ -1,10 +1,10 @@
-import { css } from "@emotion/react";
-import { useRef, useState } from "react";
-import monthBtn from "/monthBtn.svg";
-import shareBtn from "/shareBtn.svg";
-import icClose from "/icClose.svg";
-import Modal from "./modal/Modal";
-import { TextB20, TextR14 } from "./common/Text";
+import { css } from '@emotion/react';
+import { useRef, useState } from 'react';
+import monthBtn from '/monthBtn.svg';
+import shareBtn from '/shareBtn.svg';
+import icClose from '/icClose.svg';
+import Modal from './modal/Modal';
+import { TextB20, TextR14 } from './common/Text';
 
 const LunchBtn = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,8 +54,8 @@ const LunchBtn = () => {
           <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            width={"372px"}
-            height={"164px"}
+            width={'372px'}
+            height={'164px'}
             position={{
               top: modalPosition.top,
               right: modalPosition.right,
@@ -114,7 +114,7 @@ const LunchBtn = () => {
                   background: var(--02, #f0efee);
                 `}
                 onClick={() => {
-                  navigator.clipboard.writeText("https://www.meoku.info/");
+                  navigator.clipboard.writeText('https://www.meoku.info/');
                 }}
               >
                 <TextR14

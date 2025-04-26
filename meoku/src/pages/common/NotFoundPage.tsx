@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import icNav from "/icNav.svg";
+import { css } from '@emotion/react';
+import icNav from '/icNav.svg';
 const NotFoundPage = () => {
   return (
     <div
