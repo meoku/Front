@@ -1,5 +1,5 @@
 // ToggleSwitch.tsx
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 interface ToggleSwitchProps {
   checked: boolean;
@@ -40,7 +40,7 @@ const Slider = styled.span`
 
   &:before {
     position: absolute;
-    content: "";
+    content: '';
     height: 14px;
     width: 14px;
     left: 3px;

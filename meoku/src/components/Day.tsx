@@ -1,10 +1,10 @@
-import leftarrow from "/leftarrow.svg";
-import rightarrow from "/rightarrow.svg";
-import { css } from "@emotion/react";
-import { TextB20 } from "./common/Text";
-import { useRecoilState } from "recoil";
-import timeState from "../store/atoms/time";
-import { getWeekOfMonth } from "../utils/dateUtils";
+import leftarrow from '/leftarrow.svg';
+import rightarrow from '/rightarrow.svg';
+import { css } from '@emotion/react';
+import { TextB20 } from './common/Text';
+import { useRecoilState } from 'recoil';
+import timeState from '../store/atoms/time';
+import { getWeekOfMonth } from '../utils/dateUtils';
 const Day = ({ time }: { time: string }) => {
   const [date, setDate] = useRecoilState(timeState);
   return (
@@ -24,9 +24,7 @@ const Day = ({ time }: { time: string }) => {
           margin-right: 1.625rem;
           cursor: pointer;
         `}
-        onClick={() =>
-          setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000))
-        }
+        onClick={() => setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000))}
       />
       <div
         css={css`
@@ -83,9 +81,7 @@ const Day = ({ time }: { time: string }) => {
           margin-right: 2.5rem;
           cursor: pointer;
         `}
-        onClick={() =>
-          setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000))
-        }
+        onClick={() => setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000))}
       />
     </div>
   );

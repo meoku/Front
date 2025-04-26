@@ -1,29 +1,25 @@
-import styled from "@emotion/styled";
-import {
-  calculateDayArr,
-  formatDate,
-  getWeekOfMonth,
-} from "../../utils/dateUtils";
-import timeState from "../../store/atoms/time";
-import { useRecoilState } from "recoil";
-import { useEffect, useRef, useState } from "react";
-import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
-import icHamburger from "/icHamburger.svg";
-import icNav from "/icNav.svg";
-import leftarrow from "/leftarrow.svg";
-import Slider from "react-slick";
-import { TextB20, TextR16 } from "../common/Text";
-import rightarrow from "/rightarrow.svg";
-import MobileModal from "./MobileModal";
-import MobileDailyMenu from "./MobileDailyMenu";
-import MobileDailyDinnerMenu from "./MobileTodayDailyDinnerMenu";
-import { firstMenu } from "../../type/type";
-import { useQuery } from "@tanstack/react-query";
-import { fetchMenuData } from "../../api/menuApi";
-import { defaultMenuData } from "../../utils/defaultMenuData";
-import { fetchWeatherData } from "../../api/weatherApi";
-import { getWeatherImg } from "../../utils/weatherUtils";
+import styled from '@emotion/styled';
+import { calculateDayArr, formatDate, getWeekOfMonth } from '../../utils/dateUtils';
+import timeState from '../../store/atoms/time';
+import { useRecoilState } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { css } from '@emotion/react';
+import { Link } from 'react-router-dom';
+import icHamburger from '/icHamburger.svg';
+import icNav from '/icNav.svg';
+import leftarrow from '/leftarrow.svg';
+import Slider from 'react-slick';
+import { TextB20, TextR16 } from '../common/Text';
+import rightarrow from '/rightarrow.svg';
+import MobileModal from './MobileModal';
+import MobileDailyMenu from './MobileDailyMenu';
+import MobileDailyDinnerMenu from './MobileTodayDailyDinnerMenu';
+import { firstMenu } from '../../type/type';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMenuData } from '../../api/menuApi';
+import { defaultMenuData } from '../../utils/defaultMenuData';
+import { fetchWeatherData } from '../../api/weatherApi';
+import { getWeatherImg } from '../../utils/weatherUtils';
 
 const MobileMain = styled.div`
   display: flex;
@@ -114,7 +110,7 @@ const NavigationMenu = styled.div<NavigationMenuProps>`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: max-height 0.3s ease-in-out;
   overflow: hidden;
-  max-height: ${({ isOpen }) => (isOpen ? "500px" : "0")};
+  max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')};
   z-index: 2;
   padding: 10px 0 10px 0;
 `;
@@ -145,13 +141,13 @@ const MobileApp = () => {
     date: formatDate(date),
   };
   const { data: menuData } = useQuery({
-    queryKey: ["data", requestData],
+    queryKey: ['data', requestData],
     queryFn: () => fetchMenuData(requestData),
     initialData: defaultMenuData,
   });
 
   const { data: weatherData } = useQuery({
-    queryKey: ["data"],
+    queryKey: ['data'],
     queryFn: () => fetchWeatherData(),
   });
   const openModal = () => {
@@ -277,15 +273,9 @@ const MobileApp = () => {
         <MobileWeather>
           <img
             src={`${
-              weatherData?.data?.responseBody?.precipitationType == "0"
-                ? getWeatherImg(
-                    false,
-                    weatherData?.data?.responseBody?.skyCondition
-                  )
-                : getWeatherImg(
-                    true,
-                    weatherData?.data?.responseBody?.precipitationType
-                  )
+              weatherData?.data?.responseBody?.precipitationType == '0'
+                ? getWeatherImg(false, weatherData?.data?.responseBody?.skyCondition)
+                : getWeatherImg(true, weatherData?.data?.responseBody?.precipitationType)
             }`}
             css={css`
               width: 25.626px; // 수정 요구 필요
@@ -315,8 +305,8 @@ const MobileApp = () => {
             >
               {`${
                 weatherData?.data?.responseBody?.temperature
-                  ? weatherData?.data?.responseBody?.temperature + "˚"
-                  : ""
+                  ? weatherData?.data?.responseBody?.temperature + '˚'
+                  : ''
               }`}
             </h1>
             <h1
@@ -390,8 +380,7 @@ const MobileApp = () => {
       <div>
         <MobileDays>
           {selectedDay == 1 ? (
-            date.getDay() === selectedDay &&
-            dayArr[0][1] == new Date().getDate() ? (
+            date.getDay() === selectedDay && dayArr[0][1] == new Date().getDate() ? (
               <MobileDayBtnSelectedToday
                 onClick={() => {
                   setSelectedDay(1);
@@ -421,8 +410,7 @@ const MobileApp = () => {
             </MobileDayBtn>
           )}
           {selectedDay == 2 ? (
-            date.getDay() === selectedDay &&
-            dayArr[1][1] == new Date().getDate() ? (
+            date.getDay() === selectedDay && dayArr[1][1] == new Date().getDate() ? (
               <MobileDayBtnSelectedToday
                 onClick={() => {
                   setSelectedDay(2);
@@ -452,8 +440,7 @@ const MobileApp = () => {
             </MobileDayBtn>
           )}
           {selectedDay == 3 ? (
-            date.getDay() === selectedDay &&
-            dayArr[2][1] == new Date().getDate() ? (
+            date.getDay() === selectedDay && dayArr[2][1] == new Date().getDate() ? (
               <MobileDayBtnSelectedToday
                 onClick={() => {
                   setSelectedDay(3);
@@ -483,8 +470,7 @@ const MobileApp = () => {
             </MobileDayBtn>
           )}
           {selectedDay == 4 ? (
-            date.getDay() === selectedDay &&
-            dayArr[3][1] == new Date().getDate() ? (
+            date.getDay() === selectedDay && dayArr[3][1] == new Date().getDate() ? (
               <MobileDayBtnSelectedToday
                 onClick={() => {
                   setSelectedDay(4);
@@ -514,8 +500,7 @@ const MobileApp = () => {
             </MobileDayBtn>
           )}
           {selectedDay == 5 ? (
-            date.getDay() === selectedDay &&
-            dayArr[4][1] == new Date().getDate() ? (
+            date.getDay() === selectedDay && dayArr[4][1] == new Date().getDate() ? (
               <MobileDayBtnSelectedToday
                 onClick={() => {
                   setSelectedDay(5);
@@ -548,9 +533,9 @@ const MobileApp = () => {
         <Slider {...settings} ref={sliderRef}>
           {menuData?.map((menu: firstMenu, index: number) => {
             return (
-              <div>
+              <div key={`menu-slide-${index}`}>
                 <MobileDailyMenu
-                  key={index + "mobile"}
+                  key={index + 'mobile'}
                   dayWeek={dayArr[index][0]}
                   day={dayArr[index][1]}
                   menuData={menu}
@@ -560,7 +545,7 @@ const MobileApp = () => {
                   }
                 />
                 <MobileDailyDinnerMenu
-                  key={index + "mobileDinner"}
+                  key={index + 'mobileDinner'}
                   dayWeek={dayArr[index][0]}
                   day={dayArr[index][1]}
                   menuData={menu}

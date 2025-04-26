@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import { TextB16, TextR14 } from "./common/Text";
+import { css } from '@emotion/react';
+import { TextB16, TextR14 } from './common/Text';
 
 const DinnerTime = () => {
   return (

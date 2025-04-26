@@ -1,16 +1,16 @@
 // InputMenus.tsx
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { ChangeEvent, useEffect, useState } from "react";
-import plusIco from "/icPlus.svg";
-import { adminMenu } from "../type/type";
-import { TextB16, TextB20 } from "./common/Text";
-import ToggleSwitch from "./common/ToggleSwitch";
-import { deleteMenuData } from "../api/menuApi";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-import Loading from "../components/common/Loading";
-import { DefaultAdminDataDaily } from "../utils/defaultAdminDataDaily";
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { ChangeEvent, useEffect, useState } from 'react';
+import plusIco from '/icPlus.svg';
+import { adminMenu } from '../type/type';
+import { TextB16, TextB20 } from './common/Text';
+import ToggleSwitch from './common/ToggleSwitch';
+import { deleteMenuData } from '../api/menuApi';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import Loading from '../components/common/Loading';
+import { DefaultAdminDataDaily } from '../utils/defaultAdminDataDaily';
 
 interface InputMenusProps {
   menuData: adminMenu;
@@ -38,8 +38,8 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
   let titleIndex = 0;
   const titleArr =
     item.menuDetailsList && item.menuDetailsList.length > 5
-      ? ["한식", "일식", "PLUS", "샐러드팩", "석식", "PLUS"]
-      : ["특식", "PLUS", "샐러드팩", "석식", "PLUS"];
+      ? ['한식', '일식', 'PLUS', '샐러드팩', '석식', 'PLUS']
+      : ['특식', 'PLUS', '샐러드팩', '석식', 'PLUS'];
 
   useEffect(() => {
     const updatedMenu = { ...menuData };
@@ -48,24 +48,20 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
     //     subItem.menuItemName = subItem.menuItemName.trim();
     //   });
     // });
-    if (updatedMenu.holidayFg == "Y") {
+    if (updatedMenu.holidayFg == 'Y') {
       delete updatedMenu.menuDetailsList;
     }
-    if (updatedMenu.holidayFg == "N" && !updatedMenu.menuDetailsList) {
+    if (updatedMenu.holidayFg == 'N' && !updatedMenu.menuDetailsList) {
       updatedMenu.menuDetailsList = DefaultAdminDataDaily(updatedMenu.menuDate);
     }
     setItem(updatedMenu);
   }, [menuData]);
 
-  const handleMenuData = (
-    e: ChangeEvent<HTMLInputElement>,
-    index1: number,
-    index2: number
-  ) => {
+  const handleMenuData = (e: ChangeEvent<HTMLInputElement>, index1: number, index2: number) => {
     const newItem = { ...item };
     if (newItem.menuDetailsList) {
       newItem.menuDetailsList[index1].subBridgeList[index2].menuItemName =
-        e.target.value.trim() || "";
+        e.target.value.trim() || '';
     }
     setItem(newItem);
     if (onChange) {
@@ -74,7 +70,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
   };
 
   const handleToggleChange = (isOn: boolean) => {
-    const updated = { ...item, holidayFg: isOn ? "Y" : "N" };
+    const updated = { ...item, holidayFg: isOn ? 'Y' : 'N' };
     setItem(updated);
     if (onChange) {
       onChange(updated);
@@ -90,7 +86,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
           ...bridgeItem,
           subBridgeList: (bridgeItem.subBridgeList ?? []).map((subItem) => ({
             ...subItem,
-            menuItemName: "",
+            menuItemName: '',
           })),
         })),
       };
@@ -100,17 +96,17 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
       }
     },
     onError: (error) => {
-      console.error("메뉴 삭제에 실패했습니다.", error);
-      alert("메뉴 삭제에 실패했습니다.");
+      console.error('메뉴 삭제에 실패했습니다.', error);
+      alert('메뉴 삭제에 실패했습니다.');
     },
   });
 
   const handleDelete = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
+    if (window.confirm('삭제하시겠습니까?')) {
       if (day) {
         deleteMutation.mutate(menuData.menuDate);
       } else {
-        console.error("삭제할 날짜 정보가 없습니다.");
+        console.error('삭제할 날짜 정보가 없습니다.');
       }
     }
   };
@@ -125,7 +121,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
         background-color: var(--color_02);
       `}
     >
-      {deleteMutation.status === "pending" && (
+      {deleteMutation.status === 'pending' && (
         <div
           css={css`
             position: absolute;
@@ -170,7 +166,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
           {`${dayWeek}(${day})`}
         </TextB16>
         <ToggleSwitch
-          checked={item.holidayFg === "Y"}
+          checked={item.holidayFg === 'Y'}
           onToggle={handleToggleChange}
           css={css`
             width: 56px;

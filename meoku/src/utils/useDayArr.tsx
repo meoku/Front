@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { getDayWeek } from "./dateUtils";
+import { useState, useEffect } from 'react';
+import { getDayWeek } from './dateUtils';
 
 const useDayArr = (currentDate: Date) => {
   const [dayArr, setDayArr] = useState<[string | undefined, number][]>([]);
@@ -28,7 +28,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay() + 5),
           new Date(new Date().setDate(currentDate.getDate() - 2)).getDate(),
-        ]
+        ],
       );
     } else if (dayWeek === 1) {
       newDayArr.push(
@@ -51,7 +51,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay() + 4),
           new Date(new Date().setDate(currentDate.getDate() + 4)).getDate(),
-        ]
+        ],
       );
     } else if (dayWeek === 2) {
       newDayArr.push(
@@ -74,7 +74,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay() + 3),
           new Date(new Date().setDate(currentDate.getDate() + 3)).getDate(),
-        ]
+        ],
       );
     } else if (dayWeek === 3) {
       newDayArr.push(
@@ -97,7 +97,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay() + 2),
           new Date(new Date().setDate(currentDate.getDate() + 2)).getDate(),
-        ]
+        ],
       );
     } else if (dayWeek === 4) {
       newDayArr.push(
@@ -120,7 +120,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay() + 1),
           new Date(new Date().setDate(currentDate.getDate() + 1)).getDate(),
-        ]
+        ],
       );
     } else if (dayWeek === 5) {
       newDayArr.push(
@@ -143,7 +143,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay()),
           new Date(new Date().setDate(currentDate.getDate())).getDate(),
-        ]
+        ],
       );
     } else if (dayWeek === 6) {
       newDayArr.push(
@@ -166,7 +166,7 @@ const useDayArr = (currentDate: Date) => {
         [
           getDayWeek(currentDate.getDay() - 1),
           new Date(new Date().setDate(currentDate.getDate() - 1)).getDate(),
-        ]
+        ],
       );
     }
     setDayArr(newDayArr);

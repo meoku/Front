@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 type ModalProps = {
   onClose: () => void;
@@ -8,11 +8,7 @@ type ModalProps = {
   content: string;
 };
 
-export const Modal = ({ 
-    onClose,
-    title,
-    content
-}: ModalProps) => {
+export const Modal = ({ onClose, title, content }: ModalProps) => {
   // ESC 키로 모달을 닫는 기능 추가
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -27,11 +23,12 @@ export const Modal = ({
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <span 
-            css={css`
-            font-size:30px;
-            `}>
-            {title}
+        <span
+          css={css`
+            font-size: 30px;
+          `}
+        >
+          {title}
         </span>
         <br></br>
         <hr></hr>
@@ -43,7 +40,6 @@ export const Modal = ({
   );
 };
 
-
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -54,7 +50,7 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index:1000;
+  z-index: 1000;
 `;
 
 const ModalContainer = styled.div`
@@ -64,5 +60,5 @@ const ModalContainer = styled.div`
   width: 300px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  z-index:1001;
+  z-index: 1001;
 `;

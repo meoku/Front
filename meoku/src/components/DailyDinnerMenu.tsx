@@ -1,42 +1,36 @@
-import { css } from "@emotion/react";
-import { TextB16, TextB20, TextR16 } from "./common/Text";
-import { mainDailyMenuTime, tagData } from "../type/type";
-import { useQuery } from "@tanstack/react-query";
-import icNewTag from "/icNewTag.svg";
-import { fetchTagData } from "../api/menuApi";
+import { css } from '@emotion/react';
+import { TextB16, TextB20, TextR16 } from './common/Text';
+import { mainDailyMenuTime, tagData } from '../type/type';
+import { useQuery } from '@tanstack/react-query';
+import icNewTag from '/icNewTag.svg';
+import { fetchTagData } from '../api/menuApi';
 interface RequestData {
   menuIdList: (number | undefined)[];
 }
-const DailyDinnerMenu = ({
-  dayWeek,
-  day,
-  menuData,
-  isToday,
-}: mainDailyMenuTime) => {
+const DailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
   const menu1 = menuData?.menuDetailsList?.[4]?.subBridgeList?.[0]?.menuItemId;
   const menu2 = menuData?.menuDetailsList?.[4]?.subBridgeList?.[1]?.menuItemId;
   const requestData: RequestData = {
     menuIdList: [menu1, menu2],
   };
   const { data: tagData } = useQuery({
-    queryKey: ["data", requestData],
+    queryKey: ['data', requestData],
     queryFn: () => fetchTagData(menu1, menu2),
   });
   const isNA = (value: string): string | JSX.Element => {
-    if (value === "N/A") {
-      return "";
+    if (value === 'N/A') {
+      return '';
     } else {
       return value;
     }
   };
-  return menuData?.holidayFg == "N" &&
-    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
+  return menuData?.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 18px;
         margin: 0px 10px 30px 10px;
-        background-color: ${isToday ? "var(--color_01)" : "var(--color_02)"};
+        background-color: ${isToday ? 'var(--color_01)' : 'var(--color_02)'};
       `}
     >
       <div
@@ -50,7 +44,7 @@ const DailyDinnerMenu = ({
       >
         <TextB16
           css={css`
-            color: ${isToday ? "#ffffff" : ""};
+            color: ${isToday ? '#ffffff' : ''};
           `}
         >{`${dayWeek}(${day})`}</TextB16>
       </div>
@@ -81,7 +75,7 @@ const DailyDinnerMenu = ({
             css={css`
               margin-top: 12px;
               text-align: center;
-              color: ${isToday ? "var(--color_01)" : ""};
+              color: ${isToday ? 'var(--color_01)' : ''};
             `}
           >
             <div
@@ -93,10 +87,11 @@ const DailyDinnerMenu = ({
               `}
             >
               <div>
-                {tagData?.map((v: tagData) => {
+                {tagData?.map((v: tagData, idx: number) => {
                   if (v.menuItemId == menu1) {
                     return (
                       <img
+                        key={v.menuItemId ?? idx}
                         css={css`
                           position: absolute;
                           top: -1px;
@@ -127,10 +122,11 @@ const DailyDinnerMenu = ({
               `}
             >
               <div>
-                {tagData?.map((v: tagData) => {
+                {tagData?.map((v: tagData, idx: number) => {
                   if (v.menuItemId == menu2) {
                     return (
                       <img
+                        key={v.menuItemId ?? idx}
                         css={css`
                           position: absolute;
                           top: -1px;
@@ -237,7 +233,7 @@ const DailyDinnerMenu = ({
       >
         <TextB16
           css={css`
-            color: ${isToday ? "#ffffff" : ""};
+            color: ${isToday ? '#ffffff' : ''};
           `}
         >{`${dayWeek}(${day})`}</TextB16>
       </div>
@@ -263,9 +259,7 @@ const DailyDinnerMenu = ({
             height: 280px;
           `}
         >
-          <TextB20>
-            {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
-          </TextB20>
+          <TextB20>{menuData?.holidayFg == 'Y' ? '공휴일' : '준비중입니다.'}</TextB20>
         </div>
       </div>
     </div>

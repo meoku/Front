@@ -1,20 +1,20 @@
-import { css, keyframes } from "@emotion/react";
-import Navbar from "../../components/Navbar";
-import Weather from "../../components/Weather";
-import Day from "../../components/Day";
-import LunchTime from "../../components/LunchTime";
-import LunchBtn from "../../components/LunchBtn";
-import { useRecoilState } from "recoil";
-import timeState from "../../store/atoms/time";
-import { useQuery } from "@tanstack/react-query";
-import { calculateDayArr, formatDate } from "../../utils/dateUtils";
-import { fetchMenuData } from "../../api/menuApi";
-import { defaultMenuData } from "../../utils/defaultMenuData";
-import { firstMenu } from "../../type/type";
-import DailyMenu from "../../components/DailyMenu";
-import bottomarrow from "/bottonarrow.svg";
-import DinnerTime from "../../components/DinnerTime";
-import DailyDinnerMenu from "../../components/DailyDinnerMenu";
+import { css, keyframes } from '@emotion/react';
+import Navbar from '../../components/Navbar';
+import Weather from '../../components/Weather';
+import Day from '../../components/Day';
+import LunchTime from '../../components/LunchTime';
+import LunchBtn from '../../components/LunchBtn';
+import { useRecoilState } from 'recoil';
+import timeState from '../../store/atoms/time';
+import { useQuery } from '@tanstack/react-query';
+import { calculateDayArr, formatDate } from '../../utils/dateUtils';
+import { fetchMenuData } from '../../api/menuApi';
+import { defaultMenuData } from '../../utils/defaultMenuData';
+import { firstMenu } from '../../type/type';
+import DailyMenu from '../../components/DailyMenu';
+import bottomarrow from '/bottonarrow.svg';
+import DinnerTime from '../../components/DinnerTime';
+import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 interface RequestData {
   date: string;
 }
@@ -34,7 +34,7 @@ const MainPage = () => {
   };
 
   const { data: menuData } = useQuery({
-    queryKey: ["data", requestData],
+    queryKey: ['data', requestData],
     queryFn: () => fetchMenuData(requestData),
     initialData: defaultMenuData,
   });
@@ -57,7 +57,7 @@ const MainPage = () => {
         `}
       >
         <Weather />
-        <Day time={"점심"} />
+        <Day time={'점심'} />
         <LunchTime />
         <LunchBtn />
       </div>
@@ -79,8 +79,7 @@ const MainPage = () => {
               day={dayArr[index][1]}
               menuData={menu}
               isToday={
-                dayArr[index][1] == new Date().getDate() &&
-                date.getMonth() == new Date().getMonth()
+                dayArr[index][1] == new Date().getDate() && date.getMonth() == new Date().getMonth()
               }
             />
           );
@@ -107,7 +106,7 @@ const MainPage = () => {
           onClick={() => {
             window.scrollTo({
               top: document.body.scrollHeight,
-              behavior: "smooth",
+              behavior: 'smooth',
             });
           }}
         />
@@ -123,7 +122,7 @@ const MainPage = () => {
             background-color: var(--background_color_01);
           `}
         >
-          <Day time={"저녁"} />
+          <Day time={'저녁'} />
           <DinnerTime />
         </div>
         <div

@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { ReactNode } from "react";
+import styled from '@emotion/styled';
+import { ReactNode } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -35,30 +35,22 @@ const ModalContent = styled.div<{
   border: 1px solid var(--03, #ccc);
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
   position: absolute;
-  width: ${(props) => props.width || "500px"};
-  height: ${(props) => props.height || "auto"};
-  top: ${(props) => (props.top !== undefined ? `${props.top}px` : "50%")};
+  width: ${(props) => props.width || '500px'};
+  height: ${(props) => props.height || 'auto'};
+  top: ${(props) => (props.top !== undefined ? `${props.top}px` : '50%')};
   ${(props) =>
     props.left !== undefined
       ? `left: ${props.left}px;`
       : props.right !== undefined
-      ? `right: ${props.right}px;`
-      : "left: 50%;"}
+        ? `right: ${props.right}px;`
+        : 'left: 50%;'}
   transform: ${(props) =>
-    props.top !== undefined &&
-    (props.left !== undefined || props.right !== undefined)
-      ? "none"
-      : "translate(-50%, -50%)"};
+    props.top !== undefined && (props.left !== undefined || props.right !== undefined)
+      ? 'none'
+      : 'translate(-50%, -50%)'};
 `;
 
-const Modal = ({
-  isOpen,
-  onClose,
-  children,
-  position,
-  width,
-  height,
-}: ModalProps) => {
+const Modal = ({ isOpen, onClose, children, position, width, height }: ModalProps) => {
   if (!isOpen) return null;
 
   return (

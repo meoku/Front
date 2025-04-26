@@ -1,9 +1,9 @@
-import { css } from "@emotion/react";
-import { TextB16, TextB20, TextR16 } from "./common/Text";
-import { mainDailyMenuTime, tagData } from "../type/type";
-import { useQuery } from "@tanstack/react-query";
-import icNewTag from "/icNewTag.svg";
-import { fetchTagData } from "../api/menuApi";
+import { css } from '@emotion/react';
+import { TextB16, TextB20, TextR16 } from './common/Text';
+import { mainDailyMenuTime, tagData } from '../type/type';
+import { useQuery } from '@tanstack/react-query';
+import icNewTag from '/icNewTag.svg';
+import { fetchTagData } from '../api/menuApi';
 interface RequestData {
   menuIdList: (number | undefined)[];
 }
@@ -16,18 +16,17 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
     menuIdList: [menu1, menu2, menu3, menu4],
   };
   const { data: tagData } = useQuery({
-    queryKey: ["data", requestData],
+    queryKey: ['data', requestData],
     queryFn: () => fetchTagData(menu1, menu2, menu3, menu4),
   });
   const isNA = (value: string): string | JSX.Element => {
-    if (value === "N/A") {
-      return "";
+    if (value === 'N/A') {
+      return '';
     } else {
       return value;
     }
   };
-  return menuData?.holidayFg == "N" &&
-    menuData?.menuDetailsList[0]?.dailyMenuDate ? (
+  return menuData?.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
@@ -92,10 +91,11 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               `}
             >
               <div>
-                {tagData?.map((v: tagData) => {
+                {tagData?.map((v: tagData, idx: number) => {
                   if (v.menuItemId == menu1) {
                     return (
                       <img
+                        key={v.menuItemId ?? idx}
                         css={css`
                           position: absolute;
                           top: -1px;
@@ -126,10 +126,11 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               `}
             >
               <div>
-                {tagData?.map((v: tagData) => {
+                {tagData?.map((v: tagData, idx: number) => {
                   if (v.menuItemId == menu2) {
                     return (
                       <img
+                        key={v.menuItemId ?? idx}
                         css={css`
                           position: absolute;
                           top: -1px;
@@ -213,10 +214,11 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 `}
               >
                 <div>
-                  {tagData?.map((v: tagData) => {
+                  {tagData?.map((v: tagData, idx: number) => {
                     if (v.menuItemId == menu3) {
                       return (
                         <img
+                          key={v.menuItemId ?? idx}
                           css={css`
                             position: absolute;
                             top: -1px;
@@ -229,9 +231,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                     }
                   })}
                 </div>
-                {isNA(
-                  menuData.menuDetailsList[1].subBridgeList[0].menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[1].subBridgeList[0].menuItemName)}
               </div>
             </TextB16>
             <TextR16
@@ -250,10 +250,11 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 `}
               >
                 <div>
-                  {tagData?.map((v: tagData) => {
+                  {tagData?.map((v: tagData, idx: number) => {
                     if (v.menuItemId == menu4) {
                       return (
                         <img
+                          key={v.menuItemId ?? idx}
                           css={css`
                             position: absolute;
                             top: -1px;
@@ -266,9 +267,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                     }
                   })}
                 </div>
-                {isNA(
-                  menuData.menuDetailsList[1].subBridgeList[1].menuItemName
-                )}
+                {isNA(menuData.menuDetailsList[1].subBridgeList[1].menuItemName)}
               </div>
             </TextR16>
             <TextR16
@@ -277,9 +276,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 text-align: center;
               `}
             >
-              {isNA(
-                menuData?.menuDetailsList[1]?.subBridgeList[2]?.menuItemName
-              )}
+              {isNA(menuData?.menuDetailsList[1]?.subBridgeList[2]?.menuItemName)}
             </TextR16>
             <TextR16
               css={css`
@@ -287,9 +284,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 text-align: center;
               `}
             >
-              {isNA(
-                menuData?.menuDetailsList[1]?.subBridgeList[3]?.menuItemName
-              )}
+              {isNA(menuData?.menuDetailsList[1]?.subBridgeList[3]?.menuItemName)}
             </TextR16>
             <TextR16
               css={css`
@@ -297,9 +292,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
                 text-align: center;
               `}
             >
-              {isNA(
-                menuData?.menuDetailsList[1]?.subBridgeList[4]?.menuItemName
-              )}
+              {isNA(menuData?.menuDetailsList[1]?.subBridgeList[4]?.menuItemName)}
             </TextR16>
             <hr
               css={css`
@@ -320,13 +313,13 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
               height: 176px;
             `}
           >
-            <TextB20>{"　"}</TextB20>
-            <TextB20>{"　"}</TextB20>
-            <TextB20>{"　"}</TextB20>
-            <TextB20>{"단일메뉴"}</TextB20>
-            <TextB20>{"　"}</TextB20>
-            <TextB20>{"　"}</TextB20>
-            <TextB20>{"　"}</TextB20>
+            <TextB20>{'　'}</TextB20>
+            <TextB20>{'　'}</TextB20>
+            <TextB20>{'　'}</TextB20>
+            <TextB20>{'단일메뉴'}</TextB20>
+            <TextB20>{'　'}</TextB20>
+            <TextB20>{'　'}</TextB20>
+            <TextB20>{'　'}</TextB20>
             <hr
               css={css`
                 margin-top: 20px;
@@ -429,9 +422,7 @@ const DailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
             height: 576px;
           `}
         >
-          <TextB20>
-            {menuData?.holidayFg == "Y" ? "공휴일" : "준비중입니다."}
-          </TextB20>
+          <TextB20>{menuData?.holidayFg == 'Y' ? '공휴일' : '준비중입니다.'}</TextB20>
         </div>
       </div>
     </div>

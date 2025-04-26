@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import LunchTime from "../LunchTime";
+import { css } from '@emotion/react';
+import LunchTime from '../LunchTime';
 interface ModalProps {
   closeModal: () => void;
 }

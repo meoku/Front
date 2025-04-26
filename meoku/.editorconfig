@@ -1,0 +1,12 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+
+# JavaScript, TypeScript 파일에만 추가적인 포맷팅
+[*.{js,jsx,ts,tsx}]
+quote_type = double
