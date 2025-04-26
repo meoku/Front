@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import icLogoText from '/icLogoText.svg';
+import { css } from '@emotion/react';
 import { TextB20 } from '../../components/common/Text';
 import { useMutation } from '@tanstack/react-query';
 import { isAdminCheckApi, loginCheckApi } from '../../api/userApi';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import icClose from '/icClose.svg';
+import Modal from '../../components/modal/Modal';
 
 const LoginMain = styled.div`
   display: flex;
@@ -169,6 +172,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCheck = () => setIsChecked(!isChecked);
 
@@ -236,9 +240,15 @@ const LoginPage = () => {
           onKeyDown={handleKeyDown}
         />
         <CheckBoxContainer>
-          <Label>
+          <Label
+            onClick={(e) => {
+              setIsModalOpen(true);
+              e.preventDefault(); //로그인 상태 유지 기능 구현까지 유지
+              return;
+            }}
+          >
             <HiddenCheckBox type="checkbox" checked={isChecked} onChange={handleCheck} />
-            <StyledCheckBox checked={isChecked}>{isChecked && '✓'}</StyledCheckBox>
+            <StyledCheckBox checked={isChecked}>{isChecked && '✓'} </StyledCheckBox>
             로그인 상태 유지
           </Label>
         </CheckBoxContainer>
@@ -246,19 +256,19 @@ const LoginPage = () => {
           <TextB20>로그인</TextB20>
         </LoginBtn>
         <SubMenu>
-          <SubMenuDetail width="56px" height="12px">
+          <SubMenuDetail width="56px" height="12px" onClick={() => setIsModalOpen(true)}>
             아이디 찾기
           </SubMenuDetail>
           <SubMenuDetail width="12px" height="12px">
             |
           </SubMenuDetail>
-          <SubMenuDetail width="68px" height="12px">
+          <SubMenuDetail width="68px" height="12px" onClick={() => setIsModalOpen(true)}>
             비밀번호 찾기
           </SubMenuDetail>
           <SubMenuDetail width="12px" height="12px">
             |
           </SubMenuDetail>
-          <SubMenuDetail width="48px" height="12px">
+          <SubMenuDetail width="48px" height="12px" onClick={() => setIsModalOpen(true)}>
             회원가입
           </SubMenuDetail>
         </SubMenu>
@@ -269,13 +279,64 @@ const LoginPage = () => {
             <Line />
           </DividerWithText>
           <SnsIconContainer>
-            <SnsIcon src="/snsLogo/IcNaver.svg" alt="Naver Login" />
-            <SnsIcon src="/snsLogo/IcKakao.svg" alt="Kakao Login" />
-            <SnsIcon src="/snsLogo/IcApple.svg" alt="Apple Login" />
-            <SnsIcon src="/snsLogo/IcGoogle.svg" alt="Google Login" />
+            <SnsIcon
+              src="/snsLogo/IcNaver.svg"
+              alt="Naver Login"
+              onClick={() => setIsModalOpen(true)}
+            />
+            <SnsIcon
+              src="/snsLogo/IcKakao.svg"
+              alt="Kakao Login"
+              onClick={() => setIsModalOpen(true)}
+            />
+            <SnsIcon
+              src="/snsLogo/IcApple.svg"
+              alt="Apple Login"
+              onClick={() => setIsModalOpen(true)}
+            />
+            <SnsIcon
+              src="/snsLogo/IcGoogle.svg"
+              alt="Google Login"
+              onClick={() => setIsModalOpen(true)}
+            />
           </SnsIconContainer>
         </div>
       </LoginDiv>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        width="372px"
+        height="164px"
+      >
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: relative;
+          `}
+        >
+          <img
+            src="/icMain.svg"
+            css={css`
+              margin-bottom: 10px;
+            `}
+          />
+          <TextB20>서비스 준비중...</TextB20>
+          <img
+            src={icClose}
+            css={css`
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              cursor: pointer;
+            `}
+            onClick={() => setIsModalOpen(false)}
+          />
+        </div>
+      </Modal>
     </LoginMain>
   );
 };
