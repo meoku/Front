@@ -26,7 +26,6 @@ const LogoImg = styled.img`
   width: 219px;
   height: 76px;
   margin: 101px auto 0 auto;
-  /* margin: auto 101px auto auto; */
 `;
 const InputUserInfo = styled.input`
   display: flex;
@@ -45,10 +44,17 @@ const InputUserInfo = styled.input`
     font-weight: 400;
     line-height: normal;
   }
+  @media (max-width: 768px) {
+    width: 296px;
+    height: 38px;
+  }
 `;
 
 const InputUserInfoId = styled(InputUserInfo)`
   margin: 55px auto 0 auto;
+  @media (max-width: 768px) {
+    margin: 34.87 px auto 0 auto;
+  }
 `;
 
 const InputUserInfoPw = styled(InputUserInfo)`
@@ -61,6 +67,9 @@ const CheckBoxContainer = styled.div`
   gap: 8px;
   width: 424px;
   margin: 12px auto 0 auto;
+  @media (max-width: 768px) {
+    width: 322px;
+  }
 `;
 
 const HiddenCheckBox = styled.input`
@@ -108,6 +117,11 @@ const LoginBtn = styled.button`
   height: 50px;
   margin: 40px auto 0 auto;
   color: #ffffff;
+  @media (max-width: 768px) {
+    width: 322px; 
+    height: 38px;
+    margin: 24px auto 0 auto;
+  }
 `;
 
 const SubMenu = styled.div`
