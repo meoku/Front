@@ -22,6 +22,10 @@ const MobileModal = ({ closeModal }: ModalProps) => {
     >
       <div
         css={css`
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
           background: white;
           padding: 20px;
           border-radius: 5px;
