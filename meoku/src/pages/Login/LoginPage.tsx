@@ -36,6 +36,7 @@ const InputUserInfo = styled.input`
   padding-left: 24px;
   background-color: #ffffff;
   border: 1px solid #ccc;
+  color: #000;
 
   &::placeholder {
     color: var(--color_03, #ccc);
