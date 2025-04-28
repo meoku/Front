@@ -31,7 +31,7 @@ const LunchBtn = () => {
         position: relative;
       `}
     >
-      <img
+      {/* <img
         src={monthBtn}
         css={css`
           width: 52px;
@@ -39,13 +39,14 @@ const LunchBtn = () => {
           margin-left: 1.5rem;
           margin-right: 1rem;
         `}
-      />
+      /> */}
       <img
         src={shareBtn}
         ref={shareBtnRef}
         css={css`
-          width: 52px;
+          width: 104px;
           height: 68px;
+          cursor: pointer;
         `}
         onClick={handleShareClick}
       />
