@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { useRef, useState } from 'react';
-import monthBtn from '/monthBtn.svg';
 import shareBtn from '/shareBtn.svg';
 import icClose from '/icClose.svg';
 import Modal from './modal/Modal';
@@ -31,7 +30,7 @@ const LunchBtn = () => {
         position: relative;
       `}
     >
-      <img
+      {/* <img
         src={monthBtn}
         css={css`
           width: 52px;
@@ -39,13 +38,14 @@ const LunchBtn = () => {
           margin-left: 1.5rem;
           margin-right: 1rem;
         `}
-      />
+      /> */}
       <img
         src={shareBtn}
         ref={shareBtnRef}
         css={css`
-          width: 52px;
+          width: 104px;
           height: 68px;
+          cursor: pointer;
         `}
         onClick={handleShareClick}
       />

@@ -5,7 +5,13 @@ import { TextB20 } from './common/Text';
 import { useRecoilState } from 'recoil';
 import timeState from '../store/atoms/time';
 import { getWeekOfMonth } from '../utils/dateUtils';
-const Day = ({ time }: { time: string }) => {
+
+interface DayProps {
+  time: string;
+  showArrows?: boolean;
+}
+
+const Day = ({ time, showArrows = true }: DayProps) => {
   const [date, setDate] = useRecoilState(timeState);
   return (
     <div
@@ -15,17 +21,19 @@ const Day = ({ time }: { time: string }) => {
         align-items: center;
       `}
     >
-      <img
-        src={leftarrow}
-        css={css`
-          width: 34px;
-          height: 34px;
-          margin-left: 2.4rem;
-          margin-right: 1.625rem;
-          cursor: pointer;
-        `}
-        onClick={() => setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000))}
-      />
+      {showArrows && (
+        <img
+          src={leftarrow}
+          css={css`
+            width: 34px;
+            height: 34px;
+            margin-left: 2.4rem;
+            margin-right: 1.625rem;
+            cursor: pointer;
+          `}
+          onClick={() => setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000))}
+        />
+      )}
       <div
         css={css`
           display: flex;
@@ -72,18 +80,21 @@ const Day = ({ time }: { time: string }) => {
           </div>
         </div>
       </div>
-      <img
-        src={rightarrow}
-        css={css`
-          width: 34px;
-          height: 34px;
-          margin-left: 1.625rem;
-          margin-right: 2.5rem;
-          cursor: pointer;
-        `}
-        onClick={() => setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000))}
-      />
+      {showArrows && (
+        <img
+          src={rightarrow}
+          css={css`
+            width: 34px;
+            height: 34px;
+            margin-left: 1.625rem;
+            margin-right: 2.5rem;
+            cursor: pointer;
+          `}
+          onClick={() => setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000))}
+        />
+      )}
     </div>
   );
 };
+
 export default Day;

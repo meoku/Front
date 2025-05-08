@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/react';
+import { css } from '@emotion/react';
 import Navbar from '../../components/Navbar';
 import Weather from '../../components/Weather';
 import Day from '../../components/Day';
@@ -12,21 +12,11 @@ import { fetchMenuData } from '../../api/menuApi';
 import { defaultMenuData } from '../../utils/defaultMenuData';
 import { firstMenu } from '../../type/type';
 import DailyMenu from '../../components/DailyMenu';
-import bottomarrow from '/bottonarrow.svg';
-import DinnerTime from '../../components/DinnerTime';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 interface RequestData {
   date: string;
 }
 
-const moveUpDown = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-`;
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
   const requestData: RequestData = {
@@ -51,15 +41,38 @@ const MainPage = () => {
         css={css`
           display: flex;
           justify-content: center;
-          margin-top: 1.25rem;
+          align-items: center;
+          // margin-top: 1.25rem;
           height: 96px;
           flex-wrap: nowrap;
+          position: relative;
+          width: 100%;
+          max-width: 1200px;
+          margin: 1.25rem auto;
         `}
       >
-        <Weather />
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 10px;
+          `}
+        >
+          <Weather />
+        </div>
         <Day time={'점심'} />
-        <LunchTime />
-        <LunchBtn />
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 10px;
+          `}
+        >
+          <LunchTime />
+          <LunchBtn />
+        </div>
       </div>
       <div
         css={css`
@@ -91,10 +104,13 @@ const MainPage = () => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          margin-top: 1.25rem;
           background-color: var(--background_color_01);
+          position: relative;
+          width: 100%;
         `}
       >
-        <img
+        {/* <img
           src={bottomarrow}
           css={css`
             width: 74px;
@@ -109,28 +125,27 @@ const MainPage = () => {
               behavior: 'smooth',
             });
           }}
-        />
+        /> */}
         <div
           css={css`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 1.25rem;
-            margin-left: 280px;
             height: 96px;
             flex-wrap: nowrap;
             background-color: var(--background_color_01);
+            width: 100%;
           `}
         >
-          <Day time={'저녁'} />
-          <DinnerTime />
+          <Day time={'저녁'} showArrows={false} />
+          {/* <DinnerTime /> */}
         </div>
         <div
           css={css`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 36px;
+            // margin-top: 36px;
             /* margin-left: 20px; */
           `}
         >
@@ -153,4 +168,5 @@ const MainPage = () => {
     </div>
   );
 };
+
 export default MainPage;
