@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { useRef, useState } from 'react';
-import monthBtn from '/monthBtn.svg';
 import shareBtn from '/shareBtn.svg';
 import icClose from '/icClose.svg';
 import Modal from './modal/Modal';

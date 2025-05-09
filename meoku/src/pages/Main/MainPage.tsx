@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/react';
+import { css } from '@emotion/react';
 import Navbar from '../../components/Navbar';
 import Weather from '../../components/Weather';
 import Day from '../../components/Day';
@@ -12,21 +12,11 @@ import { fetchMenuData } from '../../api/menuApi';
 import { defaultMenuData } from '../../utils/defaultMenuData';
 import { firstMenu } from '../../type/type';
 import DailyMenu from '../../components/DailyMenu';
-import bottomarrow from '/bottonarrow.svg';
-import DinnerTime from '../../components/DinnerTime';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 interface RequestData {
   date: string;
 }
 
-const moveUpDown = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-`;
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
   const requestData: RequestData = {
