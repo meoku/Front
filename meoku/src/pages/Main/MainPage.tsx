@@ -13,6 +13,8 @@ import { defaultMenuData } from '../../utils/defaultMenuData';
 import { firstMenu } from '../../type/type';
 import DailyMenu from '../../components/DailyMenu';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
+import FloatingButton from '../../components/FloatingButton';
+
 interface RequestData {
   date: string;
 }
@@ -165,6 +167,9 @@ const MainPage = () => {
           })}
         </div>
       </div>
+      <FloatingButton onClick={() => console.log('clicked!')}>
+        <span></span>
+      </FloatingButton>
     </div>
   );
 };
