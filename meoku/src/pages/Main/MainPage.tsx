@@ -167,9 +167,7 @@ const MainPage = () => {
           })}
         </div>
       </div>
-      <FloatingButton onClick={() => console.log('clicked!')}>
-        <span></span>
-      </FloatingButton>
+      <FloatingButton />
     </div>
   );
 };

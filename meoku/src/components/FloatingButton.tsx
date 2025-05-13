@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import ServicePrepareModal from './modal/ServicePrepareModal';
@@ -25,6 +25,7 @@ const FloatingButtonContainer = styled.button`
   background-position: center;
   background-repeat: no-repeat;
   z-index: 1000;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 
   &:hover {
     transform: scale(1.05);
@@ -35,10 +36,45 @@ const FloatingButtonContainer = styled.button`
   }
 `;
 
+const Tooltip = styled.div<{ isVisible: boolean }>`
+  position: fixed;
+  bottom: 130px;
+  left: calc(100% - 300px);
+  background-color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  color: #333;
+  word-wrap: break-word;
+  z-index: 999;
+  min-width: 240px;
+  max-width: 300px;
+  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  transform: translateX(${(props) => (props.isVisible ? '0' : '-20px')});
+  transition: all 0.3s ease;
+  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
+  pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
+  text-align: left;
+  width: fit-content;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 65px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid white;
+  }
+`;
+
 const MenuButton = styled.button<{ isVisible: boolean; index: number }>`
   position: fixed;
   bottom: ${(props) => 116 + props.index * 66}px;
-  right: 56px;
+  right: 50px;
   height: 56px;
   padding: 0 24px;
   border-radius: 28px;
@@ -53,6 +89,8 @@ const MenuButton = styled.button<{ isVisible: boolean; index: number }>`
   align-items: center;
   justify-content: center;
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
+  pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
   transform: translateX(${(props) => (props.isVisible ? '0' : '20px')});
   transition: all 0.3s ease;
   z-index: ${(props) => 999 - props.index};
@@ -73,11 +111,46 @@ interface FloatingButtonProps {
 const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const navigate = useNavigate();
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isMenuVisible) {
+        setShowTooltip(true);
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [isMenuVisible]);
 
   const handleClick = () => {
     setIsMenuVisible(!isMenuVisible);
+    setShowTooltip(false);
     onClick?.();
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuVisible(false);
+        setShowTooltip(true);
+      }
+    };
+
+    if (isMenuVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuVisible]);
+
+  const handleMenuItemClick = (onClick: () => void) => {
+    onClick();
+    setShowTooltip(false);
   };
 
   const menuItems = [
@@ -86,6 +159,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
       onClick: () => {
         navigate('/suggest');
         setIsMenuVisible(false);
+        setShowTooltip(true);
       },
     },
     {
@@ -93,6 +167,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
       onClick: () => {
         setIsModalOpen(true);
         setIsMenuVisible(false);
+        setShowTooltip(true);
       },
     },
     {
@@ -100,20 +175,29 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
       onClick: () => {
         setIsModalOpen(true);
         setIsMenuVisible(false);
+        setShowTooltip(true);
       },
     },
   ];
 
   return (
-    <>
+    <div ref={menuRef}>
+      <Tooltip isVisible={showTooltip && !isMenuVisible}>
+        혹시 오늘 메뉴가 마음에 들지 않으신가요?
+      </Tooltip>
       {menuItems.map((item, index) => (
-        <MenuButton key={index} isVisible={isMenuVisible} index={index} onClick={item.onClick}>
+        <MenuButton
+          key={index}
+          isVisible={isMenuVisible}
+          index={index}
+          onClick={() => handleMenuItemClick(item.onClick)}
+        >
           {item.text}
         </MenuButton>
       ))}
       <FloatingButtonContainer onClick={handleClick} />
       <ServicePrepareModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </>
+    </div>
   );
 };
 
