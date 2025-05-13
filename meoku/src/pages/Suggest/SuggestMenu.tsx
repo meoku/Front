@@ -8,11 +8,15 @@ interface MenuItem {
   isNew?: boolean;
 }
 
+type SuggestionType = 'anchor' | 'menu' | null;
+
 const SuggestMenu = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MenuItem[]>([]);
   const [selectedMenus, setSelectedMenus] = useState<MenuItem[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [suggestionType, setSuggestionType] = useState<SuggestionType>(null);
+  const [reason, setReason] = useState<string>('');
   const searchRef = useRef<HTMLDivElement>(null);
 
   // 더미 데이터 - 실제로는 API로 받아올 예정
@@ -84,6 +88,7 @@ const SuggestMenu = () => {
         align-items: center;
         justify-content: center;
         padding: 2rem;
+        box-sizing: border-box;
       `}
     >
       <div
@@ -94,13 +99,14 @@ const SuggestMenu = () => {
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
           width: 100%;
           max-width: 64rem;
+          box-sizing: border-box;
         `}
       >
         <h1
           css={css`
             font-size: 2rem;
             font-weight: bold;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             text-align: center;
           `}
         >
@@ -109,9 +115,53 @@ const SuggestMenu = () => {
 
         <div
           css={css`
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+          `}
+        >
+          <button
+            css={css`
+              padding: 0.75rem 1.5rem;
+              border-radius: 9999px;
+              border: 1px solid #e5e7eb;
+              background-color: ${suggestionType === 'anchor' ? '#FF3C00' : 'white'};
+              color: ${suggestionType === 'anchor' ? 'white' : '#374151'};
+              font-weight: 500;
+              cursor: pointer;
+              transition: all 0.2s;
+              &:hover {
+                background-color: ${suggestionType === 'anchor' ? '#FF3C00' : '#f3f4f6'};
+              }
+            `}
+            onClick={() => setSuggestionType('anchor')}
+          >
+            앵콜 요청
+          </button>
+          <button
+            css={css`
+              padding: 0.75rem 1.5rem;
+              border-radius: 9999px;
+              border: 1px solid #e5e7eb;
+              background-color: ${suggestionType === 'menu' ? '#FF3C00' : 'white'};
+              color: ${suggestionType === 'menu' ? 'white' : '#374151'};
+              font-weight: 500;
+              cursor: pointer;
+              transition: all 0.2s;
+              &:hover {
+                background-color: ${suggestionType === 'menu' ? '#FF3C00' : '#f3f4f6'};
+              }
+            `}
+            onClick={() => setSuggestionType('menu')}
+          >
+            메뉴 제안
+          </button>
+        </div>
+
+        <div
+          css={css`
             position: relative;
             margin: 0 auto;
-            max-width: 48rem;
             width: 100%;
           `}
           ref={searchRef}
@@ -121,11 +171,14 @@ const SuggestMenu = () => {
               display: flex;
               align-items: center;
               background-color: #f3f4f6;
-              border-radius: 9999px;
+              // border-radius: 9999px;
+              border-radius: 0.75rem;
               padding: 0.75rem 1.25rem;
               transition: all 0.2s;
+              border: 1px solid #e5e7eb;
               &:focus-within {
                 background-color: white;
+                border-color: #ff3c00;
                 box-shadow:
                   0 4px 6px -1px rgba(0, 0, 0, 0.1),
                   0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -143,8 +196,13 @@ const SuggestMenu = () => {
                 border: none;
                 background: transparent;
                 font-size: 1rem;
+                color: #374151;
+                font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
                 &:focus {
                   outline: none;
+                }
+                &::placeholder {
+                  color: #9ca3af;
                 }
               `}
             />
@@ -256,6 +314,87 @@ const SuggestMenu = () => {
                 </div>
               )
             ))}
+        </div>
+
+        <div
+          css={css`
+            margin-top: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+          `}
+        >
+          <textarea
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder="이유를 입력해주세요..."
+            css={css`
+              width: 100%;
+              min-height: 120px;
+              padding: 1rem;
+              border: 1px solid #e5e7eb;
+              border-radius: 0.75rem;
+              resize: vertical;
+              font-size: 1rem;
+              background-color: #f3f4f6;
+              color: #374151;
+              box-sizing: border-box;
+              font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+              &:focus {
+                outline: none;
+                border-color: #ff3c00;
+                background-color: white;
+                box-shadow:
+                  0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+              }
+              &::placeholder {
+                color: #9ca3af;
+              }
+            `}
+          />
+        </div>
+
+        <div
+          css={css`
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+          `}
+        >
+          <button
+            css={css`
+              width: 100%;
+              padding: 1rem;
+              background-color: #ff3c00;
+              color: white;
+              border: none;
+              border-radius: 0.75rem;
+              font-weight: 600;
+              font-size: 1.125rem;
+              cursor: pointer;
+              transition: background-color 0.2s;
+              &:hover {
+                background-color: #e63500;
+              }
+            `}
+          >
+            제안하기
+          </button>
+
+          <p
+            css={css`
+              color: #6b7280;
+              font-size: 0.875rem;
+              text-align: center;
+              line-height: 1.5;
+            `}
+          >
+            소중한 의견 감사합니다. 등록해 주신 의견은 취합하여 영양사 선생님께 주기적으로
+            전달됩니다.
+          </p>
         </div>
 
         <div
