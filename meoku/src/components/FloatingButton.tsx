@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import ServicePrepareModal from './modal/ServicePrepareModal';
 
 const FloatingButtonContainer = styled.button`
   position: fixed;
@@ -71,6 +72,7 @@ interface FloatingButtonProps {
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -86,8 +88,20 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
         setIsMenuVisible(false);
       },
     },
-    { text: '맛집 리스트', onClick: () => console.log('맛집 리스트') },
-    { text: 'AI추천', onClick: () => console.log('AI추천') },
+    {
+      text: '맛집 리스트',
+      onClick: () => {
+        setIsModalOpen(true);
+        setIsMenuVisible(false);
+      },
+    },
+    {
+      text: 'AI추천',
+      onClick: () => {
+        setIsModalOpen(true);
+        setIsMenuVisible(false);
+      },
+    },
   ];
 
   return (
@@ -98,6 +112,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
         </MenuButton>
       ))}
       <FloatingButtonContainer onClick={handleClick} />
+      <ServicePrepareModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
