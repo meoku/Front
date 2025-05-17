@@ -119,7 +119,7 @@ const LoginBtn = styled.button`
   margin: 40px auto 0 auto;
   color: #ffffff;
   @media (max-width: 768px) {
-    width: 322px; 
+    width: 322px;
     height: 38px;
     margin: 24px auto 0 auto;
   }
