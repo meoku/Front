@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import ServicePrepareModal from './modal/ServicePrepareModal';
 
 const FloatingButtonContainer = styled.button`
   position: fixed;
   bottom: 50px;
-  right: 50px;
+  left: calc(50% + 600px + 10px);
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -24,7 +23,7 @@ const FloatingButtonContainer = styled.button`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 1000;
+  z-index: 999;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 
   &:hover {
@@ -39,7 +38,7 @@ const FloatingButtonContainer = styled.button`
 const Tooltip = styled.div<{ isVisible: boolean }>`
   position: fixed;
   bottom: 130px;
-  left: calc(100% - 300px);
+  left: calc(50% + 600px + 10px);
   background-color: white;
   padding: 16px 24px;
   border-radius: 12px;
@@ -48,10 +47,9 @@ const Tooltip = styled.div<{ isVisible: boolean }>`
   color: #333;
   word-wrap: break-word;
   z-index: 999;
-  min-width: 240px;
-  max-width: 300px;
+  max-width: 256px;
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
-  transform: translateX(${(props) => (props.isVisible ? '0' : '-20px')});
+  transform: translateX(${(props) => (props.isVisible ? '0' : '20px')});
   transition: all 0.3s ease;
   visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
@@ -62,7 +60,7 @@ const Tooltip = styled.div<{ isVisible: boolean }>`
     content: '';
     position: absolute;
     bottom: -8px;
-    right: 65px;
+    left: 20px;
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
@@ -74,7 +72,8 @@ const Tooltip = styled.div<{ isVisible: boolean }>`
 const MenuButton = styled.button<{ isVisible: boolean; index: number }>`
   position: fixed;
   bottom: ${(props) => 116 + props.index * 66}px;
-  right: 50px;
+  left: calc(50% + 600px + 10px);
+  //   right: 50px;
   height: 56px;
   padding: 0 24px;
   border-radius: 28px;
@@ -112,7 +111,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-  const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -157,7 +155,8 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
     {
       text: '원하는 메뉴 제안하기',
       onClick: () => {
-        navigate('/suggest');
+        // navigate('/suggest');
+        setIsModalOpen(true);
         setIsMenuVisible(false);
         setShowTooltip(true);
       },
@@ -182,9 +181,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
 
   return (
     <div ref={menuRef}>
-      <Tooltip isVisible={showTooltip && !isMenuVisible}>
-        혹시 오늘 메뉴가 마음에 들지 않으신가요?
-      </Tooltip>
+      <Tooltip isVisible={showTooltip && !isMenuVisible}>오늘 메뉴가 별로인가요?</Tooltip>
       {menuItems.map((item, index) => (
         <MenuButton
           key={index}

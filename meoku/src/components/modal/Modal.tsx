@@ -16,7 +16,7 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  /*     background-color: rgba(0, 0, 0, 0.5); */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,7 +33,7 @@ const ModalContent = styled.div<{
   background: #fff;
   border-radius: 15px;
   border: 1px solid var(--03, #ccc);
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
   position: absolute;
   width: ${(props) => props.width || '500px'};
   height: ${(props) => props.height || 'auto'};
@@ -53,8 +53,14 @@ const ModalContent = styled.div<{
 const Modal = ({ isOpen, onClose, children, position, width, height }: ModalProps) => {
   if (!isOpen) return null;
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <ModalOverlay onClick={onClose}>
+    <ModalOverlay onClick={handleOverlayClick}>
       <ModalContent
         width={width}
         height={height}
