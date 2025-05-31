@@ -20,6 +20,7 @@ import { fetchMenuData } from '../../api/menuApi';
 import { defaultMenuData } from '../../utils/defaultMenuData';
 import { fetchWeatherData } from '../../api/weatherApi';
 import { getWeatherImg } from '../../utils/weatherUtils';
+import MobileFloatingButton from './MobileFloatingButton';
 
 const MobileMain = styled.div`
   display: flex;
@@ -32,6 +33,22 @@ const MobileMain = styled.div`
   position: relative;
   z-index: 50;
 `;
+
+const PageContainer = styled.div`
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
+const ContentWrapper = styled.div`
+  height: 100%;
+  overflow: hidden;
+`;
+
 const MobileHeader = styled.div`
   display: flex;
   justify-content: space-around;
@@ -130,6 +147,17 @@ interface RequestData {
 interface NavigationMenuProps {
   isOpen: boolean;
 }
+const SliderContainer = styled.div`
+  position: relative;
+  height: 100%;
+`;
+
+const SliderContent = styled.div`
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+`;
+
 const MobileApp = () => {
   const [date, setDate] = useRecoilState(timeState);
   const [selectedDay, setSelectedDay] = useState(date.getDay());
@@ -205,7 +233,7 @@ const MobileApp = () => {
     }
   }, [selectedDay]);
   return (
-    <>
+    <PageContainer>
       <MobileMain>
         <Link to="/">
           <img
@@ -269,297 +297,304 @@ const MobileApp = () => {
           </NavigationMenu>
         </>
       )}
-      <MobileHeader>
-        <MobileWeather>
-          <img
-            src={`${
-              weatherData?.data?.responseBody?.precipitationType == '0'
-                ? getWeatherImg(false, weatherData?.data?.responseBody?.skyCondition)
-                : getWeatherImg(true, weatherData?.data?.responseBody?.precipitationType)
-            }`}
-            css={css`
-              width: 25.626px; // 수정 요구 필요
-              height: 27.222px;
-              padding: 2.5px 3.258px 2.278px 3.116px;
-            `}
-          />
-          <div
-            css={css`
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              margin-left: 1px;
-            `}
-          >
-            <h1
-              css={css`
-                color: var(--color_06);
-                text-align: right;
-                font-size: 23px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                padding-left: 1px;
-              `}
-            >
-              {`${
-                weatherData?.data?.responseBody?.temperature
-                  ? weatherData?.data?.responseBody?.temperature + '˚'
-                  : ''
+      <ContentWrapper>
+        <MobileHeader>
+          <MobileWeather>
+            <img
+              src={`${
+                weatherData?.data?.responseBody?.precipitationType == '0'
+                  ? getWeatherImg(false, weatherData?.data?.responseBody?.skyCondition)
+                  : getWeatherImg(true, weatherData?.data?.responseBody?.precipitationType)
               }`}
-            </h1>
-            <h1
               css={css`
-                color: var(--color_06);
-                text-align: right;
-                font-size: 7px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
+                width: 25.626px; // 수정 요구 필요
+                height: 27.222px;
+                padding: 2.5px 3.258px 2.278px 3.116px;
+              `}
+            />
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-left: 1px;
               `}
             >
-              서울특별시
-            </h1>
-          </div>
-        </MobileWeather>
-        <MobileDay>
-          <img
-            src={leftarrow}
-            alt="arrowImg"
-            onClick={() => {
-              setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000));
-              setSelectedDay(5);
-              sliderRef?.current?.slickGoTo(4);
-            }}
-          />
-          <div
-            onClick={() => {
-              if (date.getDate() == new Date().getDate()) return;
-              setDate(new Date());
-              setSelectedDay(new Date().getDay());
-              sliderRef?.current?.slickGoTo(new Date().getDay() - 1);
-            }}
-          >
-            <TextB20
-              css={css`
-                color: var(--color_01);
-                cursor: pointer;
-              `}
-            >
-              {getWeekOfMonth(date)}
-            </TextB20>
-          </div>
-          <img
-            src={rightarrow}
-            alt="arrowImg"
-            onClick={() => {
-              setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000));
-              setSelectedDay(1);
-              sliderRef?.current?.slickGoTo(0);
-            }}
-          />
-        </MobileDay>
-        <MobileSideBtn>
-          {/* <img src={icMonth} alt="arrowImg" /> */}
-          {/* <img src={icShare} alt="arrowImg" /> */}
-          {isModalOpen && <MobileModal closeModal={closeModal} />}
-          <button
-            css={css`
-              border: 1px solid black;
-              white-space: nowrap;
-              padding: 5px 10px;
-              background-color: #f9f9f9;
-            `}
-            onClick={openModal}
-          >
-            식단순서
-          </button>
-        </MobileSideBtn>
-      </MobileHeader>
-      <div>
-        <MobileDays>
-          {selectedDay == 1 ? (
-            date.getDay() === selectedDay && dayArr[0][1] == new Date().getDate() ? (
-              <MobileDayBtnSelectedToday
-                onClick={() => {
-                  setSelectedDay(1);
-                  sliderRef?.current?.slickGoTo(0);
-                }}
+              <h1
+                css={css`
+                  color: var(--color_06);
+                  text-align: right;
+                  font-size: 23px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                  padding-left: 1px;
+                `}
               >
-                월
-              </MobileDayBtnSelectedToday>
-            ) : (
-              <MobileDayBtnSelected
-                onClick={() => {
-                  setSelectedDay(1);
-                  sliderRef?.current?.slickGoTo(0);
-                }}
+                {`${
+                  weatherData?.data?.responseBody?.temperature
+                    ? weatherData?.data?.responseBody?.temperature + '˚'
+                    : ''
+                }`}
+              </h1>
+              <h1
+                css={css`
+                  color: var(--color_06);
+                  text-align: right;
+                  font-size: 7px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                `}
               >
-                월
-              </MobileDayBtnSelected>
-            )
-          ) : (
-            <MobileDayBtn
+                서울특별시
+              </h1>
+            </div>
+          </MobileWeather>
+          <MobileDay>
+            <img
+              src={leftarrow}
+              alt="arrowImg"
               onClick={() => {
-                setSelectedDay(1);
-                sliderRef?.current?.slickGoTo(0);
-              }}
-            >
-              월
-            </MobileDayBtn>
-          )}
-          {selectedDay == 2 ? (
-            date.getDay() === selectedDay && dayArr[1][1] == new Date().getDate() ? (
-              <MobileDayBtnSelectedToday
-                onClick={() => {
-                  setSelectedDay(2);
-                  sliderRef?.current?.slickGoTo(1);
-                }}
-              >
-                화
-              </MobileDayBtnSelectedToday>
-            ) : (
-              <MobileDayBtnSelected
-                onClick={() => {
-                  setSelectedDay(2);
-                  sliderRef?.current?.slickGoTo(1);
-                }}
-              >
-                화
-              </MobileDayBtnSelected>
-            )
-          ) : (
-            <MobileDayBtn
-              onClick={() => {
-                setSelectedDay(2);
-                sliderRef?.current?.slickGoTo(1);
-              }}
-            >
-              화
-            </MobileDayBtn>
-          )}
-          {selectedDay == 3 ? (
-            date.getDay() === selectedDay && dayArr[2][1] == new Date().getDate() ? (
-              <MobileDayBtnSelectedToday
-                onClick={() => {
-                  setSelectedDay(3);
-                  sliderRef?.current?.slickGoTo(2);
-                }}
-              >
-                수
-              </MobileDayBtnSelectedToday>
-            ) : (
-              <MobileDayBtnSelected
-                onClick={() => {
-                  setSelectedDay(3);
-                  sliderRef?.current?.slickGoTo(2);
-                }}
-              >
-                수
-              </MobileDayBtnSelected>
-            )
-          ) : (
-            <MobileDayBtn
-              onClick={() => {
-                setSelectedDay(3);
-                sliderRef?.current?.slickGoTo(2);
-              }}
-            >
-              수
-            </MobileDayBtn>
-          )}
-          {selectedDay == 4 ? (
-            date.getDay() === selectedDay && dayArr[3][1] == new Date().getDate() ? (
-              <MobileDayBtnSelectedToday
-                onClick={() => {
-                  setSelectedDay(4);
-                  sliderRef?.current?.slickGoTo(3);
-                }}
-              >
-                목
-              </MobileDayBtnSelectedToday>
-            ) : (
-              <MobileDayBtnSelected
-                onClick={() => {
-                  setSelectedDay(4);
-                  sliderRef?.current?.slickGoTo(3);
-                }}
-              >
-                목
-              </MobileDayBtnSelected>
-            )
-          ) : (
-            <MobileDayBtn
-              onClick={() => {
-                setSelectedDay(4);
-                sliderRef?.current?.slickGoTo(3);
-              }}
-            >
-              목
-            </MobileDayBtn>
-          )}
-          {selectedDay == 5 ? (
-            date.getDay() === selectedDay && dayArr[4][1] == new Date().getDate() ? (
-              <MobileDayBtnSelectedToday
-                onClick={() => {
-                  setSelectedDay(5);
-                  sliderRef?.current?.slickGoTo(4);
-                }}
-              >
-                금
-              </MobileDayBtnSelectedToday>
-            ) : (
-              <MobileDayBtnSelected
-                onClick={() => {
-                  setSelectedDay(5);
-                  sliderRef?.current?.slickGoTo(4);
-                }}
-              >
-                금
-              </MobileDayBtnSelected>
-            )
-          ) : (
-            <MobileDayBtn
-              onClick={() => {
+                setDate(new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000));
                 setSelectedDay(5);
                 sliderRef?.current?.slickGoTo(4);
               }}
+            />
+            <div
+              onClick={() => {
+                if (date.getDate() == new Date().getDate()) return;
+                setDate(new Date());
+                setSelectedDay(new Date().getDay());
+                sliderRef?.current?.slickGoTo(new Date().getDay() - 1);
+              }}
             >
-              금
-            </MobileDayBtn>
-          )}
-        </MobileDays>
-        <Slider {...settings} ref={sliderRef}>
-          {menuData?.map((menu: firstMenu, index: number) => {
-            return (
-              <div key={`menu-slide-${index}`}>
-                <MobileDailyMenu
-                  key={index + 'mobile'}
-                  dayWeek={dayArr[index][0]}
-                  day={dayArr[index][1]}
-                  menuData={menu}
-                  isToday={
-                    dayArr[index][1] == new Date().getDate() &&
-                    date.getMonth() == new Date().getMonth()
-                  }
-                />
-                <MobileDailyDinnerMenu
-                  key={index + 'mobileDinner'}
-                  dayWeek={dayArr[index][0]}
-                  day={dayArr[index][1]}
-                  menuData={menu}
-                  isToday={
-                    dayArr[index][1] == new Date().getDate() &&
-                    date.getMonth() == new Date().getMonth()
-                  }
-                />
-              </div>
-            );
-          })}
-        </Slider>
-      </div>
-    </>
+              <TextB20
+                css={css`
+                  color: var(--color_01);
+                  cursor: pointer;
+                `}
+              >
+                {getWeekOfMonth(date)}
+              </TextB20>
+            </div>
+            <img
+              src={rightarrow}
+              alt="arrowImg"
+              onClick={() => {
+                setDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000));
+                setSelectedDay(1);
+                sliderRef?.current?.slickGoTo(0);
+              }}
+            />
+          </MobileDay>
+          <MobileSideBtn>
+            {/* <img src={icMonth} alt="arrowImg" /> */}
+            {/* <img src={icShare} alt="arrowImg" /> */}
+            {isModalOpen && <MobileModal closeModal={closeModal} />}
+            <button
+              css={css`
+                border: 1px solid black;
+                white-space: nowrap;
+                padding: 5px 10px;
+                background-color: #f9f9f9;
+              `}
+              onClick={openModal}
+            >
+              식단순서
+            </button>
+          </MobileSideBtn>
+        </MobileHeader>
+        <div>
+          <MobileDays>
+            {selectedDay == 1 ? (
+              date.getDay() === selectedDay && dayArr[0][1] == new Date().getDate() ? (
+                <MobileDayBtnSelectedToday
+                  onClick={() => {
+                    setSelectedDay(1);
+                    sliderRef?.current?.slickGoTo(0);
+                  }}
+                >
+                  월
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected
+                  onClick={() => {
+                    setSelectedDay(1);
+                    sliderRef?.current?.slickGoTo(0);
+                  }}
+                >
+                  월
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn
+                onClick={() => {
+                  setSelectedDay(1);
+                  sliderRef?.current?.slickGoTo(0);
+                }}
+              >
+                월
+              </MobileDayBtn>
+            )}
+            {selectedDay == 2 ? (
+              date.getDay() === selectedDay && dayArr[1][1] == new Date().getDate() ? (
+                <MobileDayBtnSelectedToday
+                  onClick={() => {
+                    setSelectedDay(2);
+                    sliderRef?.current?.slickGoTo(1);
+                  }}
+                >
+                  화
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected
+                  onClick={() => {
+                    setSelectedDay(2);
+                    sliderRef?.current?.slickGoTo(1);
+                  }}
+                >
+                  화
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn
+                onClick={() => {
+                  setSelectedDay(2);
+                  sliderRef?.current?.slickGoTo(1);
+                }}
+              >
+                화
+              </MobileDayBtn>
+            )}
+            {selectedDay == 3 ? (
+              date.getDay() === selectedDay && dayArr[2][1] == new Date().getDate() ? (
+                <MobileDayBtnSelectedToday
+                  onClick={() => {
+                    setSelectedDay(3);
+                    sliderRef?.current?.slickGoTo(2);
+                  }}
+                >
+                  수
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected
+                  onClick={() => {
+                    setSelectedDay(3);
+                    sliderRef?.current?.slickGoTo(2);
+                  }}
+                >
+                  수
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn
+                onClick={() => {
+                  setSelectedDay(3);
+                  sliderRef?.current?.slickGoTo(2);
+                }}
+              >
+                수
+              </MobileDayBtn>
+            )}
+            {selectedDay == 4 ? (
+              date.getDay() === selectedDay && dayArr[3][1] == new Date().getDate() ? (
+                <MobileDayBtnSelectedToday
+                  onClick={() => {
+                    setSelectedDay(4);
+                    sliderRef?.current?.slickGoTo(3);
+                  }}
+                >
+                  목
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected
+                  onClick={() => {
+                    setSelectedDay(4);
+                    sliderRef?.current?.slickGoTo(3);
+                  }}
+                >
+                  목
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn
+                onClick={() => {
+                  setSelectedDay(4);
+                  sliderRef?.current?.slickGoTo(3);
+                }}
+              >
+                목
+              </MobileDayBtn>
+            )}
+            {selectedDay == 5 ? (
+              date.getDay() === selectedDay && dayArr[4][1] == new Date().getDate() ? (
+                <MobileDayBtnSelectedToday
+                  onClick={() => {
+                    setSelectedDay(5);
+                    sliderRef?.current?.slickGoTo(4);
+                  }}
+                >
+                  금
+                </MobileDayBtnSelectedToday>
+              ) : (
+                <MobileDayBtnSelected
+                  onClick={() => {
+                    setSelectedDay(5);
+                    sliderRef?.current?.slickGoTo(4);
+                  }}
+                >
+                  금
+                </MobileDayBtnSelected>
+              )
+            ) : (
+              <MobileDayBtn
+                onClick={() => {
+                  setSelectedDay(5);
+                  sliderRef?.current?.slickGoTo(4);
+                }}
+              >
+                금
+              </MobileDayBtn>
+            )}
+          </MobileDays>
+          <SliderContainer>
+            <Slider {...settings} ref={sliderRef}>
+              {menuData?.map((menu: firstMenu, index: number) => {
+                return (
+                  <div key={`menu-slide-${index}`}>
+                    <SliderContent>
+                      <MobileDailyMenu
+                        key={index + 'mobile'}
+                        dayWeek={dayArr[index][0]}
+                        day={dayArr[index][1]}
+                        menuData={menu}
+                        isToday={
+                          dayArr[index][1] == new Date().getDate() &&
+                          date.getMonth() == new Date().getMonth()
+                        }
+                      />
+                      <MobileDailyDinnerMenu
+                        key={index + 'mobileDinner'}
+                        dayWeek={dayArr[index][0]}
+                        day={dayArr[index][1]}
+                        menuData={menu}
+                        isToday={
+                          dayArr[index][1] == new Date().getDate() &&
+                          date.getMonth() == new Date().getMonth()
+                        }
+                      />
+                    </SliderContent>
+                  </div>
+                );
+              })}
+            </Slider>
+          </SliderContainer>
+        </div>
+      </ContentWrapper>
+      <MobileFloatingButton />
+    </PageContainer>
   );
 };
 export default MobileApp;

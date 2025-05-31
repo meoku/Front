@@ -7,25 +7,26 @@ const MobileMainDiv = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const MobileMenuTitle = styled.div`
   display: flex;
-  justify-content: flex-start;
-  width: 30%;
-  height: 100%;
-  position: relative;
-  top: 1.5rem;
-  left: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
 `;
+
 const MobileMenuContent = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
-  padding-left: 2rem;
-  width: 80%;
+  width: 100%;
 `;
+
 const MobileMainMenuDiv = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
@@ -33,8 +34,10 @@ const MobileMainMenuDiv = styled.div`
   background-color: var(--background_color_02);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 0.4rem auto;
+  padding: 1rem 0;
 `;
-const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
+
+const MobileTodayDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
   const isNA = (value: string): string | JSX.Element => {
     if (value === 'N/A') {
       return '';
@@ -51,13 +54,10 @@ const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMen
     border-radius: 10px;
     background-color: ${isToday ? 'var(--color_01)' : 'var(--color_05)'};
     color: var(--background_color_02);
+    margin-top: 12px;
   `;
   return menuData?.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
-    <div
-      css={css`
-        margin-top: 20px;
-      `}
-    >
+    <>
       <MobileMainDiv>
         <MobileMenuHeader>
           <TextB16
@@ -86,7 +86,7 @@ const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMen
           <MobileMenuContent>
             <TextR16
               css={css`
-                margin-top: 1.5rem;
+                margin-top: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[4].subBridgeList[0].menuItemName)}
@@ -122,7 +122,7 @@ const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMen
             <TextR16
               css={css`
                 margin-top: 0.5rem;
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[4]?.subBridgeList[5]?.menuItemName)}
@@ -138,7 +138,7 @@ const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMen
           <MobileMenuContent>
             <TextR16
               css={css`
-                margin-top: 1.5rem;
+                margin-top: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[5].subBridgeList[0].menuItemName)}
@@ -153,7 +153,7 @@ const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMen
             <TextR16
               css={css`
                 margin-top: 0.5rem;
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[5]?.subBridgeList[2]?.menuItemName)}
@@ -161,18 +161,10 @@ const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMen
           </MobileMenuContent>
         </MobileMainMenuDiv>
       </MobileMainDiv>
-    </div>
+    </>
   ) : (
-    <div
-      css={css`
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        border-radius: 18px;
-        /* margin: 0px 9px 30px 9px; */
-        margin: 0px 9px;
-        background-color: var(--color_02);
-      `}
-    ></div>
+    <></>
   );
 };
 
-export default MobileDailyDinnerMenu;
+export default MobileTodayDailyDinnerMenu;
