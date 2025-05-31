@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
-import ServicePrepareModal from './modal/ServicePrepareModal';
+import ServicePrepareModal from '../modal/ServicePrepareModal';
+import { TextB16, TextR14 } from '../common/Text';
 
 const FloatingButtonContainer = styled.button`
   position: fixed;
-  bottom: 50px;
-  left: calc(50% + 600px + 10px);
-  width: 56px;
-  height: 56px;
+  bottom: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background-color: transparent;
   color: white;
@@ -36,14 +37,14 @@ const FloatingButtonContainer = styled.button`
 `;
 
 const TooltipTitle = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #333;
 `;
 
 const TooltipContent = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
   color: #666;
 `;
@@ -55,7 +56,7 @@ const TooltipHighlight = styled.span`
 
 const TooltipLink = styled.a`
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 6px;
   color: var(--color_01);
   text-decoration: none;
   font-weight: 500;
@@ -67,16 +68,16 @@ const TooltipLink = styled.a`
 
 const Tooltip = styled.div<{ isVisible: boolean }>`
   position: fixed;
-  bottom: 130px;
-  left: calc(50% + 600px + 10px);
+  bottom: 80px;
+  right: 20px;
   background-color: white;
-  padding: 16px 24px;
+  padding: 12px 16px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   z-index: 999;
-  max-width: 256px;
+  max-width: 200px;
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
-  transform: translateX(${(props) => (props.isVisible ? '0' : '20px')});
+  transform: translateY(${(props) => (props.isVisible ? '0' : '20px')});
   transition: all 0.3s ease;
   visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
@@ -87,7 +88,7 @@ const Tooltip = styled.div<{ isVisible: boolean }>`
     content: '';
     position: absolute;
     bottom: -8px;
-    left: 20px;
+    right: 20px;
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
@@ -98,18 +99,17 @@ const Tooltip = styled.div<{ isVisible: boolean }>`
 
 const MenuButton = styled.button<{ isVisible: boolean; index: number }>`
   position: fixed;
-  bottom: ${(props) => 116 + props.index * 66}px;
-  left: calc(50% + 600px + 10px);
-  //   right: 50px;
-  height: 56px;
-  padding: 0 24px;
-  border-radius: 28px;
+  bottom: ${(props) => 76 + props.index * 56}px;
+  right: 20px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 20px;
   background-color: white;
   color: #333;
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -117,12 +117,12 @@ const MenuButton = styled.button<{ isVisible: boolean; index: number }>`
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
-  transform: translateX(${(props) => (props.isVisible ? '0' : '20px')});
+  transform: translateY(${(props) => (props.isVisible ? '0' : '20px')});
   transition: all 0.3s ease;
   z-index: ${(props) => 999 - props.index};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
-  width: 180px;
+  width: 140px;
 
   &:hover {
     background-color: #f5f5f5;
@@ -134,7 +134,7 @@ interface FloatingButtonProps {
   children?: React.ReactNode;
 }
 
-const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
+const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -182,7 +182,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
     {
       text: '원하는 메뉴 제안하기',
       onClick: () => {
-        // navigate('/suggest');
         setIsModalOpen(true);
         setIsMenuVisible(false);
         setShowTooltip(true);
@@ -255,4 +254,4 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   );
 };
 
-export default FloatingButton;
+export default MobileFloatingButton;
