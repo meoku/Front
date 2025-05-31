@@ -136,7 +136,7 @@ interface FloatingButtonProps {
 const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -144,13 +144,17 @@ const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
       if (!isMenuVisible) {
         setShowTooltip(true);
       }
-    }, 3000);
+    }, 20000);
 
     return () => clearTimeout(timer);
   }, [isMenuVisible]);
 
   const handleClick = () => {
-    setIsMenuVisible(!isMenuVisible);
+    if (showTooltip) {
+      setIsMenuVisible(false);
+    } else {
+      setIsMenuVisible(!isMenuVisible);
+    }
     setShowTooltip(false);
     onClick?.();
   };
