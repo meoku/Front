@@ -13,6 +13,7 @@ import LoginPage from './pages/Login/LoginPage.tsx';
 import { isAdminCheckApi } from './api/userApi.ts';
 import Loading from './components/common/Loading.tsx';
 import Suggest from './pages/Suggest/SuggestMenu.tsx';
+import SignUpPage from './pages/SignUp/SignUpPage.tsx';
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem('access_token');
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
   },
   {
     path: '/suggest',

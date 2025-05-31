@@ -21,3 +21,18 @@ export const isAdminCheckApi = async () => {
   const response = await axiosInstance.get("/admin/getAdminYn");
   return response.status;
 };
+
+export const checkDuplicateId = async (id: string) => {
+  const response = await axiosInstance.post(`/auth/checkDuplicateId?checkedId=${id}`);
+  return response.data;
+};
+
+export const signUpApi = async (id: string, password: string, sex: string, age: string) => {
+  const response = await axiosInstance.post("/auth/signup", {
+    id,
+    password,
+    sex,
+    age,
+  });
+  return response.data;
+};

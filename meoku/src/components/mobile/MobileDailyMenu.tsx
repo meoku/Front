@@ -10,23 +10,23 @@ const MobileMainDiv = styled.div`
 
 const MobileMenuTitle = styled.div`
   display: flex;
-  justify-content: flex-start;
-  width: 30%;
-  height: 100%;
-  position: relative;
-  top: 1.5rem;
-  left: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
 `;
+
 const MobileMenuContent = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
-  padding-left: 2rem;
-  width: 80%;
+  width: 100%;
 `;
+
 const MobileMainMenuDiv = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
@@ -34,7 +34,9 @@ const MobileMainMenuDiv = styled.div`
   background-color: var(--background_color_02);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 0.4rem auto;
+  padding: 1rem 0;
 `;
+
 const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
   const isNA = (value: string): string | JSX.Element => {
     if (value === 'N/A') {
@@ -84,7 +86,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
           <MobileMenuContent>
             <TextR16
               css={css`
-                margin-top: 1.5rem;
+                margin-top: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[0]?.subBridgeList[0]?.menuItemName)}
@@ -120,7 +122,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
             <TextR16
               css={css`
                 margin-top: 0.5rem;
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[0]?.subBridgeList[5]?.menuItemName)}
@@ -137,7 +139,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
             <MobileMenuContent>
               <TextR16
                 css={css`
-                  margin-top: 1.5rem;
+                  margin-top: 0.5rem;
                 `}
               >
                 {isNA(menuData.menuDetailsList[1]?.subBridgeList[0]?.menuItemName)}
@@ -173,7 +175,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
               <TextR16
                 css={css`
                   margin-top: 0.5rem;
-                  margin-bottom: 1rem;
+                  margin-bottom: 0.5rem;
                 `}
               >
                 {isNA(menuData.menuDetailsList[1]?.subBridgeList[5]?.menuItemName)}
@@ -192,7 +194,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
           <MobileMenuContent>
             <TextR16
               css={css`
-                margin-top: 1.5rem;
+                margin-top: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[2]?.subBridgeList[0]?.menuItemName)}
@@ -207,7 +209,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
             <TextR16
               css={css`
                 margin-top: 0.5rem;
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[2]?.subBridgeList[2]?.menuItemName)}
@@ -227,8 +229,8 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
           >
             <TextR16
               css={css`
-                margin-top: 1rem;
-                margin-bottom: 1rem;
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
               `}
             >
               {isNA(menuData.menuDetailsList[3]?.subBridgeList[0]?.menuItemName)}
