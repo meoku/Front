@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import ServicePrepareModal from '../modal/ServicePrepareModal';
-import { TextB16, TextR14 } from '../common/Text';
 
 const FloatingButtonContainer = styled.button`
   position: fixed;
