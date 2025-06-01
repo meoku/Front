@@ -399,6 +399,18 @@ const MobileApp = () => {
                 white-space: nowrap;
                 padding: 5px 10px;
                 background-color: #f9f9f9;
+                color: black;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                font-family: inherit;
+                font-size: inherit;
+                line-height: inherit;
+                text-decoration: none;
+                cursor: pointer;
+                &:hover {
+                  background-color: #f0f0f0;
+                }
               `}
               onClick={openModal}
             >

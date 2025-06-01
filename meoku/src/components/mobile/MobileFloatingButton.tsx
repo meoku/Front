@@ -35,6 +35,23 @@ const FloatingButtonContainer = styled.button`
   }
 `;
 
+const NotificationBadge = styled.div`
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--color_01);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+`;
+
 const TooltipTitle = styled.div`
   font-size: 14px;
   font-weight: 700;
@@ -134,47 +151,72 @@ interface FloatingButtonProps {
 }
 
 const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
+  // 상태 관리
+  const [isMenuVisible, setIsMenuVisible] = useState(false); // 메뉴 버튼들의 표시 여부
+  const [isModalOpen, setIsModalOpen] = useState(false); // 서비스 준비중 모달 표시 여부
+  const [showTooltip, setShowTooltip] = useState(false); // 말풍선 표시 여부
+  const [clickCount, setClickCount] = useState(0); // 플로팅 버튼 클릭 횟수 (0: 초기, 1: 말풍선, 2: 메뉴, 3: 닫기)
   const menuRef = useRef<HTMLDivElement>(null);
 
+  // 공지 기간 체크 (2025-06-03 이전까지)
+  const isNoticePeriod = new Date().toDateString() <= new Date('2025-06-03').toDateString();
+
+  // 페이지 로드 시 공지 기간이면 말풍선 표시
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isMenuVisible) {
-        setShowTooltip(true);
-      }
-    }, 3000);
+    if (isNoticePeriod) {
+      setShowTooltip(true);
+      setClickCount(1); // 공지 기간이면 첫 번째 상태(말풍선)로 시작
+    }
+  }, [isNoticePeriod]);
 
-    return () => clearTimeout(timer);
-  }, [isMenuVisible]);
-
+  // 플로팅 버튼 클릭 핸들러
   const handleClick = () => {
-    setIsMenuVisible(!isMenuVisible);
-    setShowTooltip(false);
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
+
+    switch (nextCount) {
+      case 1: // 첫 번째 클릭: 말풍선 표시
+        setShowTooltip(true);
+        setIsMenuVisible(false);
+        break;
+      case 2: // 두 번째 클릭: 말풍선 숨기고 메뉴 표시
+        setShowTooltip(false);
+        setIsMenuVisible(true);
+        break;
+      case 3: // 세 번째 클릭: 모든 요소 닫기
+        setShowTooltip(false);
+        setIsMenuVisible(false);
+        setClickCount(0); // 상태 초기화
+        break;
+    }
     onClick?.();
   };
 
+  // 외부 클릭 감지 (말풍선이나 메뉴가 열려있을 때)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuVisible(false);
-        setShowTooltip(true);
+        setShowTooltip(false);
+        setClickCount(0); // 외부 클릭 시 모든 상태 초기화
       }
     };
 
-    if (isMenuVisible) {
+    if (isMenuVisible || showTooltip) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMenuVisible]);
+  }, [isMenuVisible, showTooltip]);
 
+  // 메뉴 아이템 클릭 핸들러
   const handleMenuItemClick = (onClick: () => void) => {
     onClick();
     setShowTooltip(false);
+    setIsMenuVisible(false);
+    setClickCount(0); // 메뉴 클릭 시 모든 상태 초기화
   };
 
   const menuItems = [
@@ -207,7 +249,7 @@ const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   return (
     <div ref={menuRef}>
       <Tooltip isVisible={showTooltip && !isMenuVisible}>
-        {new Date().toDateString() <= new Date('2025-06-03').toDateString() ? (
+        {isNoticePeriod ? (
           <>
             <TooltipTitle>[공지]직원식당 평가단 모집!</TooltipTitle>
             <TooltipContent>
@@ -222,7 +264,7 @@ const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
               <br />
               활동 기간: 6/9 ~ 6/20 (2주간)
               <br />
-              <TooltipHighlight>혜택: 모바일 상품권 1만원 증정!</TooltipHighlight>
+              <TooltipHighlight>혜택: 다이소 모바일 상품권 1만원 증정!</TooltipHighlight>
               <br />
               <TooltipLink
                 href="https://answer.moaform.com/answers/MPV01D"
@@ -247,7 +289,9 @@ const MobileFloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
           {item.text}
         </MenuButton>
       ))}
-      <FloatingButtonContainer onClick={handleClick} />
+      <FloatingButtonContainer onClick={handleClick}>
+        {isNoticePeriod && <NotificationBadge>1</NotificationBadge>}
+      </FloatingButtonContainer>
       <ServicePrepareModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
