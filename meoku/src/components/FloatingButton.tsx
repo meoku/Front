@@ -159,7 +159,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   // 공지 기간 체크 (2025-06-03 이전까지)
-  const isNoticePeriod = new Date().toDateString() <= new Date('2025-06-03').toDateString();
+  const isNoticePeriod = new Date() <= new Date('2025-06-03');
 
   // 페이지 로드 시 공지 기간이면 말풍선 표시
   useEffect(() => {
