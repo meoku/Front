@@ -14,6 +14,22 @@ import { isAdminCheckApi } from './api/userApi.ts';
 import Loading from './components/common/Loading.tsx';
 import Suggest from './pages/Suggest/SuggestMenu.tsx';
 import SignUpPage from './pages/SignUp/SignUpPage.tsx';
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({
+  onNeedRefresh() {
+    location.reload(); // 새 버전 있으면 자동 새로고침
+  },
+  onRegistered(sw: { update: () => void }) {
+    sw?.update(); // 앱 실행 시 확인
+    setInterval(
+      () => {
+        sw?.update();
+      },
+      5 * 60 * 1000,
+    ); // 5분마다 새 버전 확인
+  },
+});
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem('access_token');
@@ -29,7 +45,7 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
           setIsAdmin(false);
         }
       } catch (err) {
-        alert('관리자가 아닙니다.');
+        alert('관리자가 아닙니다.!');
         window.location.href = '/login';
         console.error('관리자 여부 확인 실패:', err);
         setIsAdmin(false);

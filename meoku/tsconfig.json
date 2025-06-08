@@ -23,6 +23,6 @@
     "types": ["vite/client", "@emotion/react/types/css-prop", "node"],
     "jsxImportSource": "@emotion/react"
   },
-  "include": ["src"],
+  "include": ["src", "src/types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
