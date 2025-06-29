@@ -146,20 +146,21 @@ const MainPage = () => {
             /* margin-left: 20px; */
           `}
         >
-          {menuData.map((menu: firstMenu, index: number) => {
-            return (
-              <DailyDinnerMenu
-                key={index}
-                dayWeek={dayArr[index][0]}
-                day={dayArr[index][1]}
-                menuData={menu}
-                isToday={
-                  dayArr[index][1] == new Date().getDate() &&
-                  date.getMonth() == new Date().getMonth()
-                }
-              />
-            );
-          })}
+          {Array.isArray(menuData) &&
+            menuData.map((menu: firstMenu, index: number) => {
+              return (
+                <DailyDinnerMenu
+                  key={index}
+                  dayWeek={dayArr[index][0]}
+                  day={dayArr[index][1]}
+                  menuData={menu}
+                  isToday={
+                    dayArr[index][1] == new Date().getDate() &&
+                    date.getMonth() == new Date().getMonth()
+                  }
+                />
+              );
+            })}
         </div>
       </div>
       <FloatingButton />
