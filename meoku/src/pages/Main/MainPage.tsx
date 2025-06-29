@@ -15,20 +15,15 @@ import DailyMenu from '../../components/DailyMenu';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 import FloatingButton from '../../components/FloatingButton';
 
-interface RequestData {
-  date: string;
-}
-
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
-  const requestData: RequestData = {
-    date: formatDate(date),
-  };
+  const formattedDate = formatDate(date);
 
   const { data: menuData } = useQuery({
-    queryKey: ['data', requestData],
-    queryFn: () => fetchMenuData(requestData),
-    initialData: defaultMenuData,
+    queryKey: ['menuData', formattedDate],
+    queryFn: () => fetchMenuData({ date: formattedDate }),
+    placeholderData: defaultMenuData,
+    staleTime: 5 * 60 * 1000,
   });
 
   const dayArr: [string | undefined, number][] = calculateDayArr(date);

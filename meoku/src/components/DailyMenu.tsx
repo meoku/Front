@@ -4,20 +4,17 @@ import { mainDailyMenuTime, tagData } from '../type/type';
 import { useQuery } from '@tanstack/react-query';
 import icNewTag from '/icNewTag.svg';
 import { fetchTagData } from '../api/menuApi';
-interface RequestData {
-  menuIdList: (number | undefined)[];
-}
+
 const DailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
   const menu1 = menuData?.menuDetailsList?.[0]?.subBridgeList?.[0]?.menuItemId;
   const menu2 = menuData?.menuDetailsList?.[0]?.subBridgeList?.[1]?.menuItemId;
   const menu3 = menuData?.menuDetailsList?.[1]?.subBridgeList?.[0]?.menuItemId;
   const menu4 = menuData?.menuDetailsList?.[1]?.subBridgeList?.[1]?.menuItemId;
-  const requestData: RequestData = {
-    menuIdList: [menu1, menu2, menu3, menu4],
-  };
+
   const { data: tagData } = useQuery({
-    queryKey: ['data', requestData],
+    queryKey: ['menuTagData', menu1, menu2, menu3, menu4],
     queryFn: () => fetchTagData(menu1, menu2, menu3, menu4),
+    staleTime: 5 * 60 * 1000,
   });
   const isNA = (value: string): string | JSX.Element => {
     if (value === 'N/A') {

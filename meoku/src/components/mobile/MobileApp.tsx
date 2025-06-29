@@ -141,9 +141,6 @@ const MenuItem = styled.div`
     font-size: 18px;
   }
 `;
-interface RequestData {
-  date: string;
-}
 interface NavigationMenuProps {
   isOpen: boolean;
 }
@@ -165,13 +162,13 @@ const MobileApp = () => {
   const [isHamOpen, setIsHamOpen] = useState(false);
   const dayArr: [string | undefined, number][] = calculateDayArr(date);
   const sliderRef = useRef<Slider | null>(null);
-  const requestData: RequestData = {
-    date: formatDate(date),
-  };
+
+  const formattedDate = formatDate(date);
   const { data: menuData } = useQuery({
-    queryKey: ['data', requestData],
-    queryFn: () => fetchMenuData(requestData),
-    initialData: defaultMenuData,
+    queryKey: ['menuData', formattedDate],
+    queryFn: () => fetchMenuData({ date: formattedDate }),
+    placeholderData: defaultMenuData,
+    staleTime: 5 * 60 * 1000,
   });
 
   const { data: weatherData } = useQuery({
