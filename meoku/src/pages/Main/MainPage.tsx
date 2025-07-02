@@ -15,20 +15,15 @@ import DailyMenu from '../../components/DailyMenu';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 import FloatingButton from '../../components/FloatingButton';
 
-interface RequestData {
-  date: string;
-}
-
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
-  const requestData: RequestData = {
-    date: formatDate(date),
-  };
+  const formattedDate = formatDate(date);
 
   const { data: menuData } = useQuery({
-    queryKey: ['data', requestData],
-    queryFn: () => fetchMenuData(requestData),
-    initialData: defaultMenuData,
+    queryKey: ['menuData', formattedDate],
+    queryFn: () => fetchMenuData({ date: formattedDate }),
+    placeholderData: defaultMenuData,
+    staleTime: 5 * 60 * 1000,
   });
 
   const dayArr: [string | undefined, number][] = calculateDayArr(date);
@@ -151,20 +146,21 @@ const MainPage = () => {
             /* margin-left: 20px; */
           `}
         >
-          {menuData.map((menu: firstMenu, index: number) => {
-            return (
-              <DailyDinnerMenu
-                key={index}
-                dayWeek={dayArr[index][0]}
-                day={dayArr[index][1]}
-                menuData={menu}
-                isToday={
-                  dayArr[index][1] == new Date().getDate() &&
-                  date.getMonth() == new Date().getMonth()
-                }
-              />
-            );
-          })}
+          {Array.isArray(menuData) &&
+            menuData.map((menu: firstMenu, index: number) => {
+              return (
+                <DailyDinnerMenu
+                  key={index}
+                  dayWeek={dayArr[index][0]}
+                  day={dayArr[index][1]}
+                  menuData={menu}
+                  isToday={
+                    dayArr[index][1] == new Date().getDate() &&
+                    date.getMonth() == new Date().getMonth()
+                  }
+                />
+              );
+            })}
         </div>
       </div>
       <FloatingButton />
