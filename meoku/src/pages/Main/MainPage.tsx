@@ -19,12 +19,18 @@ const MainPage = () => {
   const [date] = useRecoilState(timeState);
   const formattedDate = formatDate(date);
 
-  const { data: menuData } = useQuery({
+  const { data: rawMenuData  } = useQuery({
     queryKey: ['menuData', formattedDate],
     queryFn: () => fetchMenuData({ date: formattedDate }),
     placeholderData: defaultMenuData,
     staleTime: 5 * 60 * 1000,
   });
+
+  const isTrulyEmpty = 
+  !Array.isArray(rawMenuData) ||
+  rawMenuData.every(item => item.menuDetailsList.length === 0);
+
+  const menuData = isTrulyEmpty ? defaultMenuData : rawMenuData;
 
   const dayArr: [string | undefined, number][] = calculateDayArr(date);
   return (
