@@ -296,7 +296,9 @@ const LoginPage = () => {
             <SnsIcon
               src="/snsLogo/IcNaver.svg"
               alt="Naver Login"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+              }}
             />
             <SnsIcon
               src="/snsLogo/IcKakao.svg"

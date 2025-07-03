@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import ServicePrepareModal from './modal/ServicePrepareModal';
+import { useNavigate } from 'react-router-dom';
 
 const FloatingButtonContainer = styled.button`
   position: fixed;
@@ -157,9 +158,10 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
   const [showTooltip, setShowTooltip] = useState(false); // 말풍선 표시 여부
   const [clickCount, setClickCount] = useState(0); // 플로팅 버튼 클릭 횟수 (0: 초기, 1: 말풍선, 2: 메뉴, 3: 닫기)
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // 공지 기간 체크 (2025-06-03 이전까지)
-  const isNoticePeriod = new Date().toDateString() <= new Date('2025-06-03').toDateString();
+  const isNoticePeriod = false;
 
   // 페이지 로드 시 공지 기간이면 말풍선 표시
   useEffect(() => {
@@ -223,9 +225,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ onClick }) => {
     {
       text: '원하는 메뉴 제안하기',
       onClick: () => {
-        setIsModalOpen(true);
-        setIsMenuVisible(false);
-        setShowTooltip(true);
+        navigate('/suggest');
       },
     },
     {

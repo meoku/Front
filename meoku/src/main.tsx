@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
 import './index.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import NotFoundPage from './pages/common/NotFoundPage.tsx';
@@ -14,6 +13,8 @@ import { isAdminCheckApi } from './api/userApi.ts';
 import Loading from './components/common/Loading.tsx';
 import Suggest from './pages/Suggest/SuggestMenu.tsx';
 import SignUpPage from './pages/SignUp/SignUpPage.tsx';
+import MainPage from './pages/Main/MainPage.tsx';
+import Layout from './Layout';
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem('access_token');
@@ -58,8 +59,12 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Layout />,
     errorElement: <NotFoundPage />,
+    children: [
+      { path: '', element: <MainPage /> },
+      { path: 'suggest', element: <Suggest /> },
+    ],
   },
   {
     path: '/admin',
@@ -77,15 +82,8 @@ const router = createBrowserRouter([
     path: '/signup',
     element: <SignUpPage />,
   },
-  {
-    path: '/suggest',
-    element: <Suggest />,
-  },
-  // {
-  //   path: "/ex",
-  //   element: <ExForm />,
-  // },
 ]);
+
 async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
     return;

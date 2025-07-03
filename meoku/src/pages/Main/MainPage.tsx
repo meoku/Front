@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import Navbar from '../../components/Navbar';
 import Weather from '../../components/Weather';
 import Day from '../../components/Day';
 import LunchTime from '../../components/LunchTime';
@@ -38,7 +37,6 @@ const MainPage = () => {
         width: 100vw;
       `}
     >
-      <Navbar />
       <div
         css={css`
           display: flex;
