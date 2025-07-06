@@ -2,13 +2,13 @@ import { css } from '@emotion/react';
 import './App.css';
 import { BrowserView, MobileView } from 'react-device-detect';
 import MobileApp from './components/mobile/MobileApp';
-import MainPage from './pages/Main/MainPage';
+import Layout from './Layout';
 
 function App() {
   return (
     <div>
       <BrowserView>
-        <MainPage />
+        <Layout />
       </BrowserView>
       <MobileView>
         <div

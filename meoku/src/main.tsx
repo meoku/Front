@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './App.tsx';
 import './index.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import NotFoundPage from './pages/common/NotFoundPage.tsx';
@@ -14,7 +15,6 @@ import Loading from './components/common/Loading.tsx';
 import Suggest from './pages/Suggest/SuggestMenu.tsx';
 import SignUpPage from './pages/SignUp/SignUpPage.tsx';
 import MainPage from './pages/Main/MainPage.tsx';
-import Layout from './Layout';
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem('access_token');
@@ -59,7 +59,7 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <App />,
     errorElement: <NotFoundPage />,
     children: [
       { path: '', element: <MainPage /> },

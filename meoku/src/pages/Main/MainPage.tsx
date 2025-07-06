@@ -34,7 +34,8 @@ const MainPage = () => {
   return (
     <div
       css={css`
-        width: 100vw;
+        width: 100%;
+        background-color: var(--background_color_01);
       `}
     >
       <div

@@ -158,7 +158,6 @@ const Navbar = () => {
                 padding: 0 28px;
                 cursor: pointer;
                 position: relative;
-                padding-bottom: 4px;
                 transition: color 0.2s;
                 display: flex;
                 align-items: center;

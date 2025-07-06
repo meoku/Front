@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Search, Plus } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import { css } from '@emotion/react';
 
 interface MenuItem {
@@ -13,9 +13,8 @@ type SuggestionType = 'anchor' | 'menu' | null;
 const SuggestMenu = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<MenuItem[]>([]);
-  const [selectedMenus, setSelectedMenus] = useState<MenuItem[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [suggestionType, setSuggestionType] = useState<SuggestionType>(null);
+  const [suggestionType, setSuggestionType] = useState<SuggestionType>('anchor');
   const [reason, setReason] = useState<string>('');
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +44,7 @@ const SuggestMenu = () => {
 
   const handleAddNewMenu = () => {
     const newMenu: MenuItem = {
-      id: Date.now(), // 임시 ID 생성
+      id: Date.now(),
       name: searchQuery,
       isNew: true,
     };
@@ -53,16 +52,9 @@ const SuggestMenu = () => {
   };
 
   const handleSelectMenu = (menu: MenuItem) => {
-    if (!selectedMenus.some((selectedMenu) => selectedMenu.id === menu.id)) {
-      setSelectedMenus([...selectedMenus, menu]);
-    }
-    setSearchQuery('');
+    setSearchQuery(menu.name);
     setSearchResults([]);
     setIsSearchOpen(false);
-  };
-
-  const handleRemoveMenu = (menuId: number) => {
-    setSelectedMenus(selectedMenus.filter((menu) => menu.id !== menuId));
   };
 
   useEffect(() => {
@@ -81,58 +73,244 @@ const SuggestMenu = () => {
   return (
     <div
       css={css`
-        min-height: 100vh;
         width: 100%;
-        background-color: #f3f4f6;
+        min-height: 100vh;
+        background: #f8f8f8;
+        position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        box-sizing: border-box;
+
+        /* 웹에서 최대 너비 제한 */
+        @media (min-width: 768px) {
+          max-width: 500px;
+          margin: 0 auto;
+        }
       `}
     >
+      {/* 모바일 헤더 시뮬레이션 */}
       <div
         css={css`
-          background-color: white;
-          padding: 3rem;
-          border-radius: 1.5rem;
-          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
           width: 100%;
-          max-width: 64rem;
+          height: 92px;
+          background: #f8f8f8;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 24px;
           box-sizing: border-box;
+
+          /* 웹에서는 헤더 숨김 */
+          @media (min-width: 768px) {
+            display: none;
+          }
         `}
       >
-        <h1
+        {/* 뒤로가기 버튼 */}
+        <div
           css={css`
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-align: center;
+            width: 24px;
+            height: 24px;
+            position: relative;
+            cursor: pointer;
           `}
         >
-          메뉴 제안하기
-        </h1>
+          <div
+            css={css`
+              width: 11.29px;
+              height: 11.29px;
+              position: absolute;
+              left: 7.62px;
+              top: 12.26px;
+              transform: rotate(-45deg);
+              transform-origin: top left;
+              border: 1.92px #666666 solid;
+            `}
+          />
+        </div>
 
+        {/* 상태바 영역 */}
         <div
           css={css`
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            gap: 4px;
+          `}
+        >
+          {/* 시그널 아이콘 */}
+          <div
+            css={css`
+              width: 20px;
+              height: 14px;
+              position: relative;
+            `}
+          >
+            <div
+              css={css`
+                width: 3px;
+                height: 8px;
+                position: absolute;
+                left: 11px;
+                top: 4px;
+                background: black;
+              `}
+            />
+            <div
+              css={css`
+                width: 3px;
+                height: 6px;
+                position: absolute;
+                left: 6.5px;
+                top: 6px;
+                background: black;
+              `}
+            />
+            <div
+              css={css`
+                width: 3px;
+                height: 4.5px;
+                position: absolute;
+                left: 2px;
+                top: 7.5px;
+                background: black;
+              `}
+            />
+          </div>
+
+          {/* WiFi 아이콘 */}
+          <div
+            css={css`
+              width: 16px;
+              height: 14px;
+              position: relative;
+            `}
+          >
+            <div
+              css={css`
+                width: 4.37px;
+                height: 3.06px;
+                position: absolute;
+                left: 5.94px;
+                top: 8.94px;
+                background: black;
+              `}
+            />
+            <div
+              css={css`
+                width: 9.32px;
+                height: 3.31px;
+                position: absolute;
+                left: 3.46px;
+                top: 5.47px;
+                background: black;
+              `}
+            />
+            <div
+              css={css`
+                width: 14.25px;
+                height: 4.32px;
+                position: absolute;
+                left: 1px;
+                top: 2px;
+                background: black;
+              `}
+            />
+          </div>
+
+          {/* 배터리 아이콘 */}
+          <div
+            css={css`
+              width: 25px;
+              height: 14px;
+              position: relative;
+            `}
+          >
+            <div
+              css={css`
+                width: 1px;
+                height: 4px;
+                position: absolute;
+                left: 24px;
+                top: 5px;
+                background: rgba(60, 60, 67, 0.6);
+              `}
+            />
+            <div
+              css={css`
+                width: 23px;
+                height: 12px;
+                position: absolute;
+                left: 0;
+                top: 1px;
+                background: rgba(60, 60, 67, 0.6);
+              `}
+            />
+            <div
+              css={css`
+                width: 19px;
+                height: 8px;
+                position: absolute;
+                left: 2px;
+                top: 3px;
+                background: black;
+                border-radius: 1px;
+              `}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 메인 컨텐츠 */}
+      <div
+        css={css`
+          width: 100%;
+          padding: 0 18px;
+          box-sizing: border-box;
+          flex: 1;
+        `}
+      >
+        {/* 제목 */}
+        <h1
+          css={css`
+            width: 136.72px;
+            height: 17px;
+            margin: 32px 0 18px 6px;
+            color: #333333;
+            font-size: 20px;
+            font-family: Pretendard, sans-serif;
+            font-weight: 700;
+            line-height: 1;
+          `}
+        >
+          메뉴 요청
+        </h1>
+
+        {/* 타입 선택 버튼 */}
+        <div
+          css={css`
+            display: flex;
+            gap: 4px;
+            margin-bottom: 14px;
           `}
         >
           <button
             css={css`
-              padding: 0.75rem 1.5rem;
-              border-radius: 9999px;
-              border: 1px solid #e5e7eb;
-              background-color: ${suggestionType === 'anchor' ? '#FF3C00' : 'white'};
-              color: ${suggestionType === 'anchor' ? 'white' : '#374151'};
-              font-weight: 500;
+              width: 82px;
+              height: 32px;
+              background: ${suggestionType === 'anchor' ? '#FF4004' : '#E8E8E8'};
+              border-radius: 16.5px;
+              border: none;
               cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: ${suggestionType === 'anchor' ? 'white' : '#666666'};
+              font-size: 12px;
+              font-family: Pretendard, sans-serif;
+              font-weight: ${suggestionType === 'anchor' ? '700' : '400'};
               transition: all 0.2s;
-              &:hover {
-                background-color: ${suggestionType === 'anchor' ? '#FF3C00' : '#f3f4f6'};
-              }
+              white-space: nowrap;
             `}
             onClick={() => setSuggestionType('anchor')}
           >
@@ -140,17 +318,21 @@ const SuggestMenu = () => {
           </button>
           <button
             css={css`
-              padding: 0.75rem 1.5rem;
-              border-radius: 9999px;
-              border: 1px solid #e5e7eb;
-              background-color: ${suggestionType === 'menu' ? '#FF3C00' : 'white'};
-              color: ${suggestionType === 'menu' ? 'white' : '#374151'};
-              font-weight: 500;
+              width: 82px;
+              height: 32px;
+              background: ${suggestionType === 'menu' ? '#FF4004' : '#E8E8E8'};
+              border-radius: 16.5px;
+              border: none;
               cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: ${suggestionType === 'menu' ? 'white' : '#666666'};
+              font-size: 12px;
+              font-family: Pretendard, sans-serif;
+              font-weight: ${suggestionType === 'menu' ? '700' : '400'};
               transition: all 0.2s;
-              &:hover {
-                background-color: ${suggestionType === 'menu' ? '#FF3C00' : '#f3f4f6'};
-              }
+              white-space: nowrap;
             `}
             onClick={() => setSuggestionType('menu')}
           >
@@ -158,30 +340,29 @@ const SuggestMenu = () => {
           </button>
         </div>
 
+        {/* 검색 입력창 */}
         <div
           css={css`
             position: relative;
-            margin: 0 auto;
-            width: 100%;
+            margin-bottom: 0;
           `}
           ref={searchRef}
         >
           <div
             css={css`
+              width: 100%;
+              height: 46px;
+              background: white;
+              border-radius: 8px;
+              border: 1px #f0efee solid;
               display: flex;
               align-items: center;
-              background-color: #f3f4f6;
-              // border-radius: 9999px;
-              border-radius: 0.75rem;
-              padding: 0.75rem 1.25rem;
+              padding: 0 16px;
+              box-sizing: border-box;
               transition: all 0.2s;
-              border: 1px solid #e5e7eb;
               &:focus-within {
-                background-color: white;
-                border-color: #ff3c00;
-                box-shadow:
-                  0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                border-color: #ff4004;
+                box-shadow: 0 0 0 2px rgba(255, 64, 4, 0.1);
               }
             `}
           >
@@ -190,31 +371,34 @@ const SuggestMenu = () => {
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               onFocus={() => setIsSearchOpen(true)}
-              placeholder="메뉴를 검색하세요..."
+              placeholder="메뉴를 검색하세요"
               css={css`
                 flex: 1;
                 border: none;
                 background: transparent;
-                font-size: 1rem;
-                color: #374151;
-                font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                color: #333333;
+                font-family: Pretendard, sans-serif;
+                font-weight: 400;
+                &::placeholder {
+                  color: #999999;
+                }
                 &:focus {
                   outline: none;
-                }
-                &::placeholder {
-                  color: #9ca3af;
                 }
               `}
             />
             <Search
               css={css`
-                width: 1.25rem;
-                height: 1.25rem;
-                color: #9ca3af;
+                width: 17px;
+                height: 17px;
+                color: #d9d9d9;
+                cursor: pointer;
               `}
             />
           </div>
 
+          {/* 검색 결과 드롭다운 */}
           {isSearchOpen &&
             (searchResults.length > 0 ? (
               <div
@@ -224,10 +408,11 @@ const SuggestMenu = () => {
                   top: 100%;
                   left: 0;
                   right: 0;
-                  margin-top: 0.5rem;
-                  background-color: white;
-                  border-radius: 1rem;
-                  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                  margin-top: 8px;
+                  background: white;
+                  border-radius: 8px;
+                  border: 1px #f0efee solid;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                   overflow: hidden;
                   z-index: 50;
                 `}
@@ -236,27 +421,36 @@ const SuggestMenu = () => {
                   <div
                     key={menu.id}
                     css={css`
-                      padding: 0.75rem 1.25rem;
+                      padding: 12px 16px;
                       cursor: pointer;
                       display: flex;
                       align-items: center;
                       transition: background-color 0.2s;
                       &:hover {
-                        background-color: #f3f4f6;
+                        background-color: #f8f8f8;
                       }
                     `}
                     onClick={() => handleSelectMenu(menu)}
                   >
                     <span
                       css={css`
-                        color: #6b7280;
-                        margin-right: 0.75rem;
+                        color: #666666;
+                        margin-right: 12px;
                         font-weight: 500;
+                        font-size: 14px;
                       `}
                     >
                       {index + 1}.
                     </span>
-                    <span>{menu.name}</span>
+                    <span
+                      css={css`
+                        color: #333333;
+                        font-size: 14px;
+                        font-family: Pretendard, sans-serif;
+                      `}
+                    >
+                      {menu.name}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -269,42 +463,46 @@ const SuggestMenu = () => {
                     top: 100%;
                     left: 0;
                     right: 0;
-                    margin-top: 0.5rem;
-                    background-color: white;
-                    border-radius: 1rem;
-                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                    margin-top: 8px;
+                    background: white;
+                    border-radius: 8px;
+                    border: 1px #f0efee solid;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                     overflow: hidden;
                     z-index: 50;
                   `}
                 >
                   <div
                     css={css`
-                      padding: 1rem 1.25rem;
+                      padding: 16px;
                       cursor: pointer;
                       display: flex;
                       align-items: center;
-                      gap: 0.75rem;
+                      gap: 12px;
                       transition: background-color 0.2s;
                       &:hover {
-                        background-color: #f3f4f6;
+                        background-color: #f8f8f8;
                       }
                     `}
                     onClick={handleAddNewMenu}
                   >
-                    <Plus size={18} />
+                    <Plus size={18} color="#666666" />
                     <div>
                       <div
                         css={css`
                           font-weight: 500;
-                          color: #374151;
+                          color: #333333;
+                          font-size: 14px;
+                          font-family: Pretendard, sans-serif;
                         `}
                       >
                         기존에 없는 메뉴입니다.
                       </div>
                       <div
                         css={css`
-                          font-size: 0.875rem;
-                          color: #6b7280;
+                          font-size: 12px;
+                          color: #999999;
+                          font-family: Pretendard, sans-serif;
                         `}
                       >
                         신메뉴로 추가하시겠어요?
@@ -316,131 +514,125 @@ const SuggestMenu = () => {
             ))}
         </div>
 
+        {/* 앵콜 요청 안내 - 검색창과 이유 입력창 사이 */}
+        {suggestionType === 'anchor' && (
+          <p
+            css={css`
+              width: 244px;
+              height: 16px;
+              margin: 8px 0 0 14px;
+              color: #999999;
+              font-size: 12px;
+              font-family: Pretendard, sans-serif;
+              font-weight: 400;
+              line-height: 1;
+            `}
+          >
+            *하루에 한번 앵콜을 요청할 수 있습니다.
+          </p>
+        )}
+
+        {/* 이유 입력창 */}
         <div
           css={css`
-            margin-top: 1rem;
             width: 100%;
-            box-sizing: border-box;
+            height: 94px;
+            background: white;
+            border-radius: 8px;
+            border: 1px #f0efee solid;
+            position: relative;
+            margin-top: ${suggestionType === 'anchor' ? '9px' : '33px'};
+            margin-bottom: 46px;
+            transition: all 0.2s;
+            &:focus-within {
+              border-color: #ff4004;
+              box-shadow: 0 0 0 2px rgba(255, 64, 4, 0.1);
+            }
           `}
         >
           <textarea
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            placeholder="이유를 입력해주세요..."
+            placeholder="자유롭게 요청 이유를 적어주세요. (선택)"
+            maxLength={50}
             css={css`
               width: 100%;
-              min-height: 120px;
-              padding: 1rem;
-              border: 1px solid #e5e7eb;
-              border-radius: 0.75rem;
-              resize: vertical;
-              font-size: 1rem;
-              background-color: #f3f4f6;
-              color: #374151;
+              height: 100%;
+              padding: 12px 12px 24px 12px;
+              border: none;
+              border-radius: 8px;
+              resize: none;
+              font-size: 14px;
+              background: transparent;
+              color: #333333;
               box-sizing: border-box;
-              font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+              font-family: Pretendard, sans-serif;
+              font-weight: 400;
+              &::placeholder {
+                color: #999999;
+              }
               &:focus {
                 outline: none;
-                border-color: #ff3c00;
-                background-color: white;
-                box-shadow:
-                  0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
-              }
-              &::placeholder {
-                color: #9ca3af;
               }
             `}
           />
+          <div
+            css={css`
+              position: absolute;
+              bottom: 8px;
+              right: 12px;
+              color: #999999;
+              font-size: 11px;
+              font-family: Pretendard, sans-serif;
+              font-weight: 400;
+            `}
+          >
+            {reason.length} / 50
+          </div>
         </div>
 
-        <div
+        {/* 요청하기 버튼 */}
+        <button
           css={css`
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
             width: 100%;
-          `}
-        >
-          <button
-            css={css`
-              width: 100%;
-              padding: 1rem;
-              background-color: #ff3c00;
-              color: white;
-              border: none;
-              border-radius: 0.75rem;
-              font-weight: 600;
-              font-size: 1.125rem;
-              cursor: pointer;
-              transition: background-color 0.2s;
-              &:hover {
-                background-color: #e63500;
-              }
-            `}
-          >
-            제안하기
-          </button>
-
-          <p
-            css={css`
-              color: #6b7280;
-              font-size: 0.875rem;
-              text-align: center;
-              line-height: 1.5;
-            `}
-          >
-            소중한 의견 감사합니다. 등록해 주신 의견은 취합하여 영양사 선생님께 주기적으로
-            전달됩니다.
-          </p>
-        </div>
-
-        <div
-          css={css`
-            margin-top: 1.5rem;
+            height: 38px;
+            background: #ff4004;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-family: Pretendard, sans-serif;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            &:hover {
+              background: #e63500;
+            }
           `}
         >
-          {selectedMenus.map((menu) => (
-            <div
-              key={menu.id}
-              css={css`
-                background-color: ${menu.isNew ? '#fee2e2' : '#dbeafe'};
-                color: ${menu.isNew ? '#991b1b' : '#1e40af'};
-                padding: 0.375rem 1rem;
-                border-radius: 9999px;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                font-weight: 500;
-              `}
-            >
-              <span>{menu.name}</span>
-              <button
-                onClick={() => handleRemoveMenu(menu.id)}
-                css={css`
-                  color: ${menu.isNew ? '#dc2626' : '#2563eb'};
-                  border: none;
-                  background: none;
-                  padding: 0;
-                  cursor: pointer;
-                  font-size: 1.25rem;
-                  line-height: 1;
-                  &:hover {
-                    color: ${menu.isNew ? '#991b1b' : '#1e40af'};
-                  }
-                `}
-              >
-                ×
-              </button>
-            </div>
-          ))}
-        </div>
+          요청하기
+        </button>
+
+        {/* 안내 문구 */}
+        <p
+          css={css`
+            width: 100%;
+            margin: 22px 0 0 0;
+            text-align: center;
+            color: #666666;
+            font-size: 11px;
+            font-family: Pretendard, sans-serif;
+            font-weight: 400;
+            line-height: 15px;
+          `}
+        >
+          소중한 의견 감사합니다. 등록해 주신 의견은 취합하여
+          <br />
+          영양사 선생님께 주기적으로 전달됩니다.
+        </p>
       </div>
     </div>
   );
