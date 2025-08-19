@@ -297,13 +297,15 @@ const LoginPage = () => {
               src="/snsLogo/IcNaver.svg"
               alt="Naver Login"
               onClick={() => {
-                window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+                window.location.assign('http://localhost:8080/oauth2/authorization/naver');
               }}
             />
             <SnsIcon
               src="/snsLogo/IcKakao.svg"
               alt="Kakao Login"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                window.location.assign('http://localhost:8080/oauth2/authorization/kakao');
+              }}
             />
             <SnsIcon
               src="/snsLogo/IcApple.svg"

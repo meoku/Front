@@ -15,6 +15,7 @@ import Loading from './components/common/Loading.tsx';
 import Suggest from './pages/Suggest/SuggestMenu.tsx';
 import SignUpPage from './pages/SignUp/SignUpPage.tsx';
 import MainPage from './pages/Main/MainPage.tsx';
+import OAuthCallback from './pages/Login/OAuthCallback.tsx';
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem('access_token');
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUpPage />,
+  },
+  {
+    path: '/oauth/callback',
+    element: <OAuthCallback />,
   },
 ]);
 
