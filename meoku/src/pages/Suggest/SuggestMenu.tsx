@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Plus, Search } from 'lucide-react';
 import { css } from '@emotion/react';
+import FloatingButton from '../../components/FloatingButton';
 
 interface MenuItem {
   id: number;
@@ -634,6 +635,7 @@ const SuggestMenu = () => {
           영양사 선생님께 주기적으로 전달됩니다.
         </p>
       </div>
+      <FloatingButton />
     </div>
   );
 };

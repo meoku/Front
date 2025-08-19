@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'react-router-dom';
 import NotFoundPage from './pages/common/NotFoundPage.tsx';
 import Admin from './pages/admin/Admin.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -16,6 +16,17 @@ import Suggest from './pages/Suggest/SuggestMenu.tsx';
 import SignUpPage from './pages/SignUp/SignUpPage.tsx';
 import MainPage from './pages/Main/MainPage.tsx';
 import OAuthCallback from './pages/Login/OAuthCallback.tsx';
+
+function AuthRoute({ children }: { children: React.ReactElement }) {
+  const token = sessionStorage.getItem('access_token');
+  const location = useLocation();
+  if (!token) {
+    //sessionStroage 방식으로 로그인 후 이전 url로 돌아가게 처리
+    sessionStorage.setItem('post_login_redirect', location.pathname + location.search);
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = sessionStorage.getItem('access_token');
@@ -64,7 +75,14 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       { path: '', element: <MainPage /> },
-      { path: 'suggest', element: <Suggest /> },
+      {
+        path: 'suggest',
+        element: (
+          <AuthRoute>
+            <Suggest />
+          </AuthRoute>
+        ),
+      },
     ],
   },
   {

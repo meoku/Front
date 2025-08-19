@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import { Outlet } from 'react-router-dom';
+import FloatingButton from './components/FloatingButton';
 
 export default function Layout() {
   return (
@@ -8,6 +9,7 @@ export default function Layout() {
       <div style={{ minHeight: 'calc(100vh - 140px)' }}>
         <Outlet />
       </div>
+      <FloatingButton />
     </>
   );
 }

@@ -27,7 +27,10 @@ export default function OAuthCallback() {
           document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
           document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-          navigate('/', { replace: true });
+          // 토큰 저장 성공 직후 (로그인 전 url있으면 거기로 보내고 아니면 메인으로)
+          const redirectTo = sessionStorage.getItem('post_login_redirect') || '/';
+          sessionStorage.removeItem('post_login_redirect');
+          navigate(redirectTo, { replace: true });
         } else {
           navigate('/login', { replace: true });
         }
