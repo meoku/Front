@@ -29,7 +29,7 @@ const LunchTime = () => {
         width: 285px;
         height: 96px;
         box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.16);
-        border-radius: 15px;
+        border-radius: var(--radius_widget);
         background-color: var(--background_color_02);
       `}
     >
