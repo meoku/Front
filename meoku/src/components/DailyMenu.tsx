@@ -27,6 +27,7 @@ const DailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
     <div
       css={css`
         box-shadow: var(--shadow_card);
+        border: var(--border_default);
         border-radius: var(--radius_card);
         margin: 0px 10px;
         background-color: ${isToday ? 'var(--color_01)' : 'var(--color_02)'};
@@ -377,6 +378,7 @@ const DailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
     <div
       css={css`
         box-shadow: var(--shadow_card);
+        border: var(--border_default);
         border-radius: var(--radius_card);
         /* margin: 0px 9px 30px 9px; */
         margin: 0px 10px;

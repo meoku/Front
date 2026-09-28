@@ -11,6 +11,8 @@ const DinnerTime = () => {
         min-width: 260px;
         height: 56px;
         box-shadow: var(--shadow_card);
+        border: var(--border_default);
+        box-sizing: border-box;
         border-radius: var(--radius_widget);
         background-color: var(--background_color_02);
       `}
