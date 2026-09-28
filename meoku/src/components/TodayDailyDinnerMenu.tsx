@@ -26,6 +26,8 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       css={css`
         box-shadow: var(--shadow_card);
         border: var(--border_default);
+        box-sizing: border-box;
+        width: 220px;
         border-radius: var(--radius_card);
         margin: 0px 10px 30px 10px;
         background-color: var(--color_01);
@@ -36,7 +38,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 220px;
+          width: 100%;
           height: 44px;
         `}
       >
@@ -52,7 +54,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 220px;
+          width: 100%;
           border-radius: 0 0 var(--radius_card) var(--radius_card);
           /* height: 576px; */
           background-color: var(--background_color_02);
@@ -216,6 +218,8 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
       css={css`
         box-shadow: var(--shadow_card);
         border: var(--border_default);
+        box-sizing: border-box;
+        width: 220px;
         border-radius: var(--radius_card);
         margin: 0px 10px 30px 10px;
         background-color: var(--color_01);
@@ -226,7 +230,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 220px;
+          width: 100%;
           height: 44px;
         `}
       >
@@ -242,7 +246,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 220px;
+          width: 100%;
           border-radius: 0 0 var(--radius_card) var(--radius_card);
           /* height: 576px; */
           background-color: var(--background_color_02);
