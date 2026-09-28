@@ -32,7 +32,9 @@ const MobileMainMenuDiv = styled.div`
   width: 80%;
   border-radius: var(--radius_mobile);
   background-color: var(--background_color_02);
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow_card);
+  border: var(--border_default);
+  box-sizing: border-box;
   margin: 0.4rem auto;
 `;
 const MobileDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime) => {
