@@ -24,8 +24,11 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
   return menuData?.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        border-radius: 18px;
+        box-shadow: var(--shadow_card);
+        border: var(--border_default);
+        box-sizing: border-box;
+        width: 220px;
+        border-radius: var(--radius_card);
         margin: 0px 10px 30px 10px;
         background-color: var(--color_01);
       `}
@@ -35,7 +38,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 220px;
+          width: 100%;
           height: 44px;
         `}
       >
@@ -51,8 +54,8 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 220px;
-          border-radius: 0 0 18px 18px;
+          width: 100%;
+          border-radius: 0 0 var(--radius_card) var(--radius_card);
           /* height: 576px; */
           background-color: var(--background_color_02);
         `}
@@ -213,8 +216,11 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
   ) : (
     <div
       css={css`
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        border-radius: 18px;
+        box-shadow: var(--shadow_card);
+        border: var(--border_default);
+        box-sizing: border-box;
+        width: 220px;
+        border-radius: var(--radius_card);
         margin: 0px 10px 30px 10px;
         background-color: var(--color_01);
       `}
@@ -224,7 +230,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 220px;
+          width: 100%;
           height: 44px;
         `}
       >
@@ -240,8 +246,8 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 220px;
-          border-radius: 0 0 18px 18px;
+          width: 100%;
+          border-radius: 0 0 var(--radius_card) var(--radius_card);
           /* height: 576px; */
           background-color: var(--background_color_02);
         `}

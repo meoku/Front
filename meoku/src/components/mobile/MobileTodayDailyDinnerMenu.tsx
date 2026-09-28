@@ -30,9 +30,11 @@ const MobileMainMenuDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
-  border-radius: 10px;
+  border-radius: var(--radius_mobile);
   background-color: var(--background_color_02);
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow_card);
+  border: var(--border_default);
+  box-sizing: border-box;
   margin: 0.4rem auto;
   padding: 1rem 0;
 `;
@@ -51,7 +53,7 @@ const MobileTodayDailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDai
     align-items: center;
     width: 80%;
     height: 38px;
-    border-radius: 10px;
+    border-radius: var(--radius_mobile);
     background-color: ${isToday ? 'var(--color_01)' : 'var(--color_05)'};
     color: var(--background_color_02);
     margin-top: 12px;

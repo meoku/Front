@@ -31,7 +31,7 @@ const ServicePrepareModal = ({ isOpen, onClose }: ServicePrepareModalProps) => {
         />
         <TextB20
           css={css`
-            color: #666666;
+            color: var(--color_05);
             // margin-top: 17px;
             position: absolute;
             top: 128px;
@@ -43,7 +43,7 @@ const ServicePrepareModal = ({ isOpen, onClose }: ServicePrepareModalProps) => {
         </TextB20>
         <p
           css={css`
-            color: #666666;
+            color: var(--color_05);
             text-align: center;
             line-height: 135%;
             font-size: 14px;

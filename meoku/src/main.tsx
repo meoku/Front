@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
+import './styles/tokens.css';
 import './index.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import NotFoundPage from './pages/common/NotFoundPage.tsx';
