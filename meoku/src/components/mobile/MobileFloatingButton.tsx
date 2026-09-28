@@ -47,27 +47,27 @@ const NotificationBadge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: var(--font_size_12);
   font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 const TooltipTitle = styled.div`
-  font-size: 14px;
+  font-size: var(--font_size_14);
   font-weight: 700;
   margin-bottom: 6px;
-  color: #333;
+  color: var(--color_06);
 `;
 
 const TooltipContent = styled.div`
-  font-size: 12px;
+  font-size: var(--font_size_12);
   line-height: 1.5;
-  color: #666;
+  color: var(--color_05);
 `;
 
 const TooltipHighlight = styled.span`
   font-weight: 700;
-  color: #333;
+  color: var(--color_06);
 `;
 
 const TooltipLink = styled.a`
@@ -121,11 +121,11 @@ const MenuButton = styled.button<{ isVisible: boolean; index: number }>`
   padding: 0 16px;
   border-radius: 20px;
   background-color: white;
-  color: #333;
+  color: var(--color_06);
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--font_size_12);
   font-weight: 500;
   display: flex;
   align-items: center;

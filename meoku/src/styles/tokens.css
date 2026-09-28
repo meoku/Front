@@ -77,6 +77,13 @@
   --border_width: 1px;
   --border_default: 1px solid var(--color_03);
 
+  /* ---------- Mobile ----------
+     모바일은 별도 컴포넌트 트리(react-device-detect)로 그려지고
+     시안이 아직 미완이라, 모바일에서만 규칙적으로 쓰이는 값만 따로 둔다.
+     미디어쿼리로는 전환할 수 없으므로 이름을 분리한다. */
+  --radius_mobile: 10px; /* 모바일 카드/버튼 공통 (11곳) */
+  --shadow_button_mobile: 0px 2px 4px 0px rgba(0, 0, 0, 0.25); /* 요일 선택 버튼 (3곳) */
+
   /* ---------- Layout ---------- */
   --layout_content_width: 1200px; /* 콘텐츠 최대 폭. Navbar·MainPage 공통 */
 }

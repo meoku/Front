@@ -30,7 +30,7 @@ const MobileMainMenuDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
-  border-radius: 10px;
+  border-radius: var(--radius_mobile);
   background-color: var(--background_color_02);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 0.4rem auto;
@@ -51,7 +51,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
     align-items: center;
     width: 80%;
     height: 38px;
-    border-radius: 10px;
+    border-radius: var(--radius_mobile);
     background-color: ${isToday ? 'var(--color_01)' : 'var(--color_05)'};
     color: var(--background_color_02);
     margin-top: 12px;
@@ -244,7 +244,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
       <div
         css={css`
           box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-          border-radius: 18px;
+          border-radius: var(--radius_card);
           /* margin: 0px 9px 30px 9px; */
           margin: 0px 9px;
           width: 80%;
@@ -271,7 +271,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
             justify-content: center;
             align-items: center;
             width: 100%;
-            border-radius: 0 0 18px 18px;
+            border-radius: 0 0 var(--radius_card) var(--radius_card);
             /* height: 576px; */
             background-color: var(--background_color_02);
             color: var(--color_05);

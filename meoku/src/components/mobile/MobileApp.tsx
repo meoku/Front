@@ -28,7 +28,7 @@ const MobileMain = styled.div`
   align-items: center;
   width: 100vw;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: #ffffff;
+  background-color: var(--background_color_02);
   height: 44px;
   position: relative;
   z-index: 50;
@@ -90,9 +90,9 @@ const MobileDayBtn = styled.div`
   width: 38px;
   height: 38px;
   background-color: var(--color_02);
-  border-radius: 10px;
+  border-radius: var(--radius_mobile);
   margin: 6px 6px;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow_button_mobile);
 `;
 const MobileDayBtnSelected = styled.div`
   display: flex;
@@ -102,9 +102,9 @@ const MobileDayBtnSelected = styled.div`
   height: 38px;
   background-color: var(--color_04);
   color: var(--background_color_02);
-  border-radius: 10px;
+  border-radius: var(--radius_mobile);
   margin: 6px 6px;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow_button_mobile);
 `;
 const MobileDayBtnSelectedToday = styled.div`
   display: flex;
@@ -114,16 +114,16 @@ const MobileDayBtnSelectedToday = styled.div`
   height: 38px;
   background-color: var(--color_01);
   color: var(--background_color_02);
-  border-radius: 10px;
+  border-radius: var(--radius_mobile);
   margin: 6px 6px;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow_button_mobile);
 `;
 const NavigationMenu = styled.div<NavigationMenuProps>`
   position: absolute;
   top: 44px;
   left: 0;
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--background_color_02);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: max-height 0.3s ease-in-out;
   overflow: hidden;
@@ -138,7 +138,7 @@ const MenuItem = styled.div`
   a {
     text-decoration: none;
     color: #000;
-    font-size: 18px;
+    font-size: var(--font_size_18);
   }
 `;
 interface NavigationMenuProps {
