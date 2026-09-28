@@ -72,7 +72,7 @@ const LunchBtn = () => {
             >
               <TextB20
                 css={css`
-                  color: #666666;
+                  color: var(--color_05);
                 `}
               >
                 공유하기
@@ -99,7 +99,7 @@ const LunchBtn = () => {
                   width: 180px;
                   height: 16px;
                   flex-shrink: 0;
-                  color: #666666;
+                  color: var(--color_05);
                 `}
               >
                 https://www.meoku.info/
@@ -111,7 +111,7 @@ const LunchBtn = () => {
                   flex-shrink: 0;
                   border-radius: 6px;
                   border: 0.75px solid var(--03, #ccc);
-                  background: var(--02, #f0efee);
+                  background: var(--color_02);
                 `}
                 onClick={() => {
                   navigator.clipboard.writeText('https://www.meoku.info/');
@@ -124,7 +124,7 @@ const LunchBtn = () => {
                     right: 42px;
                     width: 28px;
                     height: 20px;
-                    color: #666666;
+                    color: var(--color_05);
                   `}
                 >
                   복사
