@@ -1,35 +1,20 @@
 import { css } from '@emotion/react';
 import { TextB16, TextR14 } from './common/Text';
+import { getLunchOrder } from '../utils/lunchOrder';
 
 const LunchTime = () => {
-  let arr = [['1, 3층'], ['2층, 4층(IT본부)'], ['4(아성), 5, 6층']];
-  const currentDate = new Date(); // 현재 날짜
-  const weeksSinceEpoch = getWeeksSince1970(currentDate);
-  getFloorDate(weeksSinceEpoch);
-  function getFloorDate(week: number) {
-    if (week % 3 == 0) {
-      arr = [['4(아성)·5·6층'], ['1·3층'], ['2·4층(IT)']];
-    } else if (week % 3 == 1) {
-      arr = [['1·3층'], ['2·4층(IT)'], ['4(아성)·5·6층']];
-    } else {
-      arr = [['2·4층(IT)'], ['4(아성)·5·6층'], ['1·3층']];
-    }
-  }
-  function getWeeksSince1970(date: Date) {
-    const timeDifferenceInMilliseconds = date.getTime() - date.getTimezoneOffset() * 60 * 1000; // UTC 기준으로 시간 차이 계산
-    const daysSince1970 = Math.floor(timeDifferenceInMilliseconds / (24 * 60 * 60 * 1000)); // 1970년 1월 1일부터의 일수 계산
-    const dayOfWeek = (daysSince1970 + 3) % 7; // 1970년 1월 1일이 목요일(4)이므로 3을 더하여 월요일 기준으로 조정
-    const weeksSince1970 = Math.floor((daysSince1970 + 3 - dayOfWeek) / 7) + 1; // 월요일 기준으로 주차 계산
-    return weeksSince1970;
-  }
+  const arr = getLunchOrder().map((slot) => slot.floor);
+
   return (
     <div
       css={css`
         display: flex;
         width: 285px;
         height: 96px;
-        box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.16);
-        border-radius: 15px;
+        box-shadow: var(--shadow_card);
+        border: var(--border_default);
+        box-sizing: border-box;
+        border-radius: var(--radius_widget);
         background-color: var(--background_color_02);
       `}
     >

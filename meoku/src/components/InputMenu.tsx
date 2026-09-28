@@ -24,9 +24,9 @@ const InputTextMenu = styled.input`
   margin-left: 4px;
   margin-right: 8px;
   margin-bottom: 4px;
-  background-color: #f0efee;
+  background-color: var(--color_02);
   border-radius: 5px;
-  color: #666666;
+  color: var(--color_05);
 `;
 const InputMenuContainer = styled.div`
   display: flex;
@@ -194,7 +194,7 @@ const InputMenus = ({ menuData, day, dayWeek, onChange }: InputMenusProps) => {
                 >
                   <TextB20
                     css={css`
-                      color: #666666;
+                      color: var(--color_05);
                       margin-top: 16px;
                       margin-bottom: 9px;
                     `}

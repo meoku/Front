@@ -2,25 +2,15 @@
    v2.0 | 20110126 
    License: none (public domain)
 */
+/* 색상 등 디자인 토큰은 styles/tokens.css 에 있음 */
 #root {
   /* min-width: 1340px; */
   /* width: 100vw; */
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: #f8f8f8;
+  background-color: var(--background_color_01);
   color: black;
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-  --color_01: #ff4004;
-  --color_02: #f0efee;
-  --color_03: #cccccc;
-  --color_04: #999999;
-  --color_05: #666666;
-  --color_06: #333333;
-  --background_color_01: #f8f8f8;
-  --background_color_02: #ffffff;
+  font-family: var(--font_family);
 }
 html,
 body {
