@@ -24,7 +24,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
   return menuData?.holidayFg == 'N' && menuData?.menuDetailsList[0]?.dailyMenuDate ? (
     <div
       css={css`
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: var(--shadow_card);
         border-radius: var(--radius_card);
         margin: 0px 10px 30px 10px;
         background-color: ${isToday ? 'var(--color_01)' : 'var(--color_02)'};
@@ -213,7 +213,7 @@ const DailyDinnerMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
   ) : (
     <div
       css={css`
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: var(--shadow_card);
         border-radius: var(--radius_card);
         margin: 0px 10px 30px 10px;
         background-color: var(--color_02);

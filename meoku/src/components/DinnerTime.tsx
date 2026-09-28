@@ -10,7 +10,7 @@ const DinnerTime = () => {
         align-items: center;
         min-width: 260px;
         height: 56px;
-        box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.16);
+        box-shadow: var(--shadow_card);
         border-radius: var(--radius_widget);
         background-color: var(--background_color_02);
       `}

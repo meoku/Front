@@ -38,7 +38,7 @@ const Weather = () => {
         display: flex;
         min-width: 428px;
         height: 96px;
-        box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.16);
+        box-shadow: var(--shadow_card);
         border-radius: var(--radius_widget);
         background-color: var(--background_color_02);
         color: var(--color_06);
