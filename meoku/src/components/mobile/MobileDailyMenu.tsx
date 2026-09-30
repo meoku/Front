@@ -252,7 +252,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
           /* margin: 0px 9px 30px 9px; */
           margin: 0px 9px;
           width: 80%;
-          background-color: var(--color_05);
+          background-color: var(--background_color_02);
           color: var(--background_color_02);
           margin-top: 12px;
         `}
@@ -264,6 +264,8 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
             align-items: center;
             width: 100%;
             height: 44px;
+            background-color: var(--color_05);
+            border-radius: var(--radius_card_inner) var(--radius_card_inner) 0 0;
           `}
         >
           <TextB16>{`${dayWeek}(${day})`}</TextB16>
@@ -275,7 +277,7 @@ const MobileDailyMenu = ({ dayWeek, day, menuData, isToday }: mainDailyMenuTime)
             justify-content: center;
             align-items: center;
             width: 100%;
-            border-radius: 0 0 var(--radius_card) var(--radius_card);
+            border-radius: 0 0 var(--radius_card_inner) var(--radius_card_inner);
             /* height: 576px; */
             background-color: var(--background_color_02);
             color: var(--color_05);
