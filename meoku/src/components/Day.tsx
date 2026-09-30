@@ -9,9 +9,11 @@ import { getWeekOfMonth } from '../utils/dateUtils';
 interface DayProps {
   time: string;
   showArrows?: boolean;
+  /** 라벨(점심/저녁)을 주차 아래에 붙일지. 화면이 따로 라벨을 그릴 땐 false. */
+  showLabel?: boolean;
 }
 
-const Day = ({ time, showArrows = true }: DayProps) => {
+const Day = ({ time, showArrows = true, showLabel = true }: DayProps) => {
   const [date, setDate] = useRecoilState(timeState);
   return (
     <div
@@ -64,20 +66,22 @@ const Day = ({ time, showArrows = true }: DayProps) => {
           >
             {getWeekOfMonth(date)}
           </p>
-          <div
-            css={css`
-              flex-wrap: nowrap;
-              margin: 6px auto;
-            `}
-          >
-            <TextB20
+          {showLabel && (
+            <div
               css={css`
-                color: var(--color_05);
+                flex-wrap: nowrap;
+                margin: 6px auto;
               `}
             >
-              {time}
-            </TextB20>
-          </div>
+              <TextB20
+                css={css`
+                  color: var(--color_05);
+                `}
+              >
+                {time}
+              </TextB20>
+            </div>
+          )}
         </div>
       </div>
       {showArrows && (
