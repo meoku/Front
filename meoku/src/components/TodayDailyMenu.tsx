@@ -1,3 +1,11 @@
+/**
+ * [미사용] 2026-09-30 기준 이 파일을 import 하는 곳이 없다.
+ *
+ * DailyMenu.tsx 가 isToday prop 으로 같은 일을 하게 되면서 남은 것으로 보인다.
+ * 두 파일의 내용이 거의 같다.
+ *
+ * 번들에도 포함되지 않는다. 다음 정리 때까지 쓸 일이 없으면 삭제할 것.
+ */
 import { css } from '@emotion/react';
 import { TextB16, TextB20, TextR16 } from './common/Text';
 import { mainDailyMenuTime, tagData } from '../type/type';

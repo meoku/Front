@@ -14,12 +14,18 @@ import { firstMenu } from '../../type/type';
 import DailyMenu from '../../components/DailyMenu';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 import FloatingButton from '../../components/FloatingButton';
+import ErrorNotice from '../../components/common/ErrorNotice';
+import SectionLabel from '../../components/common/SectionLabel';
 
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
   const formattedDate = formatDate(date);
 
-  const { data: menuData } = useQuery({
+  const {
+    data: menuData,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['menuData', formattedDate],
     queryFn: () => fetchMenuData({ date: formattedDate }),
     placeholderData: defaultMenuData,
@@ -45,7 +51,7 @@ const MainPage = () => {
           position: relative;
           width: 100%;
           max-width: 1200px;
-          margin: 1.25rem auto;
+          margin: 1.25rem auto 10px;
         `}
       >
         <div
@@ -58,56 +64,69 @@ const MainPage = () => {
         >
           <Weather />
         </div>
-        <Day time={'점심'} />
+        <Day time={'점심'} showLabel={false} />
         <div
           css={css`
             display: flex;
             align-items: center;
             position: absolute;
             right: 10px;
+            /* 날씨(min-width: 428px)와 폭을 맞춰야 주차를 기준으로 좌우 안쪽 끝이
+               대칭이 된다. 남는 39px 은 두 위젯 사이로 보내, 배식시간은 주차 쪽에
+               공유 버튼은 카드 오른쪽 가장자리에 맞춘다. */
+            min-width: 428px;
+            justify-content: space-between;
           `}
         >
           <LunchTime />
           <LunchBtn />
         </div>
       </div>
+      <SectionLabel>점심</SectionLabel>
       <div
         css={css`
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 26px;
+          margin-top: 10px;
           /* margin-left: 20px; */
           background-color: var(--background_color_01);
         `}
       >
-        {menuData?.map((menu: firstMenu, index: number) => {
-          return (
-            <DailyMenu
-              key={index}
-              dayWeek={dayArr[index][0]}
-              day={dayArr[index][1]}
-              menuData={menu}
-              isToday={
-                dayArr[index][1] == new Date().getDate() && date.getMonth() == new Date().getMonth()
-              }
-            />
-          );
-        })}
+        {isError ? (
+          <ErrorNotice onRetry={() => refetch()} />
+        ) : (
+          menuData?.map((menu: firstMenu, index: number) => {
+            return (
+              <DailyMenu
+                key={index}
+                dayWeek={dayArr[index][0]}
+                day={dayArr[index][1]}
+                menuData={menu}
+                isToday={
+                  dayArr[index][1] == new Date().getDate() &&
+                  date.getMonth() == new Date().getMonth()
+                }
+              />
+            );
+          })
+        )}
       </div>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          margin-top: 1.25rem;
-          background-color: var(--background_color_01);
-          position: relative;
-          width: 100%;
-        `}
-      >
-        {/* <img
+
+      {!isError && (
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            background-color: var(--background_color_01);
+            position: relative;
+            width: 100%;
+          `}
+        >
+          {/* <img
           src={bottomarrow}
           css={css`
             width: 74px;
@@ -123,46 +142,34 @@ const MainPage = () => {
             });
           }}
         /> */}
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 96px;
-            flex-wrap: nowrap;
-            background-color: var(--background_color_01);
-            width: 100%;
-          `}
-        >
-          <Day time={'저녁'} showArrows={false} />
-          {/* <DinnerTime /> */}
+          <SectionLabel>저녁</SectionLabel>
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-top: 10px;
+              /* margin-left: 20px; */
+            `}
+          >
+            {Array.isArray(menuData) &&
+              menuData.map((menu: firstMenu, index: number) => {
+                return (
+                  <DailyDinnerMenu
+                    key={index}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={
+                      dayArr[index][1] == new Date().getDate() &&
+                      date.getMonth() == new Date().getMonth()
+                    }
+                  />
+                );
+              })}
+          </div>
         </div>
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            // margin-top: 36px;
-            /* margin-left: 20px; */
-          `}
-        >
-          {Array.isArray(menuData) &&
-            menuData.map((menu: firstMenu, index: number) => {
-              return (
-                <DailyDinnerMenu
-                  key={index}
-                  dayWeek={dayArr[index][0]}
-                  day={dayArr[index][1]}
-                  menuData={menu}
-                  isToday={
-                    dayArr[index][1] == new Date().getDate() &&
-                    date.getMonth() == new Date().getMonth()
-                  }
-                />
-              );
-            })}
-        </div>
-      </div>
+      )}
       <FloatingButton />
     </div>
   );

@@ -70,6 +70,11 @@
   --radius_card: 18px; /* 식단 카드 */
   --radius_widget: 15px; /* 날씨 위젯, 배식시간 박스 */
 
+  /* 테두리가 있는 카드의 *안쪽* 자식이 쓸 곡률.
+     테두리 1px 만큼 부모의 배경 곡률이 줄어들기 때문에, 자식이 부모와
+     같은 값을 쓰면 모서리에 부모 배경색이 초승달로 비친다. */
+  --radius_card_inner: calc(var(--radius_card) - var(--border_width));
+
   /* ---------- Shadow ---------- */
   --shadow_card: 0px 2px 14px 0px rgba(0, 0, 0, 0.05);
 
