@@ -15,6 +15,7 @@ import DailyMenu from '../../components/DailyMenu';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 import FloatingButton from '../../components/FloatingButton';
 import ErrorNotice from '../../components/common/ErrorNotice';
+import SectionLabel from '../../components/common/SectionLabel';
 
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
@@ -50,7 +51,7 @@ const MainPage = () => {
           position: relative;
           width: 100%;
           max-width: 1200px;
-          margin: 1.25rem auto;
+          margin: 1.25rem auto 10px;
         `}
       >
         <div
@@ -63,25 +64,31 @@ const MainPage = () => {
         >
           <Weather />
         </div>
-        <Day time={'점심'} />
+        <Day time={'점심'} showLabel={false} />
         <div
           css={css`
             display: flex;
             align-items: center;
             position: absolute;
             right: 10px;
+            /* 날씨(min-width: 428px)와 폭을 맞춰야 주차를 기준으로 좌우 안쪽 끝이
+               대칭이 된다. 남는 39px 은 두 위젯 사이로 보내, 배식시간은 주차 쪽에
+               공유 버튼은 카드 오른쪽 가장자리에 맞춘다. */
+            min-width: 428px;
+            justify-content: space-between;
           `}
         >
           <LunchTime />
           <LunchBtn />
         </div>
       </div>
+      <SectionLabel>점심</SectionLabel>
       <div
         css={css`
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 26px;
+          margin-top: 10px;
           /* margin-left: 20px; */
           background-color: var(--background_color_01);
         `}
@@ -113,7 +120,7 @@ const MainPage = () => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-top: 1.25rem;
+            margin-top: 10px;
             background-color: var(--background_color_01);
             position: relative;
             width: 100%;
@@ -135,26 +142,13 @@ const MainPage = () => {
             });
           }}
         /> */}
+          <SectionLabel>저녁</SectionLabel>
           <div
             css={css`
               display: flex;
               justify-content: center;
               align-items: center;
-              height: 96px;
-              flex-wrap: nowrap;
-              background-color: var(--background_color_01);
-              width: 100%;
-            `}
-          >
-            <Day time={'저녁'} showArrows={false} />
-            {/* <DinnerTime /> */}
-          </div>
-          <div
-            css={css`
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              // margin-top: 36px;
+              margin-top: 10px;
               /* margin-left: 20px; */
             `}
           >
