@@ -14,12 +14,17 @@ import { firstMenu } from '../../type/type';
 import DailyMenu from '../../components/DailyMenu';
 import DailyDinnerMenu from '../../components/DailyDinnerMenu';
 import FloatingButton from '../../components/FloatingButton';
+import ErrorNotice from '../../components/common/ErrorNotice';
 
 const MainPage = () => {
   const [date] = useRecoilState(timeState);
   const formattedDate = formatDate(date);
 
-  const { data: menuData } = useQuery({
+  const {
+    data: menuData,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['menuData', formattedDate],
     queryFn: () => fetchMenuData({ date: formattedDate }),
     placeholderData: defaultMenuData,
@@ -81,33 +86,40 @@ const MainPage = () => {
           background-color: var(--background_color_01);
         `}
       >
-        {menuData?.map((menu: firstMenu, index: number) => {
-          return (
-            <DailyMenu
-              key={index}
-              dayWeek={dayArr[index][0]}
-              day={dayArr[index][1]}
-              menuData={menu}
-              isToday={
-                dayArr[index][1] == new Date().getDate() && date.getMonth() == new Date().getMonth()
-              }
-            />
-          );
-        })}
+        {isError ? (
+          <ErrorNotice onRetry={() => refetch()} />
+        ) : (
+          menuData?.map((menu: firstMenu, index: number) => {
+            return (
+              <DailyMenu
+                key={index}
+                dayWeek={dayArr[index][0]}
+                day={dayArr[index][1]}
+                menuData={menu}
+                isToday={
+                  dayArr[index][1] == new Date().getDate() &&
+                  date.getMonth() == new Date().getMonth()
+                }
+              />
+            );
+          })
+        )}
       </div>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          margin-top: 1.25rem;
-          background-color: var(--background_color_01);
-          position: relative;
-          width: 100%;
-        `}
-      >
-        {/* <img
+
+      {!isError && (
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.25rem;
+            background-color: var(--background_color_01);
+            position: relative;
+            width: 100%;
+          `}
+        >
+          {/* <img
           src={bottomarrow}
           css={css`
             width: 74px;
@@ -123,46 +135,47 @@ const MainPage = () => {
             });
           }}
         /> */}
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 96px;
-            flex-wrap: nowrap;
-            background-color: var(--background_color_01);
-            width: 100%;
-          `}
-        >
-          <Day time={'저녁'} showArrows={false} />
-          {/* <DinnerTime /> */}
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 96px;
+              flex-wrap: nowrap;
+              background-color: var(--background_color_01);
+              width: 100%;
+            `}
+          >
+            <Day time={'저녁'} showArrows={false} />
+            {/* <DinnerTime /> */}
+          </div>
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              // margin-top: 36px;
+              /* margin-left: 20px; */
+            `}
+          >
+            {Array.isArray(menuData) &&
+              menuData.map((menu: firstMenu, index: number) => {
+                return (
+                  <DailyDinnerMenu
+                    key={index}
+                    dayWeek={dayArr[index][0]}
+                    day={dayArr[index][1]}
+                    menuData={menu}
+                    isToday={
+                      dayArr[index][1] == new Date().getDate() &&
+                      date.getMonth() == new Date().getMonth()
+                    }
+                  />
+                );
+              })}
+          </div>
         </div>
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            // margin-top: 36px;
-            /* margin-left: 20px; */
-          `}
-        >
-          {Array.isArray(menuData) &&
-            menuData.map((menu: firstMenu, index: number) => {
-              return (
-                <DailyDinnerMenu
-                  key={index}
-                  dayWeek={dayArr[index][0]}
-                  day={dayArr[index][1]}
-                  menuData={menu}
-                  isToday={
-                    dayArr[index][1] == new Date().getDate() &&
-                    date.getMonth() == new Date().getMonth()
-                  }
-                />
-              );
-            })}
-        </div>
-      </div>
+      )}
       <FloatingButton />
     </div>
   );
