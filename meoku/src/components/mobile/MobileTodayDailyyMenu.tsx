@@ -1,3 +1,10 @@
+/**
+ * [미사용] 2026-09-30 기준 이 파일을 import 하는 곳이 없다.
+ *
+ * MobileApp.tsx 는 MobileDailyMenu.tsx 를 쓴다.
+ *
+ * 번들에도 포함되지 않는다. 다음 정리 때까지 쓸 일이 없으면 삭제할 것.
+ */
 import { css } from '@emotion/react';
 import { TextB16, TextB20, TextR16 } from '../common/Text';
 import { mainDailyMenuTime } from '../../type/type';
@@ -250,7 +257,7 @@ const MobileTodayDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => 
             /* margin: 0px 9px 30px 9px; */
             margin: 0px 9px;
             width: 80%;
-            background-color: var(--color_05);
+            background-color: var(--background_color_02);
             color: var(--background_color_02);
             margin-top: 12px;
           `}
@@ -262,6 +269,8 @@ const MobileTodayDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => 
               align-items: center;
               width: 100%;
               height: 44px;
+              background-color: var(--color_05);
+              border-radius: var(--radius_card_inner) var(--radius_card_inner) 0 0;
             `}
           >
             <TextB16>{`${dayWeek}(${day})`}</TextB16>
@@ -273,7 +282,7 @@ const MobileTodayDailyMenu = ({ dayWeek, day, menuData }: mainDailyMenuTime) => 
               justify-content: center;
               align-items: center;
               width: 100%;
-              border-radius: 0 0 var(--radius_card) var(--radius_card);
+              border-radius: 0 0 var(--radius_card_inner) var(--radius_card_inner);
               /* height: 576px; */
               background-color: var(--background_color_02);
               color: var(--color_05);

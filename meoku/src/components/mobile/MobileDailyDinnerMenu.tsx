@@ -1,3 +1,11 @@
+/**
+ * [미사용] 2026-09-30 기준 이 파일을 import 하는 곳이 없다.
+ *
+ * MobileApp.tsx:17 이 `import MobileDailyDinnerMenu from './MobileTodayDailyDinnerMenu'`
+ * 로, 이름만 같고 실제로는 다른 파일을 가져온다. 그래서 이 파일은 쓰이지 않는다.
+ *
+ * 번들에도 포함되지 않는다. 다음 정리 때까지 쓸 일이 없으면 삭제할 것.
+ */
 import { css } from '@emotion/react';
 import { TextB16, TextR16 } from '.././common/Text';
 import { mainDailyMenuTime } from '../../type/type';

@@ -114,7 +114,15 @@ async function enableMocking() {
   // once the Service Worker is up and ready to intercept requests.
   return worker.start();
 }
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 기본값은 3회(1s/2s/4s)라 오류 안내가 7초나 지나서야 뜬다.
+      // 일시적인 끊김은 1회 재시도로 대부분 걸러지므로 1회로 줄인다.
+      retry: 1,
+    },
+  },
+});
 
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(

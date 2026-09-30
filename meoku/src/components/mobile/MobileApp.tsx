@@ -22,6 +22,7 @@ import { defaultMenuData } from '../../utils/defaultMenuData';
 import { fetchWeatherData } from '../../api/weatherApi';
 import { getWeatherImg } from '../../utils/weatherUtils';
 import MobileFloatingButton from './MobileFloatingButton';
+import ErrorNotice from '../common/ErrorNotice';
 
 const MobileMain = styled.div`
   display: flex;
@@ -165,7 +166,11 @@ const MobileApp = () => {
   const sliderRef = useRef<Slider | null>(null);
 
   const formattedDate = formatDate(date);
-  const { data: menuData } = useQuery({
+  const {
+    data: menuData,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['menuData', formattedDate],
     queryFn: () => fetchMenuData({ date: formattedDate }),
     placeholderData: defaultMenuData,
@@ -547,38 +552,48 @@ const MobileApp = () => {
               </MobileDayBtn>
             )}
           </MobileDays>
-          <SliderContainer>
-            <Slider {...settings} ref={sliderRef}>
-              {menuData?.map((menu: firstMenu, index: number) => {
-                return (
-                  <div key={`menu-slide-${index}`}>
-                    <SliderContent>
-                      <MobileDailyMenu
-                        key={index + 'mobile'}
-                        dayWeek={dayArr[index][0]}
-                        day={dayArr[index][1]}
-                        menuData={menu}
-                        isToday={
-                          dayArr[index][1] == new Date().getDate() &&
-                          date.getMonth() == new Date().getMonth()
-                        }
-                      />
-                      <MobileDailyDinnerMenu
-                        key={index + 'mobileDinner'}
-                        dayWeek={dayArr[index][0]}
-                        day={dayArr[index][1]}
-                        menuData={menu}
-                        isToday={
-                          dayArr[index][1] == new Date().getDate() &&
-                          date.getMonth() == new Date().getMonth()
-                        }
-                      />
-                    </SliderContent>
-                  </div>
-                );
-              })}
-            </Slider>
-          </SliderContainer>
+          {isError ? (
+            <div
+              css={css`
+                padding: 0 16px;
+              `}
+            >
+              <ErrorNotice onRetry={() => refetch()} />
+            </div>
+          ) : (
+            <SliderContainer>
+              <Slider {...settings} ref={sliderRef}>
+                {menuData?.map((menu: firstMenu, index: number) => {
+                  return (
+                    <div key={`menu-slide-${index}`}>
+                      <SliderContent>
+                        <MobileDailyMenu
+                          key={index + 'mobile'}
+                          dayWeek={dayArr[index][0]}
+                          day={dayArr[index][1]}
+                          menuData={menu}
+                          isToday={
+                            dayArr[index][1] == new Date().getDate() &&
+                            date.getMonth() == new Date().getMonth()
+                          }
+                        />
+                        <MobileDailyDinnerMenu
+                          key={index + 'mobileDinner'}
+                          dayWeek={dayArr[index][0]}
+                          day={dayArr[index][1]}
+                          menuData={menu}
+                          isToday={
+                            dayArr[index][1] == new Date().getDate() &&
+                            date.getMonth() == new Date().getMonth()
+                          }
+                        />
+                      </SliderContent>
+                    </div>
+                  );
+                })}
+              </Slider>
+            </SliderContainer>
+          )}
         </div>
       </ContentWrapper>
       <MobileFloatingButton />

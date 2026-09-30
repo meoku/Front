@@ -1,6 +1,7 @@
 import axiosInstance from "./axiosConfig";
 import { adminMenu, firstMenu } from "../type/type";
 import { DefaultAdminData } from "../utils/defaultAdminData";
+import { defaultMenuData } from "../utils/defaultMenuData";
 
 interface RequestData {
   date: string;
@@ -12,12 +13,23 @@ export const fetchMenuData = async ({
   const response = await axiosInstance.post("/meokumenu/weekdaysmenu", {
     date,
   });
-  for (let i = 0; i < 5; i++) {
-    if (response.data[i].menuDetailsList.length === 5) {
-      response.data[i].menuDetailsList.splice(1, 0, []);
+  const weekMenu = Array.isArray(response.data) ? response.data : [];
+
+  // 식단이 등록되지 않은 주차는 서버가 빈 배열을 준다.
+  // 그대로 흘려보내면 화면에 카드가 하나도 안 그려지므로, "준비중입니다" 가
+  // 뜨는 기본 5칸으로 바꿔준다. (관리자용 fetchAdminMenuData 와 같은 처리)
+  if (weekMenu.length === 0) {
+    return defaultMenuData.map((day) => ({ ...day, menuDetailsList: [] }));
+  }
+
+  // 메뉴가 5개면 2번째 자리에 빈 칸을 끼워 "단일메뉴" 자리를 비운다.
+  // 응답 길이를 믿지 말 것 — 예전엔 5로 고정해 돌다가 빈 주차에서 터졌다.
+  for (let i = 0; i < weekMenu.length; i++) {
+    if (weekMenu[i]?.menuDetailsList?.length === 5) {
+      weekMenu[i].menuDetailsList.splice(1, 0, []);
     }
   }
-  return response.data;
+  return weekMenu;
 };
 
 export const fetchTagData = async (
