@@ -72,8 +72,8 @@ const MainPage = () => {
             position: absolute;
             right: 10px;
             /* 날씨(min-width: 428px)와 폭을 맞춰야 주차를 기준으로 좌우 안쪽 끝이
-               대칭이 된다. 남는 39px 은 두 위젯 사이로 보내, 배식시간은 주차 쪽에
-               공유 버튼은 카드 오른쪽 가장자리에 맞춘다. */
+               대칭이 된다. 배식순서 324px + 공유 104px = 428px 이라 지금은 빈틈
+               없이 맞고, min-width 는 둘 중 하나가 좁아질 때를 위한 하한이다. */
             min-width: 428px;
             justify-content: space-between;
           `}
