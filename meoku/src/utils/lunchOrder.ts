@@ -44,3 +44,11 @@ export function getLunchOrder(date: Date = new Date()): LunchSlot[] {
   const floors = getFloorOrder(getWeeksSince1970(date));
   return TIME_SLOTS.map((slot, i) => ({ ...slot, floor: floors[i] }));
 }
+
+/**
+ * 저녁 배식. 점심과 달리 층 로테이션이 없어 전층이 한 시간대에 배식한다.
+ * 서버에서 내려주는 값이 아니라 디자인(개선안 — 메인)에 적힌 고정값이다.
+ */
+export const DINNER_SLOTS: LunchSlot[] = [
+  { start: '18:00', range: '18:00 ~ 19:00', floor: '전층' },
+];
